@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<channels>
+		<item>
+			<link>http://www.wienerzeitung.at/Rss/?channel=Wirtschaft</link>
+			<priority>10</priority>
+		</item>
+		<item>
+			<link>http://rss.orf.at/futurezone.xml</link>
+			<priority>10</priority>
+		</item>
+		<item>
+			<link>http://www.wienerzeitung.at/Rss/?channel=Politik</link>
+			<priority>7</priority>
+		</item>
+	</channels>
