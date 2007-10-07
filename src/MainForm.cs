@@ -93,6 +93,8 @@ namespace BalloonRss
             this.Name = "RssForm";
             this.ShowInTaskbar = false;
             this.MaximizeBox = false;
+            this.Visible = false;
+            this.WindowState = FormWindowState.Minimized;
 
             // Create the NotifyIcon.
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -101,10 +103,7 @@ namespace BalloonRss
             notifyIcon.Text = "";
             notifyIcon.Visible = true;
             notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);
-
-            // hide the panel
-            this.Visible = false;
-            this.WindowState = FormWindowState.Minimized;
+            notifyIcon.Click += new EventHandler(notifyIcon_BalloonTipClicked);
 
             this.ResumeLayout(false);
         }
