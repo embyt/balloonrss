@@ -14,6 +14,8 @@ namespace BalloonRss
         public string description = null;
         public byte priority = 0;
 
+        private const string rssFeedDirName = "rssFeeds";
+
 
         public RssChannel(XmlNode configFile)
         {
@@ -123,7 +125,7 @@ namespace BalloonRss
             // open file and find root node
             try
             {
-                channelFile.Load(MakeSafeFilename(link));
+                channelFile.Load(GetRssFeedFilename(link));
                 xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
                 if (xmlRoot == null)
                     throw new Exception("Xml Root Element not found.");
@@ -141,8 +143,23 @@ namespace BalloonRss
             xmlRssItem.SetAttribute("dispDate", DateTime.Now.ToString());
             xmlRoot.AppendChild(xmlRssItem);
 
-            channelFile.Save(MakeSafeFilename(link));
+            try
+            {
+                channelFile.Save(GetRssFeedFilename(link));
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(rssFeedDirName);
+                channelFile.Save(GetRssFeedFilename(link));
+            }
         }
+
+
+        private string GetRssFeedFilename(string url)
+        {
+            return rssFeedDirName + "\\" + MakeSafeFilename(url);
+        }
+
 
         private string MakeSafeFilename(string url)
         {
@@ -170,7 +187,7 @@ namespace BalloonRss
             // open file
             try
             {
-                channelFile.Load(MakeSafeFilename(link));
+                channelFile.Load(GetRssFeedFilename(link));
             }
             catch (Exception)
             {
