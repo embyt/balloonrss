@@ -12,7 +12,7 @@
       <Value Profile="(Default)">channelConfig.xml</Value>
     </Setting>
     <Setting Name="balloonTimespan" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">500</Value>
+      <Value Profile="(Default)">10000</Value>
     </Setting>
     <Setting Name="historyDepth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>

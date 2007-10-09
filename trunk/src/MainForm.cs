@@ -1,3 +1,21 @@
+/*
+BalloonRSS - Simple RSS news aggregator using balloon tooltips
+    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -63,11 +81,13 @@ namespace BalloonRss
             MenuItem mi_settings = new System.Windows.Forms.MenuItem();
             mi_settings.Text = "&Settings";
             mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
+            mi_settings.Enabled = false;
 
             // menuItem toolTip
             MenuItem mi_history = new System.Windows.Forms.MenuItem();
             mi_history.Text = "&History";
             mi_history.Click += new System.EventHandler(this.MiHistoryClick);
+            mi_history.Enabled = false;
 
             // Initialize contextMenu
             contextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
@@ -99,11 +119,11 @@ namespace BalloonRss
             // Create the NotifyIcon.
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             notifyIcon.ContextMenu = CreateContextMenu();
-            notifyIcon.Icon = BalloonRss.resources.appicon;
+            notifyIcon.Icon = BalloonRss.resources.rss_green;
             notifyIcon.Text = "";
             notifyIcon.Visible = true;
             notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);
-            notifyIcon.Click += new EventHandler(notifyIcon_BalloonTipClicked);
+            notifyIcon.MouseClick += new MouseEventHandler(notifyIcon_BalloonTipClicked);
 
             this.ResumeLayout(false);
         }
@@ -159,9 +179,17 @@ namespace BalloonRss
         private void MiHistoryClick(object sender, EventArgs e)
         {
             // ToDo
-            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, "Testtile", "TestDescr", ToolTipIcon.None);
         }
 
+        private void notifyIcon_BalloonTipClicked(object sender, MouseEventArgs e)
+        {
+            // check whether we really clicked the Icon or the balloon popup
+            if ((e.Button != MouseButtons.Left) || (e.Clicks != 0))
+                return;
+
+            // just forward this to the general event handler, omitting the event argument
+            notifyIcon_BalloonTipClicked(sender, null as EventArgs);
+        }
 
         private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
         {
