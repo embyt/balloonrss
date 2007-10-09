@@ -1,0 +1,65 @@
+                                  BalloonRSS
+                               ----------------
+
+                      Copyright (C) 2007  Roman Morawek
+                         romor@users.sourceforge.net
+                      http://balloonrss.sourceforge.net
+
+Overview
+--------
+
+BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon 
+tooltips in the windows task bar. The news entries themselves are linked and 
+read with the browser.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+Features
+--------
+
+- Retrieves RSS messages from various sources
+- Performs priorisation of news
+- Displays the messages in a balloon tooltip pop-up in the task bar
+- The messages are linked and are opened within the browser if you click them
+- The message frequency and display period is configurable
+
+Planned additional features
+---------------------------
+
+- Configuration via GUI instead of the .xml files
+- Adaptation of channel priority according the user's click rate
+- Synchronisation of "read news file" such that the RSS entries are displayed 
+  just once even when working on different computers
+- ...
+
+Supported systems
+-----------------
+
+BalloonRSS is developed to be used on any Win32 system, where the .net framework 
+2.0 is available, which are all present systems such as:
+- Windows 2000 Service Pack 3
+- Windows 98
+- Windows ME
+- Windows Server 2003
+- Windows Vista
+- Windows XP Service Pack 2
+
+It is tested only on WinXP yet.
+
+Installation
+------------
+
+- If you do not have the .NET framework 2.0 installed yet, download the 
+  Microsoft .NET Framework Version 2.0 Redistributable Package from Microsoft 
+  and install it.
+- Copy the executable "balloonrss.exe" together with the channel configuration 
+  "channelConfig.xml" is any directory of your choice.
+- Adapt the configuration file with the RSS feeds of your choice.
+- Start the application.
+- You might want to link it in the autostart folder.
+
+The base recurrence is set to 90 seconds, so you have to wait a bit until your 
+first messages will appear.

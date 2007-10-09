@@ -60,9 +60,9 @@ namespace BalloonRss {
             }
         }
         
-        internal static System.Drawing.Icon appicon {
+        internal static System.Drawing.Icon rss_green {
             get {
-                object obj = ResourceManager.GetObject("appicon", resourceCulture);
+                object obj = ResourceManager.GetObject("rss_green", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

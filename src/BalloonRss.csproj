@@ -11,8 +11,13 @@
     <RootNamespace>BalloonRss</RootNamespace>
     <AssemblyName>BalloonRss</AssemblyName>
     <StartupObject>BalloonRss.MainForm</StartupObject>
-    <ApplicationIcon>appicon.ico</ApplicationIcon>
-    <PublishUrl>publish\</PublishUrl>
+    <ApplicationIcon>Resources\rss_green.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>282041D023C50110CF189BFA460BC6C941A5A64A</ManifestCertificateThumbprint>
+    <ManifestKeyFile>BalloonRss_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <PublishUrl>..\publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,8 +27,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SupportUrl>http://balloonrss.sourceforge.net</SupportUrl>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>BalloonRSS</ProductName>
+    <ApplicationVersion>0.1.0.%2a</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -95,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="appicon.ico" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,5 +113,14 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rss_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\sample\channelConfig.xml">
+      <Link>channelConfig.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>
