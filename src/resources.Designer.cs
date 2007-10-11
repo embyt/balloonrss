@@ -60,10 +60,49 @@ namespace BalloonRss {
             }
         }
         
-        internal static System.Drawing.Icon rss_green {
+        internal static System.Drawing.Icon ico_blue16 {
             get {
-                object obj = ResourceManager.GetObject("rss_green", resourceCulture);
+                object obj = ResourceManager.GetObject("ico_blue16", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon ico_orange16 {
+            get {
+                object obj = ResourceManager.GetObject("ico_orange16", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon ico_yellow16 {
+            get {
+                object obj = ResourceManager.GetObject("ico_yellow16", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon ico_yellow32 {
+            get {
+                object obj = ResourceManager.GetObject("ico_yellow32", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BalloonRSS initialized..
+        /// </summary>
+        internal static string str_iconInfoInit {
+            get {
+                return ResourceManager.GetString("str_iconInfoInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  RSS messages left..
+        /// </summary>
+        internal static string str_iconInfoNewsCount {
+            get {
+                return ResourceManager.GetString("str_iconInfoNewsCount", resourceCulture);
             }
         }
     }

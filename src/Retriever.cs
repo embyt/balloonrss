@@ -33,7 +33,8 @@ namespace BalloonRss
         private RssList rssList;
 
         public const int PROGRESS_ERROR = 0;
-        public const int PROGRESS_NEWRSS = 10;
+        public const int PROGRESS_ICON = 10;
+        public const int PROGRESS_NEWRSS = 50;
 
 
         public Retriever()
@@ -57,21 +58,21 @@ namespace BalloonRss
             try
             {
                 configFile.Load(configFileName);
+
+                // parse configuration file
+                foreach (XmlNode rootNode in configFile)
+                {
+                    // search for "channels" tag
+                    if (rootNode.Name.Trim().ToLower() == "channels")
+                    {
+                        rssList.ReadConfigFile(rootNode);
+                    }
+                }
             }
             catch (Exception e)
             {
                 ReportProgress(Retriever.PROGRESS_ERROR, e.Message);
                 return;
-            }
-
-            // parse configuration file
-            foreach (XmlNode rootNode in configFile)
-            {
-                // search for "channels" tag
-                if (rootNode.Name.Trim().ToLower() == "channels")
-                {
-                    rssList.ReadConfigFile(rootNode);
-                }
             }
         }
 
@@ -81,29 +82,30 @@ namespace BalloonRss
             // read channel settings
             ReadConfigFile(Properties.Settings.Default.channelConfigFileName);
 
-            // setup channel system and get initial data
-            rssList.GetInitialChannels(this);
-
             // perform main endless loop
             int retrieveDivider = 0;
             while (!CancellationPending)
             {
-                // either we read a channel or we display an item
+                // check whether we re-read the channels
                 if ((retrieveDivider % Properties.Settings.Default.retrieveIntervall) == 0)
                 {
-                    // retrieve and update next channel
-                    rssList.GetNextChannel(this);
-                }
-                else
-                {
-                    // display next item
-                    RssItem rssItem = rssList.GetNextItem();
+                    // retrieve and update channels
+                    rssList.GetChannels(this);
 
-                    if (rssItem != null)
-                    {
-                        // display the news
-                        ReportProgress(Retriever.PROGRESS_NEWRSS, rssItem);
-                    }
+                    // update icon
+                    if (rssList.RssCount > 0)
+                        ReportProgress(Retriever.PROGRESS_ICON, rssList.RssCount);
+                }
+
+                // display next item
+                RssItem rssItem = rssList.GetNextItem();
+
+                if (rssItem != null)
+                {
+                    // display the news
+                    ReportProgress(Retriever.PROGRESS_NEWRSS, rssItem);
+                    // update icon
+                    ReportProgress(Retriever.PROGRESS_ICON, rssList.RssCount);
                 }
 
                 // wait befor next message
@@ -119,11 +121,18 @@ namespace BalloonRss
 
         public bool GetChannel(String url)
         {
-            HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
-            WebResponse httpResp = httpReq.GetResponse();
-            System.Xml.XmlDocument rssDocument = new System.Xml.XmlDocument();
-            rssDocument.Load(httpResp.GetResponseStream());
-            rssList.UpdateChannel(url, rssDocument);
+            try
+            {
+                HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
+                WebResponse httpResp = httpReq.GetResponse();
+                System.Xml.XmlDocument rssDocument = new System.Xml.XmlDocument();
+                rssDocument.Load(httpResp.GetResponseStream());
+                rssList.UpdateChannel(url, rssDocument);
+            }
+            catch (Exception e)
+            {
+                ReportProgress(Retriever.PROGRESS_ERROR, e.Message);
+            }
 
             return true;
         }

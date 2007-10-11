@@ -27,12 +27,18 @@ namespace BalloonRss
     class RssList : System.Collections.Generic.Dictionary<String, RssChannel>
     {
         private int totalPriority;
+        private int rssCount;
 
+        public int RssCount
+        {
+            get { return rssCount; }
+        }
 
         public void ReadConfigFile(XmlNode channelsNode)
         {
             // parse configuration file
             totalPriority = 0;
+            rssCount = 0;
 
             foreach (XmlNode xmlNode in channelsNode)
             {
@@ -42,24 +48,19 @@ namespace BalloonRss
                     // create new channel with this information
                     RssChannel newChannel = new RssChannel(xmlNode);
                     this.Add(newChannel.link, newChannel);
-                    totalPriority += newChannel.priority;
                 }
             }
             // configuration read finished
         }
 
-            
-        public void GetInitialChannels(Retriever retriever)
+
+        public void GetChannels(Retriever retriever)
         {
             // now get the initial news from all channels
             foreach (KeyValuePair<string,RssChannel> keyValuePair in this)
             {
                 retriever.GetChannel(keyValuePair.Key);
             }
-        }
-
-        public void GetNextChannel(Retriever retriever)
-        {
         }
 
         
@@ -69,8 +70,17 @@ namespace BalloonRss
 
             if (this.TryGetValue(url, out rssChannel) == true)
             {
+                int oldItemCount = rssChannel.Count;
+
                 // we already know this channel
                 rssChannel.UpdateChannel(xmlNode);
+
+                // update score and count
+                rssCount += rssChannel.Count - oldItemCount;
+                if ( (oldItemCount == 0) && (rssChannel.Count > 0) )
+                {
+                    totalPriority += rssChannel.priority;
+                }
             }
             else
             {
@@ -113,6 +123,7 @@ namespace BalloonRss
 
             // now, as we have the channel, let the channel select the best news item
             RssItem rssItem = rssChannel.GetNextItem();
+            rssCount--;
 
             // update total priority if channel is empty now
             if (rssChannel.IsItemAvailable() == false)
