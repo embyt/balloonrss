@@ -27,8 +27,8 @@ namespace BalloonRss
     public class RssItem
     {
         public string title = null;
-        public string author = null;
         public string description = null;
+        public string author = null;
         public string link = null;
         public DateTime pubDate = DateTime.MinValue;
         public DateTime creationDate = DateTime.MinValue;
@@ -69,6 +69,10 @@ namespace BalloonRss
                         break;
                 }
             }
+
+            // the title and description fields are mandatory
+            if ((title == null) || (description == null))
+                throw new FormatException("Could not find title and/or description field in RSS item");
         }
 
 

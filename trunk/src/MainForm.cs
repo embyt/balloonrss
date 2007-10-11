@@ -38,7 +38,7 @@ namespace BalloonRss
         private bool exitFlag = false;
 
         // the history of shown rss entries
-        Queue<RssItem> rssList;
+        Queue<RssItem> rssHistory;
 
 
         [STAThread]
@@ -58,7 +58,7 @@ namespace BalloonRss
             InitializeComponent();
 
             // initialise variable
-            rssList = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
+            rssHistory = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
 
             // setup and start the background worker
             retriever = new Retriever();
@@ -119,8 +119,8 @@ namespace BalloonRss
             // Create the NotifyIcon.
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             notifyIcon.ContextMenu = CreateContextMenu();
-            notifyIcon.Icon = BalloonRss.resources.rss_green;
-            notifyIcon.Text = "";
+            notifyIcon.Icon = BalloonRss.resources.ico_blue16;
+            notifyIcon.Text = resources.str_iconInfoInit;
             notifyIcon.Visible = true;
             notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);
             notifyIcon.MouseClick += new MouseEventHandler(notifyIcon_BalloonTipClicked);
@@ -194,10 +194,10 @@ namespace BalloonRss
         private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
         {
             // display full rss entry
-            if (rssList.Count > 0)
+            if (rssHistory.Count > 0)
             {
                 // get most recent item of queue
-                RssItem rssItem = rssList.ToArray()[rssList.Count - 1];
+                RssItem rssItem = rssHistory.ToArray()[rssHistory.Count - 1];
                 // start browser
                 System.Diagnostics.Process.Start(rssItem.link);
             }
@@ -218,17 +218,35 @@ namespace BalloonRss
                 case Retriever.PROGRESS_NEWRSS:
                     // get item and store it in queue
                     RssItem rssItem = e.UserState as RssItem;
+
                     // check whether the queue is full
-                    if (rssList.Count == Properties.Settings.Default.historyDepth)
-                        rssList.Dequeue();  // remove last item from history
-                    rssList.Enqueue(rssItem);
+                    if (rssHistory.Count == Properties.Settings.Default.historyDepth)
+                        rssHistory.Dequeue();  // remove last item from history
+                    rssHistory.Enqueue(rssItem);
 
                     // show the pop-up
                     notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.title, rssItem.description, ToolTipIcon.None);
                     break;
 
+                case Retriever.PROGRESS_ICON:
+                    int rssCount = (int)e.UserState;
+
+                    // update icon
+                    if (rssCount > 0)
+                        notifyIcon.Icon = resources.ico_yellow16;
+                    else
+                        notifyIcon.Icon = resources.ico_orange16;
+
+                    // update info text
+                    notifyIcon.Text = rssCount + resources.str_iconInfoNewsCount;
+                    break;
+
                 case Retriever.PROGRESS_ERROR:
                     notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, "Error message", e.UserState as string, ToolTipIcon.Error);
+                    break;
+
+                default:
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, "Unexpected notification message.", e.UserState as string, ToolTipIcon.Error);
                     break;
             }
         }

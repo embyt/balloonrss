@@ -11,7 +11,7 @@
     <RootNamespace>BalloonRss</RootNamespace>
     <AssemblyName>BalloonRss</AssemblyName>
     <StartupObject>BalloonRss.MainForm</StartupObject>
-    <ApplicationIcon>Resources\rss_green.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\yellow32.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>282041D023C50110CF189BFA460BC6C941A5A64A</ManifestCertificateThumbprint>
     <ManifestKeyFile>BalloonRss_TemporaryKey.pfx</ManifestKeyFile>
@@ -61,6 +61,7 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -122,5 +123,11 @@
       <Link>channelConfig.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\yellow16.ico" />
+    <None Include="Resources\orange16.ico" />
+    <None Include="Resources\blue16.ico" />
+    <None Include="Resources\blue32.ico" />
+    <None Include="Resources\yellow32.ico" />
+    <None Include="Resources\blau16.ico" />
   </ItemGroup>
 </Project>

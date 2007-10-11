@@ -31,6 +31,7 @@ namespace BalloonRss
         public string link = null;
         public string description = null;
         public byte priority = 0;
+        public DateTime lastUpdate = DateTime.MinValue;
 
         private const string rssFeedDirName = "rssFeeds";
 
@@ -54,6 +55,10 @@ namespace BalloonRss
                         break;
                 }
             }
+
+            // the link field is mandatory
+            if (link == null)
+                throw new FormatException("Missing link attribute in config file");
         }
 
 
@@ -86,11 +91,26 @@ namespace BalloonRss
 
                     // the news items within this channel
                     case "item":
-                        RssItem rssItem = new RssItem(xmlChild);
+                        RssItem rssItem;
+                        try
+                        {
+                            rssItem = new RssItem(xmlChild);
+                        }
+                        catch (FormatException)
+                        {
+                            // should we report this error? no.
+                            break;
+                        }
 
                         // check whether we really want to add this item
                         if (IsItemNew(rssItem))
+                        {
+                            // add it
                             this.Add(rssItem);
+
+                            // update last update timestamp
+                            lastUpdate = DateTime.Now;
+                        }
 
                         break;
 
@@ -199,6 +219,10 @@ namespace BalloonRss
 
         private bool IsItemNew(RssItem item)
         {
+            // check for plausible parameter
+            if (item == null)
+                return false;
+
             // write this information in the channel file
             XmlDocument channelFile = new XmlDocument();
 
@@ -209,6 +233,7 @@ namespace BalloonRss
             }
             catch (Exception)
             {
+                // if we cannot find a history file, treat the item as new
                 return true;
             }
 

@@ -14,7 +14,7 @@ read with the browser.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
+the Free Software Foundation; either version 3 of the license, or
 (at your option) any later version.
 
 Features
@@ -24,7 +24,7 @@ Features
 - Performs priorisation of news
 - Displays the messages in a balloon tooltip pop-up in the task bar
 - The messages are linked and are opened within the browser if you click them
-- The message frequency and display period is configurable
+- The message frequency and viewing period is configurable
 
 Planned additional features
 ---------------------------
@@ -38,7 +38,7 @@ Planned additional features
 Supported systems
 -----------------
 
-BalloonRSS is developed to be used on any Win32 system, where the .net framework 
+BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
 2.0 is available, which are all present systems such as:
 - Windows 2000 Service Pack 3
 - Windows 98
@@ -61,5 +61,5 @@ Installation
 - Start the application.
 - You might want to link it in the autostart folder.
 
-The base recurrence is set to 90 seconds, so you have to wait a bit until your 
-first messages will appear.
+The base recurrence is set to 90 seconds per default, so you have to wait a bit 
+until your first messages will appear.
