@@ -98,7 +98,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  RSS messages left..
+        ///   Looks up a localized string similar to  RSS messages pending..
         /// </summary>
         internal static string str_iconInfoNewsCount {
             get {

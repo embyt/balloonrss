@@ -56,7 +56,7 @@ Installation
   Microsoft .NET Framework Version 2.0 Redistributable Package from Microsoft 
   and install it.
 - Copy the executable "balloonrss.exe" together with the channel configuration 
-  "channelConfig.xml" is any directory of your choice.
+  "channelConfig.xml" in any directory of your choice.
 - Adapt the configuration file with the RSS feeds of your choice.
 - Start the application.
 - You might want to link it in the autostart folder.

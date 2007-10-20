@@ -34,9 +34,6 @@ namespace BalloonRss
         // the "working horse"
         private Retriever retriever;
 
-        // used to signal application exit
-        private bool exitFlag = false;
-
         // the history of shown rss entries
         Queue<RssItem> rssHistory;
 
@@ -112,7 +109,6 @@ namespace BalloonRss
             this.Text = "BalloonRss Settings";
             this.Name = "RssForm";
             this.ShowInTaskbar = false;
-            this.MaximizeBox = false;
             this.Visible = false;
             this.WindowState = FormWindowState.Minimized;
 
@@ -140,16 +136,6 @@ namespace BalloonRss
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            // Determine if text has changed in the textbox by comparing to original text.
-            if (!exitFlag)
-            {
-                // Cancel close operation.
-                e.Cancel = true;
-
-                // just minimize the form
-                this.Hide();
-            }
-
             base.OnClosing(e);
         }
 
@@ -172,7 +158,6 @@ namespace BalloonRss
         private void MiExitClick(object sender, EventArgs e)
         {
             // Close the form, which closes the application.
-            this.exitFlag = true;
             this.Close();
         }
 

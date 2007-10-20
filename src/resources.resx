@@ -134,6 +134,6 @@
     <value>BalloonRSS initialized.</value>
   </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
-    <value> RSS messages left.</value>
+    <value> RSS messages pending.</value>
   </data>
 </root>
