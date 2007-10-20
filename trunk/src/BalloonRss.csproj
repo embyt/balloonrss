@@ -116,9 +116,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\rss_green.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\sample\channelConfig.xml">
       <Link>channelConfig.xml</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
