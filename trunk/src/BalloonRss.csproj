@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BalloonRss</RootNamespace>
     <AssemblyName>BalloonRss</AssemblyName>
-    <StartupObject>BalloonRss.MainForm</StartupObject>
+    <StartupObject>BalloonRss.FormMain</StartupObject>
     <ApplicationIcon>Resources\yellow32.ico</ApplicationIcon>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ManifestCertificateThumbprint>282041D023C50110CF189BFA460BC6C941A5A64A</ManifestCertificateThumbprint>
@@ -61,6 +61,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="FormHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -76,7 +79,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RssChannel.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RssItem.cs" />
@@ -91,14 +94,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormHistory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormHistory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="FormMain.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>MainForm.cs</DependentUpon>
+      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

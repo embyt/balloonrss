@@ -26,18 +26,18 @@ namespace BalloonRss.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("90000")]
-        public int baseRecurrence {
+        public int displayIntervall {
             get {
-                return ((int)(this["baseRecurrence"]));
+                return ((int)(this["displayIntervall"]));
             }
             set {
-                this["baseRecurrence"] = value;
+                this["displayIntervall"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("600000")]
         public int retrieveIntervall {
             get {
                 return ((int)(this["retrieveIntervall"]));
