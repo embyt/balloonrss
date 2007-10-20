@@ -31,12 +31,15 @@ namespace BalloonRss
         public string author = null;
         public string link = null;
         public DateTime pubDate = DateTime.MinValue;
+
         public DateTime creationDate = DateTime.MinValue;
+        public string channel;
 
 
-        public RssItem(XmlNode xmlNode)
+        public RssItem(XmlNode xmlNode, string channel)
         {
             this.creationDate = DateTime.Now;
+            this.channel = channel;
 
             // parse it
             foreach (XmlNode curXmlNode in xmlNode.ChildNodes)

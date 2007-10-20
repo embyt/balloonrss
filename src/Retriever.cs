@@ -30,11 +30,11 @@ namespace BalloonRss
 {
     public class Retriever : BackgroundWorker
     {
+        // this holds all the RSS items
         private RssList rssList;
 
-        public const int PROGRESS_ERROR = 0;
-        public const int PROGRESS_ICON = 10;
-        public const int PROGRESS_NEWRSS = 50;
+        // the history of shown rss entries
+        public Queue<RssItem> rssHistory;
 
 
         public Retriever()
@@ -43,14 +43,17 @@ namespace BalloonRss
             // setup background worker
             WorkerSupportsCancellation = true;
             WorkerReportsProgress = true;
-            DoWork += new System.ComponentModel.DoWorkEventHandler(this.StartWork);
+            DoWork += new System.ComponentModel.DoWorkEventHandler(this.RetrieveChannels);
 
             // initialise rssList
             rssList = new RssList();
+
+            // initialize history queue
+            rssHistory = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
         }
 
 
-        private void ReadConfigFile(string configFileName)
+        public void Initialize(string configFileName)
         {
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
@@ -71,55 +74,49 @@ namespace BalloonRss
             }
             catch (Exception e)
             {
-                ReportProgress(Retriever.PROGRESS_ERROR, e.Message);
+                ReportProgress(0, e.Message);
                 return;
             }
         }
 
 
-        private void StartWork(object sender, DoWorkEventArgs e)
+        public int GetQueueSize()
         {
-            // read channel settings
-            ReadConfigFile(Properties.Settings.Default.channelConfigFileName);
+            return rssList.RssCount;
+        }
 
-            // perform main endless loop
-            int retrieveDivider = 0;
-            while (!CancellationPending)
+
+        public RssItem GetNextItem()
+        {
+            RssItem rssItem = rssList.GetNextItem();
+
+            // store the item in the history queue
+            if (rssItem != null)
             {
-                // check whether we re-read the channels
-                if ((retrieveDivider % Properties.Settings.Default.retrieveIntervall) == 0)
-                {
-                    // retrieve and update channels
-                    rssList.GetChannels(this);
+                // check whether the queue is full
+                if (rssHistory.Count == Properties.Settings.Default.historyDepth)
+                    rssHistory.Dequeue();  // remove last item from history
+                rssHistory.Enqueue(rssItem);
+            }
 
-                    // update icon
-                    if (rssList.RssCount > 0)
-                        ReportProgress(Retriever.PROGRESS_ICON, rssList.RssCount);
-                }
+            return rssItem;
+        }
 
-                // display next item
-                RssItem rssItem = rssList.GetNextItem();
 
-                if (rssItem != null)
-                {
-                    // display the news
-                    ReportProgress(Retriever.PROGRESS_NEWRSS, rssItem);
-                    // update icon
-                    ReportProgress(Retriever.PROGRESS_ICON, rssList.RssCount);
-                }
+        private void RetrieveChannels(object sender, DoWorkEventArgs e)
+        {
+            // get the news from all channels
+            foreach (KeyValuePair<string,RssChannel> keyValuePair in rssList)
+            {
+                if (CancellationPending)
+                    break;
 
-                // wait befor next message
-                Thread.Sleep(Properties.Settings.Default.baseRecurrence);
-
-                // update scheduler index
-                retrieveDivider++;
-                if (retrieveDivider == Properties.Settings.Default.retrieveIntervall)
-                    retrieveDivider = 0;
+                GetChannel(keyValuePair.Key);
             }
         }
 
 
-        public bool GetChannel(String url)
+        private bool GetChannel(String url)
         {
             try
             {
@@ -131,7 +128,7 @@ namespace BalloonRss
             }
             catch (Exception e)
             {
-                ReportProgress(Retriever.PROGRESS_ERROR, e.Message);
+                ReportProgress(0, e.Message);
             }
 
             return true;

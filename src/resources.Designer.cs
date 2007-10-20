@@ -89,6 +89,105 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error message.
+        /// </summary>
+        internal static string str_balloonErrorHeader {
+            get {
+                return ResourceManager.GetString("str_balloonErrorHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No RSS entry in queue yet..
+        /// </summary>
+        internal static string str_balloonWarningNoEntryBody {
+            get {
+                return ResourceManager.GetString("str_balloonWarningNoEntryBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display full RSS entry.
+        /// </summary>
+        internal static string str_balloonWarningNoEntryHeader {
+            get {
+                return ResourceManager.GetString("str_balloonWarningNoEntryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E&amp;xit.
+        /// </summary>
+        internal static string str_contextMenuExit {
+            get {
+                return ResourceManager.GetString("str_contextMenuExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message &amp;History.
+        /// </summary>
+        internal static string str_contextMenuHistory {
+            get {
+                return ResourceManager.GetString("str_contextMenuHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open &amp;Last Message.
+        /// </summary>
+        internal static string str_contextMenuLastMessage {
+            get {
+                return ResourceManager.GetString("str_contextMenuLastMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Next Message.
+        /// </summary>
+        internal static string str_contextMenuNextMessage {
+            get {
+                return ResourceManager.GetString("str_contextMenuNextMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Settings.
+        /// </summary>
+        internal static string str_contextMenuSettings {
+            get {
+                return ResourceManager.GetString("str_contextMenuSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS Message History.
+        /// </summary>
+        internal static string str_historyFormTitle {
+            get {
+                return ResourceManager.GetString("str_historyFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        internal static string str_historyHeaderId {
+            get {
+                return ResourceManager.GetString("str_historyHeaderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string str_historyHeaderTitle {
+            get {
+                return ResourceManager.GetString("str_historyHeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BalloonRSS initialized..
         /// </summary>
         internal static string str_iconInfoInit {

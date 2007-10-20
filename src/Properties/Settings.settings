@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BalloonRss.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="baseRecurrence" Type="System.Int32" Scope="User">
+    <Setting Name="displayIntervall" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">90000</Value>
     </Setting>
     <Setting Name="retrieveIntervall" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">600000</Value>
     </Setting>
     <Setting Name="channelConfigFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">channelConfig.xml</Value>

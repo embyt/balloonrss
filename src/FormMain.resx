@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,56 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ico_blue16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\blue16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_orange16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\orange16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_yellow16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\yellow16.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ico_yellow32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\yellow32.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="str_balloonErrorHeader" xml:space="preserve">
-    <value>Error message</value>
-  </data>
-  <data name="str_balloonWarningNoEntryBody" xml:space="preserve">
-    <value>No RSS entry in queue yet.</value>
-  </data>
-  <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
-    <value>Display full RSS entry</value>
-  </data>
-  <data name="str_contextMenuExit" xml:space="preserve">
-    <value>E&amp;xit</value>
-  </data>
-  <data name="str_contextMenuHistory" xml:space="preserve">
-    <value>Message &amp;History</value>
-  </data>
-  <data name="str_contextMenuLastMessage" xml:space="preserve">
-    <value>Open &amp;Last Message</value>
-  </data>
-  <data name="str_contextMenuNextMessage" xml:space="preserve">
-    <value>&amp;Next Message</value>
-  </data>
-  <data name="str_contextMenuSettings" xml:space="preserve">
-    <value>&amp;Settings</value>
-  </data>
-  <data name="str_historyFormTitle" xml:space="preserve">
-    <value>RSS Message History</value>
-  </data>
-  <data name="str_historyHeaderId" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="str_historyHeaderTitle" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="str_iconInfoInit" xml:space="preserve">
-    <value>BalloonRSS initialized.</value>
-  </data>
-  <data name="str_iconInfoNewsCount" xml:space="preserve">
-    <value> RSS messages pending.</value>
-  </data>
 </root>

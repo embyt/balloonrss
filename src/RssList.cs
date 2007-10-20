@@ -54,16 +54,6 @@ namespace BalloonRss
         }
 
 
-        public void GetChannels(Retriever retriever)
-        {
-            // now get the initial news from all channels
-            foreach (KeyValuePair<string,RssChannel> keyValuePair in this)
-            {
-                retriever.GetChannel(keyValuePair.Key);
-            }
-        }
-
-        
         public void UpdateChannel(String url, XmlNode xmlNode)
         {
             RssChannel rssChannel;

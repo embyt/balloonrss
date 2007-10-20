@@ -94,7 +94,7 @@ namespace BalloonRss
                         RssItem rssItem;
                         try
                         {
-                            rssItem = new RssItem(xmlChild);
+                            rssItem = new RssItem(xmlChild, title);
                         }
                         catch (FormatException)
                         {
@@ -223,7 +223,16 @@ namespace BalloonRss
             if (item == null)
                 return false;
 
-            // write this information in the channel file
+            // first, check whether this item is already in the channel queue
+            foreach (RssItem curItem in this)
+            {
+                if (item.link == curItem.link)
+                    return false;
+            }
+
+            // second, check whether we already displayed this item
+
+            // load channel file
             XmlDocument channelFile = new XmlDocument();
 
             // open file
