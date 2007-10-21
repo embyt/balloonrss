@@ -139,6 +139,9 @@
   <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
     <value>Display full RSS entry</value>
   </data>
+  <data name="str_contextMenuChannelInfo" xml:space="preserve">
+    <value>RSS &amp;Channel Information</value>
+  </data>
   <data name="str_contextMenuExit" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>

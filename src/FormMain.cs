@@ -42,6 +42,17 @@ namespace BalloonRss
         private Timer dispTimer;
         private Timer retrieveTimer;
 
+        // some dll calls needed to hide the icon in the ALT+TAB bar
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr window, int index, int value);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern int GetWindowLong(IntPtr window, int index);
+
+        const int GWL_EXSTYLE = -20;
+        const int WS_EX_TOOLWINDOW = 0x00000080;
+        const int WS_EX_APPWINDOW = 0x00040000;
+
+
 
         [STAThread]
         static void Main()
@@ -87,16 +98,22 @@ namespace BalloonRss
         {
             ContextMenu contextMenu = new ContextMenu();
 
-            // menuItem exit
+            // menuItem Exit
             MenuItem mi_exit = new System.Windows.Forms.MenuItem();
             mi_exit.Text = resources.str_contextMenuExit;
             mi_exit.Click += new System.EventHandler(this.MiExitClick);
 
-            // menuItem settings
+            // menuItem Settings
             MenuItem mi_settings = new System.Windows.Forms.MenuItem();
             mi_settings.Text = resources.str_contextMenuSettings;
             mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
             mi_settings.Enabled = false;
+
+            // menuItem Channel Info
+            MenuItem mi_channelInfo = new System.Windows.Forms.MenuItem();
+            mi_channelInfo.Text = resources.str_contextMenuChannelInfo;
+            mi_channelInfo.Click += new System.EventHandler(this.MiChannelInfoClick);
+            mi_channelInfo.Enabled = true;
 
             // menuItem History
             mi_history = new System.Windows.Forms.MenuItem();
@@ -120,6 +137,7 @@ namespace BalloonRss
             contextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
             { 
                 mi_settings,
+                mi_channelInfo,
                 new System.Windows.Forms.MenuItem("-"),
                 mi_history,
                 mi_lastMessage,
@@ -136,13 +154,13 @@ namespace BalloonRss
         {
             this.SuspendLayout();
 
-            // Set up how the form should be displayed.
             this.ClientSize = new System.Drawing.Size(0, 0);
             this.Text = "BalloonRss";
             this.ShowInTaskbar = false;
-            this.FormBorderStyle = FormBorderStyle.FixedToolWindow;
             this.Visible = false;
             this.WindowState = FormWindowState.Minimized;
+            // remove appliation from the ALT+TAB menu
+            SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
 
             // Create the NotifyIcon.
             this.notifyIcon = new System.Windows.Forms.NotifyIcon();
@@ -162,14 +180,18 @@ namespace BalloonRss
             // cancel background worker operation
             retriever.CancelAsync();
 
-            // Show the form
+            // Show the settings form
 
-            // Set the WindowState to normal if the form is minimized.
-            if (this.WindowState == FormWindowState.Minimized)
-                this.WindowState = FormWindowState.Normal;
+        }
 
-            // Activate the form.
-            this.Activate();
+        private void MiChannelInfoClick(object sender, EventArgs e)
+        {
+            dispTimer.Stop();
+
+            FormChannelInfo formChannelInfo = new FormChannelInfo(retriever.GetChannels());
+            formChannelInfo.ShowDialog();
+
+            dispTimer.Start();
         }
 
         private void MiExitClick(object sender, EventArgs e)

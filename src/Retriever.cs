@@ -28,7 +28,7 @@ using System.IO;
 
 namespace BalloonRss
 {
-    public class Retriever : BackgroundWorker
+    class Retriever : BackgroundWorker
     {
         // this holds all the RSS items
         private RssList rssList;
@@ -80,6 +80,14 @@ namespace BalloonRss
         }
 
 
+        public RssChannel[] GetChannels()
+        {
+            RssChannel[] channels = new RssChannel[rssList.Count];
+            rssList.Values.CopyTo(channels, 0);
+            return channels;
+        }
+
+
         public int GetQueueSize()
         {
             return rssList.RssCount;
@@ -111,12 +119,12 @@ namespace BalloonRss
                 if (CancellationPending)
                     break;
 
-                GetChannel(keyValuePair.Key);
+                RetrieveChannel(keyValuePair.Key);
             }
         }
 
 
-        private bool GetChannel(String url)
+        private bool RetrieveChannel(String url)
         {
             try
             {

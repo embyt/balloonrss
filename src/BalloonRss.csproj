@@ -61,6 +61,9 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="FormChannelInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,18 +97,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormHistory.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FormHistory.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
