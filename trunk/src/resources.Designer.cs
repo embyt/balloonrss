@@ -116,6 +116,51 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RSS Channel Information.
+        /// </summary>
+        internal static string str_channelFormTitle {
+            get {
+                return ResourceManager.GetString("str_channelFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mes. Left.
+        /// </summary>
+        internal static string str_channelHeaderCount {
+            get {
+                return ResourceManager.GetString("str_channelHeaderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        internal static string str_channelHeaderId {
+            get {
+                return ResourceManager.GetString("str_channelHeaderId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string str_channelHeaderTitle {
+            get {
+                return ResourceManager.GetString("str_channelHeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mes. Total.
+        /// </summary>
+        internal static string str_channelHeaderTotal {
+            get {
+                return ResourceManager.GetString("str_channelHeaderTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RSS &amp;Channel Information.
         /// </summary>
         internal static string str_contextMenuChannelInfo {
@@ -175,6 +220,15 @@ namespace BalloonRss {
         internal static string str_historyFormTitle {
             get {
                 return ResourceManager.GetString("str_historyFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel.
+        /// </summary>
+        internal static string str_historyHeaderChannel {
+            get {
+                return ResourceManager.GetString("str_historyHeaderChannel", resourceCulture);
             }
         }
         

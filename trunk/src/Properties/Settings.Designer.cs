@@ -82,5 +82,17 @@ namespace BalloonRss.Properties {
                 this["historyDepth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool channelAsTitle {
+            get {
+                return ((bool)(this["channelAsTitle"]));
+            }
+            set {
+                this["channelAsTitle"] = value;
+            }
+        }
     }
 }

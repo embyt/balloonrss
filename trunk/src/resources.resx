@@ -139,6 +139,21 @@
   <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
     <value>Display full RSS entry</value>
   </data>
+  <data name="str_channelFormTitle" xml:space="preserve">
+    <value>RSS Channel Information</value>
+  </data>
+  <data name="str_channelHeaderCount" xml:space="preserve">
+    <value>Mes. Left</value>
+  </data>
+  <data name="str_channelHeaderId" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="str_channelHeaderTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="str_channelHeaderTotal" xml:space="preserve">
+    <value>Mes. Total</value>
+  </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
     <value>RSS &amp;Channel Information</value>
   </data>
@@ -159,6 +174,9 @@
   </data>
   <data name="str_historyFormTitle" xml:space="preserve">
     <value>RSS Message History</value>
+  </data>
+  <data name="str_historyHeaderChannel" xml:space="preserve">
+    <value>Channel</value>
   </data>
   <data name="str_historyHeaderId" xml:space="preserve">
     <value>Id</value>

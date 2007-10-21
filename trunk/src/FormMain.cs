@@ -154,6 +154,7 @@ namespace BalloonRss
         {
             this.SuspendLayout();
 
+            this.Icon = BalloonRss.resources.ico_yellow32;
             this.ClientSize = new System.Drawing.Size(0, 0);
             this.Text = "BalloonRss";
             this.ShowInTaskbar = false;
@@ -263,7 +264,14 @@ namespace BalloonRss
             if (rssItem != null)
             {
                 // display the news
-                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.title, rssItem.description, ToolTipIcon.None);
+                if (Properties.Settings.Default.channelAsTitle)
+                {
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.channel, rssItem.title, ToolTipIcon.None);
+                }
+                else
+                {
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.title, rssItem.description, ToolTipIcon.None);
+                }
 
                 // enable the message history (might be already enabled)
                 mi_history.Enabled = true;

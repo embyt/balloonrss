@@ -18,10 +18,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 
@@ -53,8 +49,6 @@ namespace BalloonRss
             // listHistory
             // 
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView.Location = new System.Drawing.Point(0, 0);
-            this.listView.Size = new System.Drawing.Size(292, 200);
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = View.Details;
             this.listView.AllowColumnReorder = true;
@@ -62,12 +56,13 @@ namespace BalloonRss
             this.listView.DoubleClick += new EventHandler(OnItemActivate);
 
             // 
-            // FormHistory
+            // Form
             // 
-            this.ClientSize = new System.Drawing.Size(292, 200);
+            this.ClientSize = new System.Drawing.Size(400, 200);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
-            this.Text = resources.str_historyFormTitle;
+            this.Text = resources.str_channelFormTitle;
+            this.Icon = BalloonRss.resources.ico_yellow32;
         }
 
 
@@ -75,15 +70,19 @@ namespace BalloonRss
         {
             ListViewItem[] listItems = new ListViewItem[rssChannel.Length];
 
+            // create the list items
             for (int i = 0; i < rssChannel.Length; i++)
             {
-                listItems[i] = new ListViewItem("" + (i+1));
-                listItems[i].SubItems.Add(rssChannel[i].title);
-                listItems[i].SubItems.Add(rssChannel[i].link);
+                listItems[i] = new ListViewItem(rssChannel[i].title);
+                listItems[i].SubItems.Add("" + rssChannel[i].Count);
+                listItems[i].SubItems.Add("" + rssChannel[i].messageCount);
+                listItems[i].SubItems.Add("" + rssChannel[i].link);
             }
 
-            listView.Columns.Add(resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
+            // set the table headers
+            listView.Columns.Add(resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
 
@@ -92,10 +91,11 @@ namespace BalloonRss
         {
             foreach (ListViewItem item in listView.SelectedItems)
             {
-                System.Diagnostics.Process.Start(item.SubItems[2].Text);
+                // start the link of the channel
+                System.Diagnostics.Process.Start(item.SubItems[3].Text);
             }
 
-            // quit history window
+            // close window
             Dispose();
         }
     }
