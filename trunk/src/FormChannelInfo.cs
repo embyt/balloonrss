@@ -27,20 +27,20 @@ using System.Windows.Forms;
 
 namespace BalloonRss
 {
-    class FormHistory : Form
+    class FormChannelInfo : Form
     {
-        private RssItem[] rssHistory;
+        private RssChannel[] rssChannel;
         private ListView listView;
 
 
-        public FormHistory(Queue<RssItem> rssHistory)
+        public FormChannelInfo(RssChannel[] rssChannel)
         {
-            this.rssHistory = rssHistory.ToArray();
+            this.rssChannel = rssChannel;
 
             this.SuspendLayout();
 
             InitializeComponent();
-            FillHistoryList();
+            FillChannelList();
 
             this.ResumeLayout();
         }
@@ -71,15 +71,15 @@ namespace BalloonRss
         }
 
 
-        private void FillHistoryList()
+        private void FillChannelList()
         {
-            ListViewItem[] listItems = new ListViewItem[rssHistory.Length];
+            ListViewItem[] listItems = new ListViewItem[rssChannel.Length];
 
-            for(int i = 0; i < rssHistory.Length; i++)
+            for (int i = 0; i < rssChannel.Length; i++)
             {
                 listItems[i] = new ListViewItem("" + (i+1));
-                listItems[i].SubItems.Add(rssHistory[i].title);
-                listItems[i].SubItems.Add(rssHistory[i].link);
+                listItems[i].SubItems.Add(rssChannel[i].title);
+                listItems[i].SubItems.Add(rssChannel[i].link);
             }
 
             listView.Columns.Add(resources.str_historyHeaderId, -2, HorizontalAlignment.Center);

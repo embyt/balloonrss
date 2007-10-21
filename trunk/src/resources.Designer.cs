@@ -116,6 +116,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RSS &amp;Channel Information.
+        /// </summary>
+        internal static string str_contextMenuChannelInfo {
+            get {
+                return ResourceManager.GetString("str_contextMenuChannelInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E&amp;xit.
         /// </summary>
         internal static string str_contextMenuExit {
