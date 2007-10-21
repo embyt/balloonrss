@@ -32,6 +32,7 @@ namespace BalloonRss
         public string description = null;
         public byte priority = 0;
         public DateTime lastUpdate = DateTime.MinValue;
+        public int messageCount = 0;
 
         private const string rssFeedDirName = "rssFeeds";
 
@@ -59,11 +60,16 @@ namespace BalloonRss
             // the link field is mandatory
             if (link == null)
                 throw new FormatException("Missing link attribute in config file");
+
+            // as the default title, we take the link
+            title = link;
         }
 
 
         public void UpdateChannel(XmlNode xmlNode)
         {
+            int messageCount = 0;
+
             foreach (XmlNode xmlChild in xmlNode)
             {
                 string curTag = xmlChild.Name.Trim().ToLower();
@@ -111,6 +117,7 @@ namespace BalloonRss
                             // update last update timestamp
                             lastUpdate = DateTime.Now;
                         }
+                        messageCount++; // we count also the known messages
 
                         break;
 
@@ -119,6 +126,11 @@ namespace BalloonRss
                         break;
                 }
             }
+
+            // we have to check messageCount because this function is also used 
+            // for the outer rss/channel/rdf:rdf tag...
+            if (messageCount > 0)
+                this.messageCount = messageCount;
         }
 
 
