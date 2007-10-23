@@ -40,8 +40,8 @@ Supported systems
 
 BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
 2.0 is available, which are all present systems such as:
-- Windows 2000 Service Pack 3
 - Windows 98
+- Windows 2000 Service Pack 3
 - Windows ME
 - Windows Server 2003
 - Windows Vista
@@ -52,9 +52,19 @@ It is tested only on WinXP yet.
 Installation
 ------------
 
-- If you do not have the .NET framework 2.0 installed yet, download the 
-  Microsoft .NET Framework Version 2.0 Redistributable Package from Microsoft 
-  and install it.
+Using the installer:
+- Make sure that you have the .NET framework 2.0 installed; otherwise download
+  the Microsoft .NET Framework Version 2.0 Redistributable Package from
+  Microsoft and install it.
+- start the BalloonRSS_xxx_setup.exe and follow the steps on the screen
+- Adapt the configuration file ("channelConfig.xml" in the installation 
+  directory) with the RSS feeds of your choice.
+- Start the application.
+
+Alternative manual installation:
+- Make sure that you have the .NET framework 2.0 installed; otherwise download
+  the Microsoft .NET Framework Version 2.0 Redistributable Package from
+  Microsoft and install it.
 - Copy the executable "balloonrss.exe" together with the channel configuration 
   "channelConfig.xml" in any directory of your choice.
 - Adapt the configuration file with the RSS feeds of your choice.

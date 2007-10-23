@@ -89,11 +89,38 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error message.
+        ///   Looks up a localized string similar to Missing mandatory &quot;channel&quot; tag..
         /// </summary>
-        internal static string str_balloonErrorHeader {
+        internal static string str_balloonErrorConfigChannelTag {
             get {
-                return ResourceManager.GetString("str_balloonErrorHeader", resourceCulture);
+                return ResourceManager.GetString("str_balloonErrorConfigChannelTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error parsing the channel config file.
+        /// </summary>
+        internal static string str_balloonErrorConfigFile {
+            get {
+                return ResourceManager.GetString("str_balloonErrorConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error parsing the RSS feed from .
+        /// </summary>
+        internal static string str_balloonErrorParseRss {
+            get {
+                return ResourceManager.GetString("str_balloonErrorParseRss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during retrieving .
+        /// </summary>
+        internal static string str_balloonErrorRetrieving {
+            get {
+                return ResourceManager.GetString("str_balloonErrorRetrieving", resourceCulture);
             }
         }
         

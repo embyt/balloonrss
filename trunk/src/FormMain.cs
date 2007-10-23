@@ -310,7 +310,8 @@ namespace BalloonRss
 
         private void RetrieverProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, resources.str_balloonErrorHeader, e.UserState as string, ToolTipIcon.Error);
+            string[] message = e.UserState as string[];
+            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, message[0], message[1], ToolTipIcon.Error);
         }
    }
 }

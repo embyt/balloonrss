@@ -55,6 +55,8 @@ namespace BalloonRss
 
         public void Initialize(string configFileName)
         {
+            bool gotChannelTag = false;
+
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
 
@@ -68,14 +70,20 @@ namespace BalloonRss
                     // search for "channels" tag
                     if (rootNode.Name.Trim().ToLower() == "channels")
                     {
+                        gotChannelTag = true;
                         rssList.ReadConfigFile(rootNode);
                     }
                 }
             }
             catch (Exception e)
             {
-                ReportProgress(0, e.Message);
+                ReportProgress(0, new String[] { resources.str_balloonErrorConfigFile, e.Message });
                 return;
+            }
+
+            if (!gotChannelTag)
+            {
+                ReportProgress(0, new String[] { resources.str_balloonErrorConfigFile, resources.str_balloonErrorConfigChannelTag });
             }
         }
 
@@ -126,17 +134,31 @@ namespace BalloonRss
 
         private bool RetrieveChannel(String url)
         {
+            WebResponse httpResp;
+
+            // retrieve URL
             try
             {
                 HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
-                WebResponse httpResp = httpReq.GetResponse();
-                System.Xml.XmlDocument rssDocument = new System.Xml.XmlDocument();
+                httpResp = httpReq.GetResponse();
+            }
+            catch (Exception e)
+            {
+                ReportProgress(0, new String[] { resources.str_balloonErrorRetrieving + url, e.Message });
+                return false;
+            }
+
+            // parse rss file
+            try
+            {
+                XmlDocument rssDocument = new System.Xml.XmlDocument();
                 rssDocument.Load(httpResp.GetResponseStream());
                 rssList.UpdateChannel(url, rssDocument);
             }
             catch (Exception e)
             {
-                ReportProgress(0, e.Message);
+                ReportProgress(0, new String[] { resources.str_balloonErrorParseRss + url, e.Message });
+                return false;
             }
 
             return true;

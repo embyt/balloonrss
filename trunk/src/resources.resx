@@ -130,8 +130,17 @@
   <data name="ico_yellow32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\yellow32.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="str_balloonErrorHeader" xml:space="preserve">
-    <value>Error message</value>
+  <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
+    <value>Missing mandatory "channel" tag.</value>
+  </data>
+  <data name="str_balloonErrorConfigFile" xml:space="preserve">
+    <value>Error parsing the channel config file</value>
+  </data>
+  <data name="str_balloonErrorParseRss" xml:space="preserve">
+    <value>Error parsing the RSS feed from </value>
+  </data>
+  <data name="str_balloonErrorRetrieving" xml:space="preserve">
+    <value>Error during retrieving </value>
   </data>
   <data name="str_balloonWarningNoEntryBody" xml:space="preserve">
     <value>No RSS entry in queue yet.</value>
