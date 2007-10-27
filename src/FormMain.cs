@@ -107,7 +107,7 @@ namespace BalloonRss
             MenuItem mi_settings = new System.Windows.Forms.MenuItem();
             mi_settings.Text = resources.str_contextMenuSettings;
             mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
-            mi_settings.Enabled = false;
+            mi_settings.Enabled = true;
 
             // menuItem Channel Info
             MenuItem mi_channelInfo = new System.Windows.Forms.MenuItem();
@@ -178,11 +178,25 @@ namespace BalloonRss
 
         private void MiSettingsClick(object sender, EventArgs e)
         {
-            // cancel background worker operation
+            // disable timers
+            retrieveTimer.Stop();
+            dispTimer.Stop();
+
+            // cancel potential background worker operation
             retriever.CancelAsync();
 
-            // Show the settings form
+            // show the settings form
+            FormSettings formSettings = new FormSettings();
+            formSettings.ShowDialog();
 
+            // store settings
+            Properties.Settings.Default.Save();
+
+            // setup new rss list
+            retriever.Initialize(Properties.Settings.Default.channelConfigFileName);
+
+            // load initial channels
+            retriever.RunWorkerAsync();
         }
 
         private void MiChannelInfoClick(object sender, EventArgs e)

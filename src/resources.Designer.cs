@@ -269,6 +269,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Displayed at.
+        /// </summary>
+        internal static string str_historyHeaderTimestamp {
+            get {
+                return ResourceManager.GetString("str_historyHeaderTimestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string str_historyHeaderTitle {
@@ -292,6 +301,87 @@ namespace BalloonRss {
         internal static string str_iconInfoNewsCount {
             get {
                 return ResourceManager.GetString("str_iconInfoNewsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Timespan to display balloon pop-up [s].
+        /// </summary>
+        internal static string str_settingsBalloonTimespan {
+            get {
+                return ResourceManager.GetString("str_settingsBalloonTimespan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use channel name as pop-up title.
+        /// </summary>
+        internal static string str_settingsChannelAsTitle {
+            get {
+                return ResourceManager.GetString("str_settingsChannelAsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channel configuration filename.
+        /// </summary>
+        internal static string str_settingsChannelConfigFilename {
+            get {
+                return ResourceManager.GetString("str_settingsChannelConfigFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Base time between two RSS messages [s].
+        /// </summary>
+        internal static string str_settingsDisplayIntervall {
+            get {
+                return ResourceManager.GetString("str_settingsDisplayIntervall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Cancel.
+        /// </summary>
+        internal static string str_settingsFormCancelButton {
+            get {
+                return ResourceManager.GetString("str_settingsFormCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;OK.
+        /// </summary>
+        internal static string str_settingsFormOKButton {
+            get {
+                return ResourceManager.GetString("str_settingsFormOKButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BalloonRSS settings.
+        /// </summary>
+        internal static string str_settingsFormTitle {
+            get {
+                return ResourceManager.GetString("str_settingsFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of entries in message history.
+        /// </summary>
+        internal static string str_settingsHistoryDepth {
+            get {
+                return ResourceManager.GetString("str_settingsHistoryDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Intervall to check for new RSS messages [s].
+        /// </summary>
+        internal static string str_settingsRetrieveIntervall {
+            get {
+                return ResourceManager.GetString("str_settingsRetrieveIntervall", resourceCulture);
             }
         }
     }

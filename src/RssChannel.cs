@@ -34,7 +34,7 @@ namespace BalloonRss
         public DateTime lastUpdate = DateTime.MinValue;
         public int messageCount = 0;
 
-        private const string rssFeedDirName = "rssFeeds";
+        private const string rssFeedDirName = "\\BalloonRSS\\rssFeeds";
 
 
         public RssChannel(XmlNode configFile)
@@ -159,6 +159,9 @@ namespace BalloonRss
             // remove it
             RemoveItem(rssItem);
 
+            // set display timestamp
+            rssItem.dispDate = DateTime.Now;
+
             return rssItem;
         }
 
@@ -199,15 +202,21 @@ namespace BalloonRss
             }
             catch (DirectoryNotFoundException)
             {
-                Directory.CreateDirectory(rssFeedDirName);
+                Directory.CreateDirectory(GetRssFeedFolder());
                 channelFile.Save(GetRssFeedFilename(link));
             }
         }
 
 
+        private string GetRssFeedFolder()
+        {
+            return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + rssFeedDirName;
+        }
+
+        
         private string GetRssFeedFilename(string url)
         {
-            return rssFeedDirName + "\\" + MakeSafeFilename(url);
+            return GetRssFeedFolder() + "\\" + MakeSafeFilename(url);
         }
 
 
