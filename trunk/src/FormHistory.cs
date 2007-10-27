@@ -76,6 +76,7 @@ namespace BalloonRss
                 listItems[i] = new ListViewItem("" + (i+1));
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel);
+                listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].dispDate.ToShortTimeString());
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].link);
             }
 
@@ -83,6 +84,7 @@ namespace BalloonRss
             listView.Columns.Add(resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(resources.str_historyHeaderChannel, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(resources.str_historyHeaderTimestamp, -2, HorizontalAlignment.Left);
             listView.Items.AddRange(listItems);
         }
 
@@ -92,7 +94,7 @@ namespace BalloonRss
             foreach (ListViewItem item in listView.SelectedItems)
             {
                 // start the link of the RSS item
-                System.Diagnostics.Process.Start(item.SubItems[3].Text);
+                System.Diagnostics.Process.Start(item.SubItems[4].Text);
             }
 
             // close window

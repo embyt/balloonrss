@@ -190,6 +190,9 @@
   <data name="str_historyHeaderId" xml:space="preserve">
     <value>Id</value>
   </data>
+  <data name="str_historyHeaderTimestamp" xml:space="preserve">
+    <value>Displayed at</value>
+  </data>
   <data name="str_historyHeaderTitle" xml:space="preserve">
     <value>Title</value>
   </data>
@@ -198,5 +201,32 @@
   </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
     <value> RSS messages pending.</value>
+  </data>
+  <data name="str_settingsBalloonTimespan" xml:space="preserve">
+    <value>Timespan to display balloon pop-up [s]</value>
+  </data>
+  <data name="str_settingsChannelAsTitle" xml:space="preserve">
+    <value>Use channel name as pop-up title</value>
+  </data>
+  <data name="str_settingsChannelConfigFilename" xml:space="preserve">
+    <value>Channel configuration filename</value>
+  </data>
+  <data name="str_settingsDisplayIntervall" xml:space="preserve">
+    <value>Base time between two RSS messages [s]</value>
+  </data>
+  <data name="str_settingsFormCancelButton" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
+  <data name="str_settingsFormOKButton" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="str_settingsFormTitle" xml:space="preserve">
+    <value>BalloonRSS settings</value>
+  </data>
+  <data name="str_settingsHistoryDepth" xml:space="preserve">
+    <value>Number of entries in message history</value>
+  </data>
+  <data name="str_settingsRetrieveIntervall" xml:space="preserve">
+    <value>Intervall to check for new RSS messages [s]</value>
   </data>
 </root>

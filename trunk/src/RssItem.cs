@@ -33,6 +33,7 @@ namespace BalloonRss
         public DateTime pubDate = DateTime.MinValue;
 
         public DateTime creationDate = DateTime.MinValue;
+        public DateTime dispDate = DateTime.MinValue;
         public string channel;
 
 

@@ -45,9 +45,6 @@ namespace BalloonRss
             WorkerReportsProgress = true;
             DoWork += new System.ComponentModel.DoWorkEventHandler(this.RetrieveChannels);
 
-            // initialise rssList
-            rssList = new RssList();
-
             // initialize history queue
             rssHistory = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
         }
@@ -56,6 +53,9 @@ namespace BalloonRss
         public void Initialize(string configFileName)
         {
             bool gotChannelTag = false;
+
+            // setup new rss list
+            rssList = new RssList();
 
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
@@ -154,6 +154,7 @@ namespace BalloonRss
                 XmlDocument rssDocument = new System.Xml.XmlDocument();
                 rssDocument.Load(httpResp.GetResponseStream());
                 rssList.UpdateChannel(url, rssDocument);
+                httpResp.Close();
             }
             catch (Exception e)
             {
