@@ -25,6 +25,9 @@ namespace BalloonRss
 {
     class FormHistory : Form
     {
+        private int panelWidth = 380;
+        private int panelHeight = 230;
+
         private RssItem[] rssHistory;
         private ListView listView;
 
@@ -58,7 +61,7 @@ namespace BalloonRss
             // 
             // FormHistory
             // 
-            this.ClientSize = new System.Drawing.Size(350, 250);
+            this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
             this.Text = resources.str_historyFormTitle;

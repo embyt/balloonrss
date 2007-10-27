@@ -22,59 +22,102 @@ using System;
 using System.Windows.Forms;
 using System.Globalization;
 
-
-public class NumericTextBox : TextBox
+namespace BalloonRss
 {
-    private bool allowSpace = false;
-
-    // Restricts the entry of characters to digits (including hex), the negative sign,
-    // the decimal point, and editing keystrokes (backspace).
-    protected override void OnKeyPress(KeyPressEventArgs e)
+    public class NumericTextBox : TextBox
     {
-        base.OnKeyPress(e);
+        private bool allowSpace = false;
 
-        NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
-        string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
-        string groupSeparator = numberFormatInfo.NumberGroupSeparator;
-        string negativeSign = numberFormatInfo.NegativeSign;
+        private int minValue;
+        private int maxValue;
+        private string description;
 
-        string keyInput = e.KeyChar.ToString();
+        public NumericTextBox(int minValue, int maxValue, string description)
+        {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            this.description = description;
+            this.TextAlign = HorizontalAlignment.Right;
+        }
 
-        if (Char.IsDigit(e.KeyChar))
+        // Restricts the entry of characters to digits (including hex), the negative sign,
+        // the decimal point, and editing keystrokes (backspace).
+        protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            // Digits are OK
-        }
-        else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) || keyInput.Equals(negativeSign))
-        {
-            // Decimal and negative numbers are not OK
-            // swallow this invalid key
-            e.Handled = true;
-        }
-        else if (e.KeyChar == '\b')
-        {
-            // Backspace key is OK
-        }
-        else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0)
-        {
-            // Let the edit control handle control and alt key combinations
-        }
-        else if (this.allowSpace && e.KeyChar == ' ')
-        {
+            base.OnKeyPress(e);
 
-        }
-        else
-        {
-            // swallow this invalid key
-            e.Handled = true;
-            //    MessageBeep();
-        }
-    }
+            NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
+            string negativeSign = numberFormatInfo.NegativeSign;
 
-    public int IntValue
-    {
-        get
+            string keyInput = e.KeyChar.ToString();
+
+            if (Char.IsDigit(e.KeyChar))
+            {
+                // Digits are OK
+            }
+            else if (keyInput.Equals(decimalSeparator) || keyInput.Equals(groupSeparator) || keyInput.Equals(negativeSign))
+            {
+                // Decimal and negative numbers are not OK
+                // swallow this invalid key
+                e.Handled = true;
+            }
+            else if (e.KeyChar == '\b')
+            {
+                // Backspace key is OK
+            }
+            else if ((ModifierKeys & (Keys.Control | Keys.Alt)) != 0)
+            {
+                // Let the edit control handle control and alt key combinations
+            }
+            else if (this.allowSpace && e.KeyChar == ' ')
+            {
+
+            }
+            else
+            {
+                // swallow this invalid key
+                e.Handled = true;
+                //    MessageBeep();
+            }
+        }
+
+        public int IntValue
         {
-            return Int32.Parse(this.Text);
+            get
+            {
+                return Int32.Parse(this.Text);
+            }
+        }
+
+        public bool IsValueValid()
+        {
+            int value;
+            try
+            {
+                value = IntValue;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+
+            if ( (value >= minValue) && (value <= maxValue) )
+                return true;
+            else
+                return false;
+        }
+
+        public string GetErrorMessage()
+        {
+            if (IntValue < minValue)
+                return description + ": " + resources.str_settingsErrorValueToSmall + minValue + ".";
+
+            if (IntValue > maxValue)
+                return description + ": " + resources.str_settingsErrorValueToLarge + maxValue + ".";
+
+            return null;
         }
     }
 }

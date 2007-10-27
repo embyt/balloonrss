@@ -50,7 +50,7 @@ namespace BalloonRss
         }
 
 
-        public void Initialize(string configFileName)
+        public string[] Initialize(string configFileName)
         {
             bool gotChannelTag = false;
 
@@ -77,14 +77,15 @@ namespace BalloonRss
             }
             catch (Exception e)
             {
-                ReportProgress(0, new String[] { resources.str_balloonErrorConfigFile, e.Message });
-                return;
+                return new String[] { resources.str_balloonErrorConfigFile, e.Message };
             }
 
             if (!gotChannelTag)
             {
-                ReportProgress(0, new String[] { resources.str_balloonErrorConfigFile, resources.str_balloonErrorConfigChannelTag });
+                return new String[] { resources.str_balloonErrorConfigFile, resources.str_balloonErrorConfigChannelTag };
             }
+
+            return null;
         }
 
 

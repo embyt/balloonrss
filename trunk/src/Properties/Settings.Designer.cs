@@ -25,7 +25,7 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("90000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
         public int displayIntervall {
             get {
                 return ((int)(this["displayIntervall"]));
@@ -37,7 +37,7 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("600000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
         public int retrieveIntervall {
             get {
                 return ((int)(this["retrieveIntervall"]));
@@ -61,7 +61,7 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int balloonTimespan {
             get {
                 return ((int)(this["balloonTimespan"]));
