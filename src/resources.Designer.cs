@@ -332,11 +332,38 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Base time between two RSS messages [s].
+        ///   Looks up a localized string similar to Time between displaying two RSS messages [s].
         /// </summary>
         internal static string str_settingsDisplayIntervall {
             get {
                 return ResourceManager.GetString("str_settingsDisplayIntervall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The retriever intervall has to be larger than the display intervall..
+        /// </summary>
+        internal static string str_settingsErrorRetrieveSmallerDisplay {
+            get {
+                return ResourceManager.GetString("str_settingsErrorRetrieveSmallerDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value greater than valid maximum .
+        /// </summary>
+        internal static string str_settingsErrorValueToLarge {
+            get {
+                return ResourceManager.GetString("str_settingsErrorValueToLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value smaller than valid minimum .
+        /// </summary>
+        internal static string str_settingsErrorValueToSmall {
+            get {
+                return ResourceManager.GetString("str_settingsErrorValueToSmall", resourceCulture);
             }
         }
         
@@ -346,6 +373,15 @@ namespace BalloonRss {
         internal static string str_settingsFormCancelButton {
             get {
                 return ResourceManager.GetString("str_settingsFormCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirming application settings change.
+        /// </summary>
+        internal static string str_settingsFormErrorHeader {
+            get {
+                return ResourceManager.GetString("str_settingsFormErrorHeader", resourceCulture);
             }
         }
         
@@ -377,7 +413,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Intervall to check for new RSS messages [s].
+        ///   Looks up a localized string similar to Intervall for retrieving new RSS messages [s].
         /// </summary>
         internal static string str_settingsRetrieveIntervall {
             get {

@@ -71,13 +71,13 @@ namespace BalloonRss
 
             // setup display Timer
             dispTimer = new Timer();
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall;
+            dispTimer.Interval = Properties.Settings.Default.displayIntervall*1000; // intervall in seconds
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
 
             // setup retrieve Timer
             retrieveTimer = new Timer();
-            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall;
+            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall*1000; // intervall in seconds
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
             
@@ -86,11 +86,8 @@ namespace BalloonRss
             retriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RetrieveCompleted);
             retriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.RetrieverProgressChanged);
 
-            // read channel settings
-            retriever.Initialize(Properties.Settings.Default.channelConfigFileName);
-
-            // load initial channels
-            retriever.RunWorkerAsync();
+            // start the action...
+            StartRetriever();
         }
 
 
@@ -174,6 +171,23 @@ namespace BalloonRss
 
             this.ResumeLayout(false);
         }
+
+        private void StartRetriever()
+        {
+            // read channel settings
+            string[] result = retriever.Initialize(Properties.Settings.Default.channelConfigFileName);
+            if (result == null)
+            {
+                // init successful, load initial channels
+                retriever.RunWorkerAsync();
+            }
+            else
+            {
+                // display error message
+                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, result[0], result[1], ToolTipIcon.Error);
+                // wait until the user changes the settings
+            }
+        }
  
 
         private void MiSettingsClick(object sender, EventArgs e)
@@ -187,16 +201,17 @@ namespace BalloonRss
 
             // show the settings form
             FormSettings formSettings = new FormSettings();
-            formSettings.ShowDialog();
+            DialogResult result = formSettings.ShowDialog();
 
-            // store settings
-            Properties.Settings.Default.Save();
+            if (result == DialogResult.OK)
+            {
+                // restore icon properties
+                notifyIcon.Icon = BalloonRss.resources.ico_blue16;
+                notifyIcon.Text = resources.str_iconInfoInit;
+            }
 
             // setup new rss list
-            retriever.Initialize(Properties.Settings.Default.channelConfigFileName);
-
-            // load initial channels
-            retriever.RunWorkerAsync();
+            StartRetriever();
         }
 
         private void MiChannelInfoClick(object sender, EventArgs e)
@@ -243,7 +258,7 @@ namespace BalloonRss
                 System.Diagnostics.Process.Start(rssItem.link);
             }
             else
-                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, resources.str_balloonWarningNoEntryHeader, resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
+                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, resources.str_balloonWarningNoEntryHeader, resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
         }
 
 
@@ -280,11 +295,11 @@ namespace BalloonRss
                 // display the news
                 if (Properties.Settings.Default.channelAsTitle)
                 {
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.channel, rssItem.title, ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, rssItem.channel, rssItem.title, ToolTipIcon.None);
                 }
                 else
                 {
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, rssItem.title, rssItem.description, ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
                 }
 
                 // enable the message history (might be already enabled)
@@ -325,7 +340,7 @@ namespace BalloonRss
         private void RetrieverProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             string[] message = e.UserState as string[];
-            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan, message[0], message[1], ToolTipIcon.Error);
+            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
         }
-   }
+    }
 }
