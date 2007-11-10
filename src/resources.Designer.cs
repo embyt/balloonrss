@@ -89,6 +89,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing link attribute in config file.
+        /// </summary>
+        internal static string str_balloonErrorChannelLinkTag {
+            get {
+                return ResourceManager.GetString("str_balloonErrorChannelLinkTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing mandatory &quot;channel&quot; tag..
         /// </summary>
         internal static string str_balloonErrorConfigChannelTag {
@@ -188,11 +197,110 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RSS &amp;Channel Information.
+        ///   Looks up a localized string similar to Do you really want to delete the RSS channel .
+        /// </summary>
+        internal static string str_channelSettingsConfirmDeleteText {
+            get {
+                return ResourceManager.GetString("str_channelSettingsConfirmDeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm deletion of RSS channel.
+        /// </summary>
+        internal static string str_channelSettingsConfirmDeleteTitel {
+            get {
+                return ResourceManager.GetString("str_channelSettingsConfirmDeleteTitel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml.
+        /// </summary>
+        internal static string str_channelSettingsDefaultLink {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefaultLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit RSS Channel Settings.
+        /// </summary>
+        internal static string str_channelSettingsEditFormTitle {
+            get {
+                return ResourceManager.GetString("str_channelSettingsEditFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Delete.
+        /// </summary>
+        internal static string str_channelSettingsFormDeleteButton {
+            get {
+                return ResourceManager.GetString("str_channelSettingsFormDeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;Edit.
+        /// </summary>
+        internal static string str_channelSettingsFormEditButton {
+            get {
+                return ResourceManager.GetString("str_channelSettingsFormEditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &amp;New.
+        /// </summary>
+        internal static string str_channelSettingsFormNewButton {
+            get {
+                return ResourceManager.GetString("str_channelSettingsFormNewButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS Channel Settings.
+        /// </summary>
+        internal static string str_channelSettingsFormTitle {
+            get {
+                return ResourceManager.GetString("str_channelSettingsFormTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        internal static string str_channelSettingsHeaderPriority {
+            get {
+                return ResourceManager.GetString("str_channelSettingsHeaderPriority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        internal static string str_channelSettingsHeaderTitle {
+            get {
+                return ResourceManager.GetString("str_channelSettingsHeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS Channel &amp;Information.
         /// </summary>
         internal static string str_contextMenuChannelInfo {
             get {
                 return ResourceManager.GetString("str_contextMenuChannelInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RSS &amp;Channel Settings.
+        /// </summary>
+        internal static string str_contextMenuChannelSettings {
+            get {
+                return ResourceManager.GetString("str_contextMenuChannelSettings", resourceCulture);
             }
         }
         
@@ -233,7 +341,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Settings.
+        ///   Looks up a localized string similar to Application &amp;Settings.
         /// </summary>
         internal static string str_contextMenuSettings {
             get {
@@ -301,6 +409,15 @@ namespace BalloonRss {
         internal static string str_iconInfoNewsCount {
             get {
                 return ResourceManager.GetString("str_iconInfoNewsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BalloonRSS paused..
+        /// </summary>
+        internal static string str_iconInfoPause {
+            get {
+                return ResourceManager.GetString("str_iconInfoPause", resourceCulture);
             }
         }
         
@@ -395,7 +512,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BalloonRSS settings.
+        ///   Looks up a localized string similar to BalloonRSS Settings.
         /// </summary>
         internal static string str_settingsFormTitle {
             get {

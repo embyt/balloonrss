@@ -61,7 +61,15 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="ChannelInfo.cs" />
+    <Compile Include="ChannelList.cs" />
     <Compile Include="FormChannelInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChannelSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChannelSettingsEdit.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormHistory.cs">
@@ -82,14 +90,12 @@
       <DependentUpon>resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Retriever.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="RssChannel.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RssItem.cs" />
-    <Compile Include="RssList.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="utils\NumericTextBox.cs">
       <SubType>Component</SubType>

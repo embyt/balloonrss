@@ -130,6 +130,9 @@
   <data name="ico_yellow32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\yellow32.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
+    <value>Missing link attribute in config file</value>
+  </data>
   <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
     <value>Missing mandatory "channel" tag.</value>
   </data>
@@ -163,8 +166,41 @@
   <data name="str_channelHeaderTotal" xml:space="preserve">
     <value>Mes. Total</value>
   </data>
+  <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
+    <value>Do you really want to delete the RSS channel </value>
+  </data>
+  <data name="str_channelSettingsConfirmDeleteTitel" xml:space="preserve">
+    <value>Confirm deletion of RSS channel</value>
+  </data>
+  <data name="str_channelSettingsDefaultLink" xml:space="preserve">
+    <value>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml</value>
+  </data>
+  <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
+    <value>Edit RSS Channel Settings</value>
+  </data>
+  <data name="str_channelSettingsFormDeleteButton" xml:space="preserve">
+    <value>&amp;Delete</value>
+  </data>
+  <data name="str_channelSettingsFormEditButton" xml:space="preserve">
+    <value>&amp;Edit</value>
+  </data>
+  <data name="str_channelSettingsFormNewButton" xml:space="preserve">
+    <value>&amp;New</value>
+  </data>
+  <data name="str_channelSettingsFormTitle" xml:space="preserve">
+    <value>RSS Channel Settings</value>
+  </data>
+  <data name="str_channelSettingsHeaderPriority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="str_channelSettingsHeaderTitle" xml:space="preserve">
+    <value>Link</value>
+  </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
-    <value>RSS &amp;Channel Information</value>
+    <value>RSS Channel &amp;Information</value>
+  </data>
+  <data name="str_contextMenuChannelSettings" xml:space="preserve">
+    <value>RSS &amp;Channel Settings</value>
   </data>
   <data name="str_contextMenuExit" xml:space="preserve">
     <value>E&amp;xit</value>
@@ -179,7 +215,7 @@
     <value>&amp;Next Message</value>
   </data>
   <data name="str_contextMenuSettings" xml:space="preserve">
-    <value>&amp;Settings</value>
+    <value>Application &amp;Settings</value>
   </data>
   <data name="str_historyFormTitle" xml:space="preserve">
     <value>RSS Message History</value>
@@ -201,6 +237,9 @@
   </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
     <value> RSS messages pending.</value>
+  </data>
+  <data name="str_iconInfoPause" xml:space="preserve">
+    <value>BalloonRSS paused.</value>
   </data>
   <data name="str_settingsBalloonTimespan" xml:space="preserve">
     <value>Timespan to display balloon pop-up [s]</value>
@@ -233,7 +272,7 @@
     <value>&amp;OK</value>
   </data>
   <data name="str_settingsFormTitle" xml:space="preserve">
-    <value>BalloonRSS settings</value>
+    <value>BalloonRSS Settings</value>
   </data>
   <data name="str_settingsHistoryDepth" xml:space="preserve">
     <value>Number of entries in message history</value>

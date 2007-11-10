@@ -90,7 +90,6 @@ Section "General" SecGeneral
   
   File "${BASEDIR}\bin\BalloonRss.exe"
   File "${BASEDIR}\sample\channelConfig.xml"
-  File "${BASEDIR}\sample\BalloonRss.exe.config"
   File "${BASEDIR}\README.txt"
   
   ;Store installation folder
@@ -286,7 +285,6 @@ Section "Uninstall"
   Delete /REBOOTOK "$INSTDIR\BalloonRss.exe"
   Delete "$INSTDIR\rssFeeds\*.xml"
   RMDir "$INSTDIR\rssFeeds"
-  Delete "$INSTDIR\BalloonRss.exe.config"
   Delete "$INSTDIR\channelConfig.xml"
   Delete "$INSTDIR\README.txt"
   Delete "$INSTDIR\Uninstall.exe"

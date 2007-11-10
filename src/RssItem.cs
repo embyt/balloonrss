@@ -26,18 +26,18 @@ namespace BalloonRss
 {
     public class RssItem
     {
-        public string title = null;
-        public string description = null;
-        public string author = null;
-        public string link = null;
+        public String title = null;
+        public String description = null;
+        public String author = null;
+        public String link = null;
         public DateTime pubDate = DateTime.MinValue;
 
         public DateTime creationDate = DateTime.MinValue;
         public DateTime dispDate = DateTime.MinValue;
-        public string channel;
+        public String channel;
 
 
-        public RssItem(XmlNode xmlNode, string channel)
+        public RssItem(XmlNode xmlNode, String channel)
         {
             this.creationDate = DateTime.Now;
             this.channel = channel;
@@ -45,7 +45,7 @@ namespace BalloonRss
             // parse it
             foreach (XmlNode curXmlNode in xmlNode.ChildNodes)
             {
-                string curTag = curXmlNode.Name.Trim().ToLower();
+                String curTag = curXmlNode.Name.Trim().ToLower();
 
                 switch (curTag)
                 {
@@ -80,7 +80,7 @@ namespace BalloonRss
         }
 
 
-        private DateTime ParseDate(string text)
+        private DateTime ParseDate(String text)
         {
             DateTime dateTime = DateTime.MinValue;
 
