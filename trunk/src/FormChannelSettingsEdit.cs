@@ -23,21 +23,20 @@ using System.Windows.Forms;
 
 namespace BalloonRss
 {
-    class FormSettings : Form
+    class FormChannelSettingsEdit : Form
     {
-        private const String textFieldSize = "###########";
+        private const String textFieldSize = "####################################";
 
         private Label fillLabel;
-        private Control cntlDisplayIntervall;
-        private Control cntlRetrieveIntervall;
-        private Control cntlBalloonTimespan;
-        private Control cntlConfigFilename;
-        private Control cntlChannelAsTitle;
-        private Control cntlHistoryDepth;
+        private Control cntlUrl;
+        private Control cntlPriority;
 
+        private ChannelInfo channelInfo;
 
-        public FormSettings()
+        public FormChannelSettingsEdit(ChannelInfo channelInfo)
         {
+            this.channelInfo = channelInfo;
+
             // create panel
             InitializeComponent();
         }
@@ -59,22 +58,10 @@ namespace BalloonRss
 
             // setting
             int maxXSize = 0;
-            cntlDisplayIntervall = CreateSettingControl(Properties.Settings.Default.displayIntervall, resources.str_settingsDisplayIntervall, out panel, 10, Int32.MaxValue);
+            cntlUrl = CreateSettingControl(channelInfo.link, resources.str_channelSettingsHeaderTitle, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlRetrieveIntervall = CreateSettingControl(Properties.Settings.Default.retrieveIntervall, resources.str_settingsRetrieveIntervall, out panel, 15, Int32.MaxValue);
-            maxXSize = Math.Max(maxXSize, panel.Width);
-            flPanelMain.Controls.Add(panel);
-            cntlBalloonTimespan = CreateSettingControl(Properties.Settings.Default.balloonTimespan, resources.str_settingsBalloonTimespan, out panel, 10, Int32.MaxValue);
-            maxXSize = Math.Max(maxXSize, panel.Width);
-            flPanelMain.Controls.Add(panel);
-            cntlConfigFilename = CreateSettingControl(Properties.Settings.Default.channelConfigFileName, resources.str_settingsChannelConfigFilename, out panel);
-            maxXSize = Math.Max(maxXSize, panel.Width);
-            flPanelMain.Controls.Add(panel);
-            cntlChannelAsTitle = CreateSettingControl(Properties.Settings.Default.channelAsTitle, resources.str_settingsChannelAsTitle, out panel);
-            maxXSize = Math.Max(maxXSize, panel.Width);
-            flPanelMain.Controls.Add(panel);
-            cntlHistoryDepth = CreateSettingControl(Properties.Settings.Default.historyDepth, resources.str_settingsHistoryDepth, out panel, 0, Int32.MaxValue);
+            cntlPriority = CreateSettingControl(channelInfo.priority, resources.str_channelSettingsHeaderPriority, out panel, 0, Byte.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
@@ -103,7 +90,7 @@ namespace BalloonRss
             // dialog settings
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.Text = resources.str_settingsFormTitle;
+            this.Text = resources.str_channelSettingsEditFormTitle;
             this.Icon = BalloonRss.resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
             this.Resize += new System.EventHandler(this.OnResize);
@@ -133,7 +120,7 @@ namespace BalloonRss
 
             // create the settings control
             Control control;
-            if (settingsObject.GetType() == typeof(int))
+            if ( (settingsObject.GetType() == typeof(int)) || (settingsObject.GetType() == typeof(byte)) )
             {
                 control = new NumericTextBox(minValue, maxValue, labelText);
                 control.Width = TextRenderer.MeasureText(maxValue.ToString(), control.Font).Width;
@@ -177,35 +164,12 @@ namespace BalloonRss
             errorMessage = null;
 
             // check data ranges
-            if (!(cntlBalloonTimespan as NumericTextBox).IsValueValid())
+            if (!(cntlPriority as NumericTextBox).IsValueValid())
             {
-                errorMessage = (cntlBalloonTimespan as NumericTextBox).GetErrorMessage();
+                errorMessage = (cntlPriority as NumericTextBox).GetErrorMessage();
                 return false;
             }
-            if (!(cntlDisplayIntervall as NumericTextBox).IsValueValid())
-            {
-                errorMessage = (cntlDisplayIntervall as NumericTextBox).GetErrorMessage();
-                return false;
-            }
-            if (!(cntlHistoryDepth as NumericTextBox).IsValueValid())
-            {
-                errorMessage = (cntlHistoryDepth as NumericTextBox).GetErrorMessage();
-                return false;
-            }
-            if (!(cntlRetrieveIntervall as NumericTextBox).IsValueValid())
-            {
-                errorMessage = (cntlRetrieveIntervall as NumericTextBox).GetErrorMessage();
-                return false;
-            }
-            // no check for cntlConfigFilename, cntlChannelAsTitle
             
-            // interdependencies
-            if ( (cntlRetrieveIntervall as NumericTextBox).IntValue <= (cntlDisplayIntervall as NumericTextBox).IntValue)
-            {
-                errorMessage = resources.str_settingsErrorRetrieveSmallerDisplay;
-                return false;
-            }
-
             return true;
         }
 
@@ -213,12 +177,8 @@ namespace BalloonRss
         private void GetData()
         {
             // get data
-            Properties.Settings.Default.balloonTimespan = (cntlBalloonTimespan as NumericTextBox).IntValue;
-            Properties.Settings.Default.channelAsTitle = (cntlChannelAsTitle as CheckBox).Checked;
-            Properties.Settings.Default.channelConfigFileName = cntlConfigFilename.Text;
-            Properties.Settings.Default.displayIntervall = (cntlDisplayIntervall as NumericTextBox).IntValue;
-            Properties.Settings.Default.historyDepth = (cntlHistoryDepth as NumericTextBox).IntValue;
-            Properties.Settings.Default.retrieveIntervall = (cntlRetrieveIntervall as NumericTextBox).IntValue;
+            channelInfo.link = cntlUrl.Text;
+            channelInfo.priority = (byte)(cntlPriority as NumericTextBox).IntValue;
         }
 
 
@@ -242,11 +202,7 @@ namespace BalloonRss
             }
             else
             {
-                // transfer data from GUI into settings block
                 GetData();
-                // save the settings file
-                Properties.Settings.Default.Save();
-                // close window
                 this.DialogResult = DialogResult.OK;
                 Dispose();
             }

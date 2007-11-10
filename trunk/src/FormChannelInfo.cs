@@ -75,8 +75,8 @@ namespace BalloonRss
             {
                 listItems[i] = new ListViewItem(rssChannel[i].title);
                 listItems[i].SubItems.Add("" + rssChannel[i].Count);
-                listItems[i].SubItems.Add("" + rssChannel[i].messageCount);
-                listItems[i].SubItems.Add("" + rssChannel[i].link);
+                listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
+                listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.link);
             }
 
             // set the table headers

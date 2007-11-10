@@ -27,52 +27,32 @@ namespace BalloonRss
 {
     class RssChannel : List<RssItem>
     {
-        public string title = null;
-        public string link = null;
-        public string description = null;
-        public byte priority = 0;
+        public ChannelInfo channelInfo;
+        public String title;
+        public String description = null;
         public DateTime lastUpdate = DateTime.MinValue;
-        public int messageCount = 0;
+        public int channelMessageCount = 0;
 
-        private const string rssFeedDirName = "\\BalloonRSS\\rssFeeds";
+        private const String rssFeedDirName = "\\BalloonRSS\\rssFeeds";
 
 
-        public RssChannel(XmlNode configFile)
+        public RssChannel(ChannelInfo channelInfo)
         {
-            foreach (XmlNode xmlChild in configFile)
-            {
-                string curTag = xmlChild.Name.Trim().ToLower();
-
-                switch (curTag)
-                {
-                    case "link":
-                        link = xmlChild.InnerText;
-                        break;
-                    case "priority":
-                        priority = Convert.ToByte(xmlChild.InnerText);
-                        break;
-                    default:
-                        // skip this unknown tag
-                        break;
-                }
-            }
-
-            // the link field is mandatory
-            if (link == null)
-                throw new FormatException("Missing link attribute in config file");
+            this.channelInfo = channelInfo;
 
             // as the default title, we take the link
-            title = link;
+            title = channelInfo.link;
         }
 
 
-        public void UpdateChannel(XmlNode xmlNode)
+        public int UpdateChannel(XmlNode xmlNode)
         {
             int messageCount = 0;
+            int newMessages = 0;
 
             foreach (XmlNode xmlChild in xmlNode)
             {
-                string curTag = xmlChild.Name.Trim().ToLower();
+                String curTag = xmlChild.Name.Trim().ToLower();
 
                 switch (curTag)
                 {
@@ -80,7 +60,7 @@ namespace BalloonRss
                     case "rss":
                     case "channel":
                     case "rdf:rdf":
-                        UpdateChannel(xmlChild);
+                        newMessages = UpdateChannel(xmlChild);
                         break;
 
                     // the actual channel information
@@ -116,6 +96,9 @@ namespace BalloonRss
 
                             // update last update timestamp
                             lastUpdate = DateTime.Now;
+
+                            // increment counter of new messages
+                            newMessages++;
                         }
                         messageCount++; // we count also the known messages
 
@@ -130,7 +113,9 @@ namespace BalloonRss
             // we have to check messageCount because this function is also used 
             // for the outer rss/channel/rdf:rdf tag...
             if (messageCount > 0)
-                this.messageCount = messageCount;
+                this.channelMessageCount = messageCount;
+
+            return newMessages;
         }
 
 
@@ -178,7 +163,7 @@ namespace BalloonRss
             // open file and find root node
             try
             {
-                channelFile.Load(GetRssFeedFilename(link));
+                channelFile.Load(GetRssFeedFilename(channelInfo.link));
                 xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
                 if (xmlRoot == null)
                     throw new Exception("Xml Root Element not found.");
@@ -198,31 +183,31 @@ namespace BalloonRss
 
             try
             {
-                channelFile.Save(GetRssFeedFilename(link));
+                channelFile.Save(GetRssFeedFilename(channelInfo.link));
             }
             catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(GetRssFeedFolder());
-                channelFile.Save(GetRssFeedFilename(link));
+                channelFile.Save(GetRssFeedFilename(channelInfo.link));
             }
         }
 
 
-        private string GetRssFeedFolder()
+        private String GetRssFeedFolder()
         {
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + rssFeedDirName;
         }
 
         
-        private string GetRssFeedFilename(string url)
+        private String GetRssFeedFilename(String url)
         {
             return GetRssFeedFolder() + "\\" + MakeSafeFilename(url);
         }
 
 
-        private string MakeSafeFilename(string url)
+        private String MakeSafeFilename(String url)
         {
-            string safe = url.ToLower();
+            String safe = url.ToLower();
 
             foreach (char lDisallowed in System.IO.Path.GetInvalidFileNameChars())
             {
@@ -259,7 +244,7 @@ namespace BalloonRss
             // open file
             try
             {
-                channelFile.Load(GetRssFeedFilename(link));
+                channelFile.Load(GetRssFeedFilename(channelInfo.link));
             }
             catch (Exception)
             {

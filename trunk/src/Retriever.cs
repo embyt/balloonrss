@@ -18,7 +18,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.Threading;
 using System.Net;
@@ -28,104 +27,127 @@ using System.IO;
 
 namespace BalloonRss
 {
-    class Retriever : BackgroundWorker
+    // the retriever class is a collection of all RSS channels
+    class Retriever : System.Collections.Generic.Dictionary<String, RssChannel>
     {
-        // this holds all the RSS items
-        private RssList rssList;
+        // the background worker to retrieve the channels
+        public BackgroundWorker backgroundWorker;
 
         // the history of shown rss entries
         public Queue<RssItem> rssHistory;
 
+        // total priority used for channel selection
+        private int totalPriority;
+
+        // total number of rss messages left
+        private int rssCount;
+
 
         public Retriever()
-            : base()
         {
             // setup background worker
-            WorkerSupportsCancellation = true;
-            WorkerReportsProgress = true;
-            DoWork += new System.ComponentModel.DoWorkEventHandler(this.RetrieveChannels);
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.WorkerSupportsCancellation = true;
+            backgroundWorker.WorkerReportsProgress = true;
+            backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RetrieveChannels);
 
             // initialize history queue
             rssHistory = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
         }
 
 
-        public string[] Initialize(string configFileName)
+        public void InitializeChannels(String configFileName)
         {
-            bool gotChannelTag = false;
+            // do some cleanup since this is executed also in case of a config file change
+            this.Clear();
+            totalPriority = 0;
+            rssCount = 0;
 
-            // setup new rss list
-            rssList = new RssList();
+            // read channel configuration file
+            // this may raise an exception in case of a fatal error dealing with the config file
+            ChannelList channelList = new ChannelList(configFileName);
 
-            // open xml configuration file
-            XmlDocument configFile = new XmlDocument();
-
-            try
+            // add the channels found
+            foreach (ChannelInfo channelInfo in channelList)
             {
-                configFile.Load(configFileName);
-
-                // parse configuration file
-                foreach (XmlNode rootNode in configFile)
-                {
-                    // search for "channels" tag
-                    if (rootNode.Name.Trim().ToLower() == "channels")
-                    {
-                        gotChannelTag = true;
-                        rssList.ReadConfigFile(rootNode);
-                    }
-                }
+                this.Add(channelInfo.link, new RssChannel(channelInfo));
             }
-            catch (Exception e)
-            {
-                return new String[] { resources.str_balloonErrorConfigFile, e.Message };
-            }
-
-            if (!gotChannelTag)
-            {
-                return new String[] { resources.str_balloonErrorConfigFile, resources.str_balloonErrorConfigChannelTag };
-            }
-
-            return null;
         }
 
 
         public RssChannel[] GetChannels()
         {
-            RssChannel[] channels = new RssChannel[rssList.Count];
-            rssList.Values.CopyTo(channels, 0);
+            RssChannel[] channels = new RssChannel[this.Count];
+            this.Values.CopyTo(channels, 0);
             return channels;
         }
 
 
         public int GetQueueSize()
         {
-            return rssList.RssCount;
+            return rssCount;
         }
 
 
         public RssItem GetNextItem()
         {
-            RssItem rssItem = rssList.GetNextItem();
+            // first, choose the channel for this news entry
 
-            // store the item in the history queue
-            if (rssItem != null)
+            // for this I use a random number in the range of the total priority
+            int randomNumber = new Random().Next(totalPriority);
+
+            // now walk through the channel list until we found the number
+            int actualNumber = 0;
+            RssChannel rssChannel = null;
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
             {
-                // check whether the queue is full
-                if (rssHistory.Count == Properties.Settings.Default.historyDepth)
-                    rssHistory.Dequeue();  // remove last item from history
-                rssHistory.Enqueue(rssItem);
+                RssChannel curChannel = keyValuePair.Value;
+                if (curChannel.IsItemAvailable())
+                {
+                    actualNumber += curChannel.channelInfo.priority;
+                }
+
+                // are we done?
+                if (actualNumber > randomNumber)
+                {
+                    rssChannel = curChannel;
+                    break;
+                }
             }
+
+            // all channels are empty
+            if (rssChannel == null)
+                return null;
+
+
+            // now, as we have the channel, let the channel select the best news item
+            RssItem rssItem = rssChannel.GetNextItem();
+            rssCount--;
+
+            // update total priority if channel is empty now
+            if (rssChannel.IsItemAvailable() == false)
+            {
+                totalPriority -= rssChannel.channelInfo.priority;
+            }
+
+
+            // check whether the queue is full
+            if (rssHistory.Count == Properties.Settings.Default.historyDepth)
+                rssHistory.Dequeue();  // remove last item from history
+            // add item to history queue
+            rssHistory.Enqueue(rssItem);
 
             return rssItem;
         }
 
 
+        // this is called from the background worker
         private void RetrieveChannels(object sender, DoWorkEventArgs e)
         {
             // get the news from all channels
-            foreach (KeyValuePair<string,RssChannel> keyValuePair in rssList)
+            foreach (KeyValuePair<String,RssChannel> keyValuePair in this)
             {
-                if (CancellationPending)
+                if (backgroundWorker.CancellationPending)
                     break;
 
                 RetrieveChannel(keyValuePair.Key);
@@ -133,6 +155,7 @@ namespace BalloonRss
         }
 
 
+        // this is called from the background worker
         private bool RetrieveChannel(String url)
         {
             WebResponse httpResp;
@@ -145,7 +168,9 @@ namespace BalloonRss
             }
             catch (Exception e)
             {
-                ReportProgress(0, new String[] { resources.str_balloonErrorRetrieving + url, e.Message });
+                // the report progress function is used for error signaling
+                backgroundWorker.ReportProgress(0, 
+                    new String[] { resources.str_balloonErrorRetrieving + url, e.Message });
                 return false;
             }
 
@@ -154,16 +179,45 @@ namespace BalloonRss
             {
                 XmlDocument rssDocument = new System.Xml.XmlDocument();
                 rssDocument.Load(httpResp.GetResponseStream());
-                rssList.UpdateChannel(url, rssDocument);
+                UpdateChannel(url, rssDocument);
                 httpResp.Close();
             }
             catch (Exception e)
             {
-                ReportProgress(0, new String[] { resources.str_balloonErrorParseRss + url, e.Message });
+                backgroundWorker.ReportProgress(0, 
+                    new String[] { resources.str_balloonErrorParseRss + url, e.Message });
                 return false;
             }
 
             return true;
+        }
+
+
+        // this is called from the background worker
+        public void UpdateChannel(String url, XmlNode xmlNode)
+        {
+            RssChannel rssChannel;
+
+            // search for the channel
+            if (this.TryGetValue(url, out rssChannel) == true)
+            {
+                int oldItemCount = rssChannel.Count;
+
+                // update the channel with the new rss data
+                int newMessages = rssChannel.UpdateChannel(xmlNode);
+
+                // update score and count
+                rssCount += newMessages;
+                if ((oldItemCount == 0) && (rssChannel.Count > 0))
+                {
+                    totalPriority += rssChannel.channelInfo.priority;
+                }
+            }
+            else
+            {
+                // this must not happen
+                throw new Exception("Could not find channel for " + url);
+            }
         }
     }
 }

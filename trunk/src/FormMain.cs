@@ -42,6 +42,9 @@ namespace BalloonRss
         private Timer dispTimer;
         private Timer retrieveTimer;
 
+        // the application may be paused
+        private bool isPaused = false;
+
         // some dll calls needed to hide the icon in the ALT+TAB bar
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr window, int index, int value);
@@ -83,11 +86,39 @@ namespace BalloonRss
             
             // setup and start the background worker
             retriever = new Retriever();
-            retriever.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RetrieveCompleted);
-            retriever.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.RetrieverProgressChanged);
+            retriever.backgroundWorker.RunWorkerCompleted += 
+                new System.ComponentModel.RunWorkerCompletedEventHandler(this.RetrieveCompleted);
+            retriever.backgroundWorker.ProgressChanged += 
+                new System.ComponentModel.ProgressChangedEventHandler(this.RetrieverProgressError);
 
             // start the action...
             StartRetriever();
+        }
+
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+
+            this.Icon = BalloonRss.resources.ico_yellow32;
+            this.ClientSize = new System.Drawing.Size(0, 0);
+            this.Text = "BalloonRss";
+            this.ShowInTaskbar = false;
+            this.Visible = false;
+            this.WindowState = FormWindowState.Minimized;
+            // remove appliation from the ALT+TAB menu
+            SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
+
+            // Create the NotifyIcon.
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon();
+            notifyIcon.ContextMenu = CreateContextMenu();
+            notifyIcon.Icon = BalloonRss.resources.ico_blue16;
+            notifyIcon.Text = resources.str_iconInfoInit;
+            notifyIcon.Visible = true;
+            notifyIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
+            notifyIcon.MouseClick += new MouseEventHandler(OnIconClicked);
+
+            this.ResumeLayout(false);
         }
 
 
@@ -105,6 +136,12 @@ namespace BalloonRss
             mi_settings.Text = resources.str_contextMenuSettings;
             mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
             mi_settings.Enabled = true;
+
+            // menuItem Channel Settings
+            MenuItem mi_channelSettings = new System.Windows.Forms.MenuItem();
+            mi_channelSettings.Text = resources.str_contextMenuChannelSettings;
+            mi_channelSettings.Click += new System.EventHandler(this.MiChannelSettingsClick);
+            mi_channelSettings.Enabled = true;
 
             // menuItem Channel Info
             MenuItem mi_channelInfo = new System.Windows.Forms.MenuItem();
@@ -134,6 +171,7 @@ namespace BalloonRss
             contextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
             { 
                 mi_settings,
+                mi_channelSettings,
                 mi_channelInfo,
                 new System.Windows.Forms.MenuItem("-"),
                 mi_history,
@@ -147,49 +185,6 @@ namespace BalloonRss
         }
 
 
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-
-            this.Icon = BalloonRss.resources.ico_yellow32;
-            this.ClientSize = new System.Drawing.Size(0, 0);
-            this.Text = "BalloonRss";
-            this.ShowInTaskbar = false;
-            this.Visible = false;
-            this.WindowState = FormWindowState.Minimized;
-            // remove appliation from the ALT+TAB menu
-            SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
-
-            // Create the NotifyIcon.
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon();
-            notifyIcon.ContextMenu = CreateContextMenu();
-            notifyIcon.Icon = BalloonRss.resources.ico_blue16;
-            notifyIcon.Text = resources.str_iconInfoInit;
-            notifyIcon.Visible = true;
-            notifyIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
-            // notifyIcon.MouseClick += new MouseEventHandler(notifyIcon_BalloonTipClicked);
-
-            this.ResumeLayout(false);
-        }
-
-        private void StartRetriever()
-        {
-            // read channel settings
-            string[] result = retriever.Initialize(Properties.Settings.Default.channelConfigFileName);
-            if (result == null)
-            {
-                // init successful, load initial channels
-                retriever.RunWorkerAsync();
-            }
-            else
-            {
-                // display error message
-                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, result[0], result[1], ToolTipIcon.Error);
-                // wait until the user changes the settings
-            }
-        }
- 
-
         private void MiSettingsClick(object sender, EventArgs e)
         {
             // disable timers
@@ -197,11 +192,37 @@ namespace BalloonRss
             dispTimer.Stop();
 
             // cancel potential background worker operation
-            retriever.CancelAsync();
+            retriever.backgroundWorker.CancelAsync();
 
             // show the settings form
             FormSettings formSettings = new FormSettings();
             DialogResult result = formSettings.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                // restore icon properties
+                notifyIcon.Icon = BalloonRss.resources.ico_blue16;
+                notifyIcon.Text = resources.str_iconInfoInit;
+                mi_nextMessage.Enabled = false;
+            }
+
+            // setup new rss list
+            StartRetriever();
+        }
+
+        private void MiChannelSettingsClick(object sender, EventArgs e)
+        {
+            // disable timers
+            retrieveTimer.Stop();
+            dispTimer.Stop();
+
+            // cancel potential background worker operation
+            retriever.backgroundWorker.CancelAsync();
+
+            // show the settings form
+            FormChannelSettings formChannelSettings = 
+                new FormChannelSettings();
+            DialogResult result = formChannelSettings.ShowDialog();
 
             if (result == DialogResult.OK)
             {
@@ -245,7 +266,35 @@ namespace BalloonRss
             // raise the display timer event
             OnDispTimerTick(this, EventArgs.Empty);
         }
-        
+
+
+        private void OnIconClicked(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == MouseButtons.Left) && (e.Clicks == 0))
+            {
+                // toggle pause mode
+                isPaused = !isPaused;
+
+                if (isPaused)
+                {
+                    // enter pause mode
+                    // disable timers
+                    retrieveTimer.Stop();
+                    dispTimer.Stop();
+                }
+                else
+                {
+                    // re-enable the application
+                    // re-enable timers
+                    retrieveTimer.Start();
+                    dispTimer.Start();
+                }
+
+                // update icon and text
+                UpdateIcon();
+            }
+        }
+
 
         private void OnBalloonTipClicked(object sender, EventArgs e)
         {
@@ -262,6 +311,31 @@ namespace BalloonRss
         }
 
 
+        private void StartRetriever()
+        {
+            // read channel settings
+            try
+            {
+                // this may raise an exception in case of a fatal error dealing with the config file
+                retriever.InitializeChannels(Properties.Settings.Default.channelConfigFileName);
+
+                // init successful, load initial channels
+                retriever.backgroundWorker.RunWorkerAsync();
+            }
+            catch (Exception e)
+            {
+                // display error message
+                notifyIcon.ShowBalloonTip(
+                    Properties.Settings.Default.balloonTimespan * 1000,
+                    resources.str_balloonErrorConfigFile,
+                    e.Message,
+                    ToolTipIcon.Error);
+
+                // wait until the user changes the settings
+            }
+        }
+
+
         private void RetrieveCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // update icon
@@ -270,7 +344,7 @@ namespace BalloonRss
                 // start the display timer (it may be already running)
                 dispTimer.Start();
                 mi_nextMessage.Enabled = true;
-                UpdateCount(retriever.GetQueueSize());
+                UpdateIcon();
             }
 
             // start the retriever timer
@@ -281,14 +355,14 @@ namespace BalloonRss
         private void OnDispTimerTick(object source, EventArgs e)
         {
             // to avoid parallel access, we skip the RSS display access as the retriever is working
-            if (retriever.IsBusy)
+            if (retriever.backgroundWorker.IsBusy)
                 return;     // wait for next timer tick...
 
             // display next item
             RssItem rssItem = retriever.GetNextItem();
 
             // update text
-            UpdateCount(retriever.GetQueueSize());
+            UpdateIcon();
 
             if (rssItem != null)
             {
@@ -320,26 +394,37 @@ namespace BalloonRss
             retrieveTimer.Stop();
 
             // start background worker thread to retrieve channels
-            retriever.RunWorkerAsync();
+            retriever.backgroundWorker.RunWorkerAsync();
         }
         
 
-        private void UpdateCount(int rssCount)
+        private void UpdateIcon()
         {
-            // update icon
-            if (rssCount > 0)
-                notifyIcon.Icon = resources.ico_yellow16;
-            else
-                notifyIcon.Icon = resources.ico_orange16;
+            if (!isPaused)
+            {
+                int rssCount = retriever.GetQueueSize();
 
-            // update info text
-            notifyIcon.Text = rssCount + resources.str_iconInfoNewsCount;
+                // update icon
+                if (rssCount > 0)
+                    notifyIcon.Icon = resources.ico_yellow16;
+                else
+                    notifyIcon.Icon = resources.ico_orange16;
+
+                // update info text
+                notifyIcon.Text = rssCount + resources.str_iconInfoNewsCount;
+            }
+            else
+            {
+                // update icon and text
+                notifyIcon.Icon = resources.ico_blue16;
+                notifyIcon.Text = resources.str_iconInfoPause;
+            }
         }
 
 
-        private void RetrieverProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void RetrieverProgressError(object sender, ProgressChangedEventArgs e)
         {
-            string[] message = e.UserState as string[];
+            String[] message = e.UserState as String[];
             notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
         }
     }

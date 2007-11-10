@@ -30,9 +30,9 @@ namespace BalloonRss
 
         private int minValue;
         private int maxValue;
-        private string description;
+        private String description;
 
-        public NumericTextBox(int minValue, int maxValue, string description)
+        public NumericTextBox(int minValue, int maxValue, String description)
         {
             this.minValue = minValue;
             this.maxValue = maxValue;
@@ -47,11 +47,11 @@ namespace BalloonRss
             base.OnKeyPress(e);
 
             NumberFormatInfo numberFormatInfo = System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
-            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
-            string groupSeparator = numberFormatInfo.NumberGroupSeparator;
-            string negativeSign = numberFormatInfo.NegativeSign;
+            String decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            String groupSeparator = numberFormatInfo.NumberGroupSeparator;
+            String negativeSign = numberFormatInfo.NegativeSign;
 
-            string keyInput = e.KeyChar.ToString();
+            String keyInput = e.KeyChar.ToString();
 
             if (Char.IsDigit(e.KeyChar))
             {
@@ -109,7 +109,7 @@ namespace BalloonRss
                 return false;
         }
 
-        public string GetErrorMessage()
+        public String GetErrorMessage()
         {
             if (IntValue < minValue)
                 return description + ": " + resources.str_settingsErrorValueToSmall + minValue + ".";
