@@ -5,6 +5,7 @@
                          romor@users.sourceforge.net
                       http://balloonrss.sourceforge.net
 
+
 Overview
 --------
 
@@ -17,6 +18,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 3 of the license, or
 (at your option) any later version.
 
+
 Features
 --------
 
@@ -25,21 +27,25 @@ Features
 - Displays the messages in a balloon tooltip pop-up in the task bar
 - The messages are linked and are opened within the browser if you click them
 - The message frequency and viewing period is configurable
+- Configuration via GUI
+- Message history
+...
+
 
 Planned additional features
 ---------------------------
 
-- Configuration via GUI instead of the .xml files
 - Adaptation of channel priority according the user's click rate
 - Synchronisation of "read news file" such that the RSS entries are displayed 
   just once even when working on different computers
 - ...
 
+
 Supported systems
 -----------------
 
 BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
-2.0 is available, which are all present systems such as:
+2.0 is available, which includes:
 - Windows 98
 - Windows 2000 Service Pack 3
 - Windows ME
@@ -49,6 +55,7 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 
 It is tested only on WinXP yet.
 
+
 Installation
 ------------
 
@@ -57,9 +64,8 @@ Using the installer:
   the Microsoft .NET Framework Version 2.0 Redistributable Package from
   Microsoft and install it.
 - start the BalloonRSS_xxx_setup.exe and follow the steps on the screen
-- Adapt the configuration file ("channelConfig.xml" in the installation 
-  directory) with the RSS feeds of your choice.
 - Start the application.
+- Adapt the channel configuration with the RSS feeds of your choice.
 
 Alternative manual installation:
 - Make sure that you have the .NET framework 2.0 installed; otherwise download
@@ -67,9 +73,22 @@ Alternative manual installation:
   Microsoft and install it.
 - Copy the executable "balloonrss.exe" together with the channel configuration 
   "channelConfig.xml" in any directory of your choice.
-- Adapt the configuration file with the RSS feeds of your choice.
 - Start the application.
+- Adapt the channel configuration with the RSS feeds of your choice.
 - You might want to link it in the autostart folder.
 
 The base recurrence is set to 90 seconds per default, so you have to wait a bit 
 until your first messages will appear.
+
+
+Usage
+-----
+
+As you start the application you get a notify icon in the windows task bar (at 
+the right botton, near the clock). All commands are accessed by the context
+menu (right click on the icon). A single left click enters pause mode.
+
+Color codes of the icon:
+- blue: application paused
+- yellow: messages pending
+- orange: no messages pending

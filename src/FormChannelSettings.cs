@@ -126,9 +126,11 @@ namespace BalloonRss
 
         private void FillChannelList()
         {
-            ListViewItem[] listItems = new ListViewItem[channelList.Count];
+            // clear any old data
+            listView.Clear();
 
             // create the list items
+            ListViewItem[] listItems = new ListViewItem[channelList.Count];
             for (int i = 0; i < listItems.Length; i++)
             {
                 listItems[i] = new ListViewItem(i.ToString());
@@ -141,6 +143,8 @@ namespace BalloonRss
             listView.Columns[0].Width = 0;  // hide the ID column
             listView.Columns.Add(resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
+
+            // fill the list
             listView.Items.AddRange(listItems);
         }
 
@@ -193,7 +197,7 @@ namespace BalloonRss
         {
             bool deleteConfirmed = false;
 
-            // loop over all selected entries
+            // just delete the first selected entry
             foreach (ListViewItem curItem in listView.SelectedItems)
             {
                 int selectedChannel = Int32.Parse(curItem.Text);
@@ -217,8 +221,12 @@ namespace BalloonRss
                 {
                     // OK, we really want to delete it
                     channelList.RemoveAt(selectedChannel);
-                    listView.Items.RemoveAt(selectedChannel);
+                    // rebuild list view
+                    FillChannelList();
                 }
+
+                // skip other selected entries
+                break;  // otherwise you need to take care on (*) index changes (*) confirm dialog text
             }
         }
 

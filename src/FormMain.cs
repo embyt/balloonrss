@@ -89,6 +89,9 @@ namespace BalloonRss
             retriever.backgroundWorker.ProgressChanged += 
                 new System.ComponentModel.ProgressChangedEventHandler(this.RetrieverProgressError);
 
+            // set initial icon
+            UpdateIcon();
+
             // start the action...
             StartRetriever();
         }
@@ -110,8 +113,6 @@ namespace BalloonRss
             // Create the NotifyIcon.
             this.notifyIcon = new System.Windows.Forms.NotifyIcon();
             notifyIcon.ContextMenu = CreateContextMenu();
-            notifyIcon.Icon = BalloonRss.resources.ico_blue16;
-            notifyIcon.Text = resources.str_iconInfoInit;
             notifyIcon.Visible = true;
             notifyIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
             notifyIcon.MouseClick += new MouseEventHandler(OnIconClicked);
@@ -199,8 +200,7 @@ namespace BalloonRss
             if (result == DialogResult.OK)
             {
                 // restore icon properties
-                notifyIcon.Icon = BalloonRss.resources.ico_blue16;
-                notifyIcon.Text = resources.str_iconInfoInit;
+                UpdateIcon();
                 mi_nextMessage.Enabled = false;
             }
 
@@ -225,8 +225,7 @@ namespace BalloonRss
             if (result == DialogResult.OK)
             {
                 // restore icon properties
-                notifyIcon.Icon = BalloonRss.resources.ico_blue16;
-                notifyIcon.Text = resources.str_iconInfoInit;
+                UpdateIcon();
             }
 
             // setup new rss list
@@ -346,8 +345,8 @@ namespace BalloonRss
                 // start the display timer (it may be already running)
                 dispTimer.Start();
                 mi_nextMessage.Enabled = true;
-                UpdateIcon();
             }
+            UpdateIcon();
 
             // start the retriever timer
             retrieveTimer.Start();

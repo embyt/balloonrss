@@ -232,9 +232,6 @@
   <data name="str_historyHeaderTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="str_iconInfoInit" xml:space="preserve">
-    <value>BalloonRSS initialized.</value>
-  </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
     <value> RSS messages pending.</value>
   </data>
