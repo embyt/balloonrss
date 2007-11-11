@@ -133,7 +133,7 @@ namespace BalloonRss
                 control.Width = Math.Max(
                     TextRenderer.MeasureText(control.Text, control.Font).Width,
                     TextRenderer.MeasureText(textFieldSize, control.Font).Width);
-                (control as TextBox).TextAlign = HorizontalAlignment.Right;
+                (control as TextBox).TextAlign = HorizontalAlignment.Left;
             }
             else if (settingsObject.GetType() == typeof(bool))
             {

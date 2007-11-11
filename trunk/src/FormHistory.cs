@@ -25,8 +25,8 @@ namespace BalloonRss
 {
     class FormHistory : Form
     {
-        private int panelWidth = 380;
-        private int panelHeight = 230;
+        private int panelWidth = 400;
+        private int panelHeight = 200;
 
         private RssItem[] rssHistory;
         private ListView listView;

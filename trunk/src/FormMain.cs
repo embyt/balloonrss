@@ -74,13 +74,11 @@ namespace BalloonRss
 
             // setup display Timer
             dispTimer = new Timer();
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall*1000; // intervall in seconds
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
 
             // setup retrieve Timer
             retrieveTimer = new Timer();
-            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall*1000; // intervall in seconds
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
             
@@ -313,6 +311,10 @@ namespace BalloonRss
 
         private void StartRetriever()
         {
+            // setup the timer intervalls (this is called also after settings change...)
+            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+
             // read channel settings
             try
             {
