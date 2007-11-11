@@ -395,15 +395,6 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BalloonRSS initialized..
-        /// </summary>
-        internal static string str_iconInfoInit {
-            get {
-                return ResourceManager.GetString("str_iconInfoInit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  RSS messages pending..
         /// </summary>
         internal static string str_iconInfoNewsCount {
