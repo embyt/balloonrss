@@ -161,7 +161,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mes. Left.
+        ///   Looks up a localized string similar to Queue.
         /// </summary>
         internal static string str_channelHeaderCount {
             get {
@@ -179,6 +179,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last Update.
+        /// </summary>
+        internal static string str_channelHeaderLastUpdate {
+            get {
+                return ResourceManager.GetString("str_channelHeaderLastUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string str_channelHeaderTitle {
@@ -188,7 +197,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mes. Total.
+        ///   Looks up a localized string similar to Total.
         /// </summary>
         internal static string str_channelHeaderTotal {
             get {
@@ -314,6 +323,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Retrieve RSS Channels.
+        /// </summary>
+        internal static string str_contextMenuGetChannels {
+            get {
+                return ResourceManager.GetString("str_contextMenuGetChannels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message &amp;History.
         /// </summary>
         internal static string str_contextMenuHistory {
@@ -400,6 +418,15 @@ namespace BalloonRss {
         internal static string str_iconInfoNewsCount {
             get {
                 return ResourceManager.GetString("str_iconInfoNewsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 RSS message pending..
+        /// </summary>
+        internal static string str_iconInfoNewsCount1 {
+            get {
+                return ResourceManager.GetString("str_iconInfoNewsCount1", resourceCulture);
             }
         }
         
