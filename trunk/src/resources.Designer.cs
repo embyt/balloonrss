@@ -116,6 +116,24 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot start BalloonRSS because the program is already running..
+        /// </summary>
+        internal static string str_balloonErrorDuplicateInstanceBody {
+            get {
+                return ResourceManager.GetString("str_balloonErrorDuplicateInstanceBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting BalloonRSS.
+        /// </summary>
+        internal static string str_balloonErrorDuplicateInstanceHeader {
+            get {
+                return ResourceManager.GetString("str_balloonErrorDuplicateInstanceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error parsing the RSS feed from .
         /// </summary>
         internal static string str_balloonErrorParseRss {

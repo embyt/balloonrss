@@ -139,6 +139,12 @@
   <data name="str_balloonErrorConfigFile" xml:space="preserve">
     <value>Error parsing the channel config file</value>
   </data>
+  <data name="str_balloonErrorDuplicateInstanceBody" xml:space="preserve">
+    <value>Cannot start BalloonRSS because the program is already running.</value>
+  </data>
+  <data name="str_balloonErrorDuplicateInstanceHeader" xml:space="preserve">
+    <value>Starting BalloonRSS</value>
+  </data>
   <data name="str_balloonErrorParseRss" xml:space="preserve">
     <value>Error parsing the RSS feed from </value>
   </data>

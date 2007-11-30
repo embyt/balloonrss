@@ -60,10 +60,26 @@ namespace BalloonRss
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            FormMain rssForm = new FormMain();
-            Application.Run(rssForm);
+            using (System.Threading.Mutex singleInstanceMutex =
+                new System.Threading.Mutex(false, "BalloonRSS_single_instance_mutex"))
+            {
+                // check whether the application is already running
+                if (!singleInstanceMutex.WaitOne(0, false))
+                {
+                    MessageBox.Show(resources.str_balloonErrorDuplicateInstanceBody, 
+                        resources.str_balloonErrorDuplicateInstanceHeader, 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error);
+                    return;
+                }
+
+                // start application
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                FormMain rssForm = new FormMain();
+                Application.Run(rssForm);
+            }
+
         }
 
 
