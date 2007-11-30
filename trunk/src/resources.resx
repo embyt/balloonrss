@@ -155,16 +155,19 @@
     <value>RSS Channel Information</value>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value>Mes. Left</value>
+    <value>Queue</value>
   </data>
   <data name="str_channelHeaderId" xml:space="preserve">
     <value>Id</value>
+  </data>
+  <data name="str_channelHeaderLastUpdate" xml:space="preserve">
+    <value>Last Update</value>
   </data>
   <data name="str_channelHeaderTitle" xml:space="preserve">
     <value>Title</value>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>Mes. Total</value>
+    <value>Total</value>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
     <value>Do you really want to delete the RSS channel </value>
@@ -205,6 +208,9 @@
   <data name="str_contextMenuExit" xml:space="preserve">
     <value>E&amp;xit</value>
   </data>
+  <data name="str_contextMenuGetChannels" xml:space="preserve">
+    <value>&amp;Retrieve RSS Channels</value>
+  </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
     <value>Message &amp;History</value>
   </data>
@@ -234,6 +240,9 @@
   </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
     <value> RSS messages pending.</value>
+  </data>
+  <data name="str_iconInfoNewsCount1" xml:space="preserve">
+    <value>1 RSS message pending.</value>
   </data>
   <data name="str_iconInfoPause" xml:space="preserve">
     <value>BalloonRSS paused.</value>

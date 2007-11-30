@@ -94,9 +94,6 @@ namespace BalloonRss
                             // add it
                             this.Add(rssItem);
 
-                            // update last update timestamp
-                            lastUpdate = DateTime.Now;
-
                             // increment counter of new messages
                             newMessages++;
                         }
@@ -113,7 +110,12 @@ namespace BalloonRss
             // we have to check messageCount because this function is also used 
             // for the outer rss/channel/rdf:rdf tag...
             if (messageCount > 0)
+            {
                 this.channelMessageCount = messageCount;
+
+                // update last update timestamp
+                lastUpdate = DateTime.Now;
+            }
 
             return newMessages;
         }

@@ -148,6 +148,12 @@ namespace BalloonRss
             mi_channelInfo.Click += new System.EventHandler(this.MiChannelInfoClick);
             mi_channelInfo.Enabled = true;
 
+            // menuItem Get Channels
+            MenuItem mi_getChannels = new System.Windows.Forms.MenuItem();
+            mi_getChannels.Text = resources.str_contextMenuGetChannels;
+            mi_getChannels.Click += new System.EventHandler(this.MiGetChannelsClick);
+            mi_getChannels.Enabled = true;
+
             // menuItem History
             mi_history = new System.Windows.Forms.MenuItem();
             mi_history.Text = resources.str_contextMenuHistory;
@@ -171,7 +177,9 @@ namespace BalloonRss
             { 
                 mi_settings,
                 mi_channelSettings,
+                new System.Windows.Forms.MenuItem("-"),
                 mi_channelInfo,
+                mi_getChannels,
                 new System.Windows.Forms.MenuItem("-"),
                 mi_history,
                 mi_lastMessage,
@@ -240,6 +248,21 @@ namespace BalloonRss
             formChannelInfo.ShowDialog();
 
             dispTimer.Start();
+        }
+
+        private void MiGetChannelsClick(object sender, EventArgs e)
+        {
+            // disable timers
+            retrieveTimer.Stop();
+            if (retriever.backgroundWorker.IsBusy)
+            {
+                // abort, we are already about retrieving
+                // also no need to restart timer, this will be done as it is finished
+                return;
+            }
+
+            // start background worker thread to retrieve channels
+            retriever.backgroundWorker.RunWorkerAsync();
         }
 
         private void MiExitClick(object sender, EventArgs e)
@@ -412,7 +435,10 @@ namespace BalloonRss
                     notifyIcon.Icon = resources.ico_orange16;
 
                 // update info text
-                notifyIcon.Text = rssCount + resources.str_iconInfoNewsCount;
+                if (rssCount != 1)
+                    notifyIcon.Text = rssCount + resources.str_iconInfoNewsCount;
+                else
+                    notifyIcon.Text = resources.str_iconInfoNewsCount1;
             }
             else
             {

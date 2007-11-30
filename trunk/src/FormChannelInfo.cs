@@ -76,6 +76,7 @@ namespace BalloonRss
                 listItems[i] = new ListViewItem(rssChannel[i].title);
                 listItems[i].SubItems.Add("" + rssChannel[i].Count);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
+                listItems[i].SubItems.Add("" + rssChannel[i].lastUpdate);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.link);
             }
 
@@ -83,6 +84,7 @@ namespace BalloonRss
             listView.Columns.Add(resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
 
@@ -92,7 +94,7 @@ namespace BalloonRss
             foreach (ListViewItem item in listView.SelectedItems)
             {
                 // start the link of the channel
-                System.Diagnostics.Process.Start(item.SubItems[3].Text);
+                System.Diagnostics.Process.Start(item.SubItems[4].Text);
             }
 
             // close window
