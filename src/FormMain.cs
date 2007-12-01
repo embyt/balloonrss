@@ -60,8 +60,12 @@ namespace BalloonRss
         [STAThread]
         static void Main()
         {
+            // make mutex name which is bound to application and user
+            // could also use Environment.UserName instead
+            String mutexId = "BalloonRSS_" + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).GetHashCode().ToString("x4");
+
             using (System.Threading.Mutex singleInstanceMutex =
-                new System.Threading.Mutex(false, "BalloonRSS_single_instance_mutex"))
+                new System.Threading.Mutex(false, mutexId))
             {
                 // check whether the application is already running
                 if (!singleInstanceMutex.WaitOne(0, false))
