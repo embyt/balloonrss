@@ -42,8 +42,9 @@ namespace BalloonRss
         private Timer dispTimer;
         private Timer retrieveTimer;
 
-        // the application may be paused
+        // application state variables
         private bool isPaused = false;
+        private bool isRssViewed = false;
 
         // some dll calls needed to hide the icon in the ALT+TAB bar
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -96,12 +97,14 @@ namespace BalloonRss
             dispTimer = new Timer();
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
+            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
 
             // setup retrieve Timer
             retrieveTimer = new Timer();
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
-            
+            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+
             // setup and start the background worker
             retriever = new Retriever();
             retriever.backgroundWorker.RunWorkerCompleted += 
@@ -112,8 +115,43 @@ namespace BalloonRss
             // set initial icon
             UpdateIcon();
 
-            // start the action...
-            StartRetriever();
+            // read channel settings
+            try
+            {
+                // this may raise an exception in case of a fatal error dealing with the config file
+                retriever.InitializeChannels();
+            }
+            catch (Exception)
+            {
+                // at the first exception, the channel config file was created, the second try should work
+                try
+                {
+                    retriever.InitializeChannels();
+                }
+                catch (Exception e)
+                {
+                    // if also this try failed, we probably could not find the defaultChannels.xml file
+                    // display error message
+                    notifyIcon.ShowBalloonTip(
+                        Properties.Settings.Default.balloonTimespan * 1000,
+                        resources.str_balloonErrorChannelsHeader,
+                        resources.str_balloonErrorChannelsBody,
+                        ToolTipIcon.Error);
+
+                    // we have to return here to skip welcome message and to not start retrieving
+                    return;
+                }
+
+                // display welcome message
+                notifyIcon.ShowBalloonTip(
+                    Properties.Settings.Default.balloonTimespan * 1000,
+                    resources.str_balloonWelcomeHeader,
+                    resources.str_balloonWelcomeBody,
+                    ToolTipIcon.Info);
+            }
+
+            // load initial channels
+            retriever.backgroundWorker.RunWorkerAsync();
         }
 
 
@@ -195,8 +233,8 @@ namespace BalloonRss
             // Initialize contextMenu
             contextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
             { 
-                mi_settings,
                 mi_channelSettings,
+                mi_settings,
                 new System.Windows.Forms.MenuItem("-"),
                 mi_channelInfo,
                 mi_getChannels,
@@ -232,8 +270,12 @@ namespace BalloonRss
                 mi_nextMessage.Enabled = false;
             }
 
-            // setup new rss list
-            StartRetriever();
+            // update timer values
+            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+
+            // restart timer
+            retrieveTimer.Start();
         }
 
         private void MiChannelSettingsClick(object sender, EventArgs e)
@@ -254,10 +296,14 @@ namespace BalloonRss
             {
                 // restore icon properties
                 UpdateIcon();
+
+                // setup new rss list
+                // since we modified the channel settings file, there must not be an exception
+                retriever.InitializeChannels();
             }
 
-            // setup new rss list
-            StartRetriever();
+            // start background worker thread to retrieve channels
+            retriever.backgroundWorker.RunWorkerAsync();
         }
 
         private void MiChannelInfoClick(object sender, EventArgs e)
@@ -338,45 +384,23 @@ namespace BalloonRss
 
         private void OnBalloonTipClicked(object sender, EventArgs e)
         {
-            // display full rss entry
-            if (retriever.rssHistory.Count > 0)
+            // open rss item in browser
+            if (isRssViewed)
             {
-                // get most recent item of queue
-                RssItem rssItem = retriever.rssHistory.ToArray()[retriever.rssHistory.Count - 1];
-                // start browser
-                System.Diagnostics.Process.Start(rssItem.link);
+                if (retriever.rssHistory.Count > 0)
+                {
+                    // get most recent item of queue
+                    RssItem rssItem = retriever.rssHistory.ToArray()[retriever.rssHistory.Count - 1];
+                    // start browser
+                    System.Diagnostics.Process.Start(rssItem.link);
+                }
+                else
+                {
+                    isRssViewed = false;
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, resources.str_balloonWarningNoEntryHeader, resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
+                }
             }
-            else
-                notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, resources.str_balloonWarningNoEntryHeader, resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
-        }
-
-
-        private void StartRetriever()
-        {
-            // setup the timer intervalls (this is called also after settings change...)
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
-            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
-
-            // read channel settings
-            try
-            {
-                // this may raise an exception in case of a fatal error dealing with the config file
-                retriever.InitializeChannels(Properties.Settings.Default.channelConfigFileName);
-
-                // init successful, load initial channels
-                retriever.backgroundWorker.RunWorkerAsync();
-            }
-            catch (Exception e)
-            {
-                // display error message
-                notifyIcon.ShowBalloonTip(
-                    Properties.Settings.Default.balloonTimespan * 1000,
-                    resources.str_balloonErrorConfigFile,
-                    e.Message,
-                    ToolTipIcon.Error);
-
-                // wait until the user changes the settings
-            }
+            // if no rss item was viewed, we skip the click
         }
 
 
@@ -411,6 +435,7 @@ namespace BalloonRss
             if (rssItem != null)
             {
                 // display the news
+                isRssViewed = true;
                 if (Properties.Settings.Default.channelAsTitle)
                 {
                     notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, rssItem.channel, rssItem.title, ToolTipIcon.None);
@@ -471,7 +496,9 @@ namespace BalloonRss
 
         private void RetrieverProgressError(object sender, ProgressChangedEventArgs e)
         {
+            // report error message via pop-up
             String[] message = e.UserState as String[];
+            isRssViewed = false;
             notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
         }
     }

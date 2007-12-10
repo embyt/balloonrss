@@ -33,7 +33,7 @@ namespace BalloonRss
         public DateTime lastUpdate = DateTime.MinValue;
         public int channelMessageCount = 0;
 
-        private const String rssFeedDirName = "\\BalloonRSS\\rssFeeds";
+        private String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
 
 
         public RssChannel(ChannelInfo channelInfo)
@@ -203,7 +203,7 @@ namespace BalloonRss
         
         private String GetRssFeedFilename(String url)
         {
-            return GetRssFeedFolder() + "\\" + MakeSafeFilename(url);
+            return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(url);
         }
 
 

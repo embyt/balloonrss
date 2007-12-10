@@ -133,11 +133,14 @@
   <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
     <value>Missing link attribute in config file</value>
   </data>
+  <data name="str_balloonErrorChannelsBody" xml:space="preserve">
+    <value>Could not find default RSS channel settings or settings are illegal. Please configure your channels manually.</value>
+  </data>
+  <data name="str_balloonErrorChannelsHeader" xml:space="preserve">
+    <value>Initialising BalloonRSS</value>
+  </data>
   <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
     <value>Missing mandatory "channel" tag.</value>
-  </data>
-  <data name="str_balloonErrorConfigFile" xml:space="preserve">
-    <value>Error parsing the channel config file</value>
   </data>
   <data name="str_balloonErrorDuplicateInstanceBody" xml:space="preserve">
     <value>Cannot start BalloonRSS because the program is already running.</value>
@@ -156,6 +159,12 @@
   </data>
   <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
     <value>Display full RSS entry</value>
+  </data>
+  <data name="str_balloonWelcomeBody" xml:space="preserve">
+    <value>You can access the program by right clicking on this application icon. You should start by adding the RSS channels of your choice.</value>
+  </data>
+  <data name="str_balloonWelcomeHeader" xml:space="preserve">
+    <value>Welcome to BalloonRSS</value>
   </data>
   <data name="str_channelFormTitle" xml:space="preserve">
     <value>RSS Channel Information</value>

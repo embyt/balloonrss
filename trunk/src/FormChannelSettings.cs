@@ -17,10 +17,7 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml;
-using System.IO;
 
 
 namespace BalloonRss
@@ -37,16 +34,8 @@ namespace BalloonRss
 
         public FormChannelSettings()
         {
-            try
-            {
-                // initialise with current channel settings
-                channelList = new ChannelList(Properties.Settings.Default.channelConfigFileName);
-            }
-            catch (Exception e)
-            {
-                // illegal current channel settings
-                throw new Exception("xxx");
-            }
+            // initialise with current channel settings
+            channelList = new ChannelList(true);
 
             // setup GUI
             this.SuspendLayout();
@@ -233,7 +222,7 @@ namespace BalloonRss
         private void OnOK(object sender, EventArgs e)
         {
             // store data
-            channelList.SaveToFile(Properties.Settings.Default.channelConfigFileName);
+            channelList.SaveToFile();
 
             // close window
             this.DialogResult = DialogResult.OK;

@@ -56,7 +56,7 @@ namespace BalloonRss
         }
 
 
-        public void InitializeChannels(String configFileName)
+        public void InitializeChannels()
         {
             // do some cleanup since this is executed also in case of a config file change
             this.Clear();
@@ -65,7 +65,7 @@ namespace BalloonRss
 
             // read channel configuration file
             // this may raise an exception in case of a fatal error dealing with the config file
-            ChannelList channelList = new ChannelList(configFileName);
+            ChannelList channelList = new ChannelList(false);
 
             // add the channels found
             foreach (ChannelInfo channelInfo in channelList)

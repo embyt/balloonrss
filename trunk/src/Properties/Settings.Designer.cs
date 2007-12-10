@@ -49,18 +49,6 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("channelConfig.xml")]
-        public string channelConfigFileName {
-            get {
-                return ((string)(this["channelConfigFileName"]));
-            }
-            set {
-                this["channelConfigFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
         public int balloonTimespan {
             get {
