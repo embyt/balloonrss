@@ -8,9 +8,6 @@
     <Setting Name="retrieveIntervall" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">600</Value>
     </Setting>
-    <Setting Name="channelConfigFileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">channelConfig.xml</Value>
-    </Setting>
     <Setting Name="balloonTimespan" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>

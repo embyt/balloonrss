@@ -20,30 +20,88 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.IO;
 
 
 namespace BalloonRss
 {
-    class ChannelList : System.Collections.Generic.List<ChannelInfo>
+    class ChannelList : List<ChannelInfo>
     {
+        public const String configFilename = "channelConfig.xml";
+        public const String defaultConfigFilename = "defaultChannels.xml";
+
         private const String xmlRootNodeName = "channels";
         private const String xmlItemName = "item";
 
 
-        public ChannelList(String channelConfigFilename)
+        public ChannelList(bool skipErrors)
         {
-            ParseChannelConfigFile(channelConfigFilename);
+            if (!skipErrors)
+            {
+                // this is the normal usage:
+                // we try to read the config file, if it does not exist, we copy the default and throw an exception
+                try
+                {
+                    ParseChannelConfigFile();
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    // create settings directory
+                    Directory.CreateDirectory(Path.GetDirectoryName(GetChannelConfigFilename()));
+
+                    // copy default configuration
+                    File.Copy(GetDefaultChannelsFilename(), GetChannelConfigFilename());
+
+                    // we have to re-throw the exception to signal this event to the calling application
+                    throw e;
+                }
+                catch (Exception e)
+                {
+                    // most probably this is a FileNotFoundException which means we have to copy the default config file
+                    // but it might be another exception like an illegal config file; also copy the default file then
+
+                    // copy default configuration
+                    File.Copy(GetDefaultChannelsFilename(), GetChannelConfigFilename());
+
+                    // we have to re-throw the exception to signal this event to the calling application
+                    throw e;
+                }
+            }
+            else
+            {
+                // if loading the channel config file results in an error, we continue with the best possible
+                try
+                {
+                    ParseChannelConfigFile();
+                }
+                catch (Exception)
+                {
+                }
+            }
         }
 
 
-        private void ParseChannelConfigFile(String configFilename)
+        private String GetChannelConfigFilename()
+        {
+            return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+                + Path.DirectorySeparatorChar + "BalloonRSS"
+                + Path.DirectorySeparatorChar + configFilename;
+        }
+
+        private String GetDefaultChannelsFilename()
+        {
+            return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)
+                + Path.DirectorySeparatorChar + defaultConfigFilename;
+        }
+
+        private void ParseChannelConfigFile()
         {
             bool gotChannelTag = false;
 
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
 
-            configFile.Load(configFilename);
+            configFile.Load(GetChannelConfigFilename());
 
             // parse configuration file
             foreach (XmlNode rootNode in configFile)
@@ -79,7 +137,7 @@ namespace BalloonRss
         }
 
 
-        public void SaveToFile(String channelConfigFilename)
+        public void SaveToFile()
         {
             // write this information in the channel file
             XmlDocument channelFile = new XmlDocument();
@@ -97,7 +155,7 @@ namespace BalloonRss
                 xmlRoot.AppendChild(xmlChannelInfo);
             }
 
-            channelFile.Save(channelConfigFilename);
+            channelFile.Save(GetChannelConfigFilename());
         }
     }
 }

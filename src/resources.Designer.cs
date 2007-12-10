@@ -98,20 +98,29 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find default RSS channel settings or settings are illegal. Please configure your channels manually..
+        /// </summary>
+        internal static string str_balloonErrorChannelsBody {
+            get {
+                return ResourceManager.GetString("str_balloonErrorChannelsBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initialising BalloonRSS.
+        /// </summary>
+        internal static string str_balloonErrorChannelsHeader {
+            get {
+                return ResourceManager.GetString("str_balloonErrorChannelsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing mandatory &quot;channel&quot; tag..
         /// </summary>
         internal static string str_balloonErrorConfigChannelTag {
             get {
                 return ResourceManager.GetString("str_balloonErrorConfigChannelTag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error parsing the channel config file.
-        /// </summary>
-        internal static string str_balloonErrorConfigFile {
-            get {
-                return ResourceManager.GetString("str_balloonErrorConfigFile", resourceCulture);
             }
         }
         
@@ -166,6 +175,24 @@ namespace BalloonRss {
         internal static string str_balloonWarningNoEntryHeader {
             get {
                 return ResourceManager.GetString("str_balloonWarningNoEntryHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can access the program by right clicking on this application icon. You should start by adding the RSS channels of your choice..
+        /// </summary>
+        internal static string str_balloonWelcomeBody {
+            get {
+                return ResourceManager.GetString("str_balloonWelcomeBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to BalloonRSS.
+        /// </summary>
+        internal static string str_balloonWelcomeHeader {
+            get {
+                return ResourceManager.GetString("str_balloonWelcomeHeader", resourceCulture);
             }
         }
         

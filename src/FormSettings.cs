@@ -31,7 +31,6 @@ namespace BalloonRss
         private Control cntlDisplayIntervall;
         private Control cntlRetrieveIntervall;
         private Control cntlBalloonTimespan;
-        private Control cntlConfigFilename;
         private Control cntlChannelAsTitle;
         private Control cntlHistoryDepth;
 
@@ -66,9 +65,6 @@ namespace BalloonRss
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
             cntlBalloonTimespan = CreateSettingControl(Properties.Settings.Default.balloonTimespan, resources.str_settingsBalloonTimespan, out panel, 10, Int32.MaxValue);
-            maxXSize = Math.Max(maxXSize, panel.Width);
-            flPanelMain.Controls.Add(panel);
-            cntlConfigFilename = CreateSettingControl(Properties.Settings.Default.channelConfigFileName, resources.str_settingsChannelConfigFilename, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
             cntlChannelAsTitle = CreateSettingControl(Properties.Settings.Default.channelAsTitle, resources.str_settingsChannelAsTitle, out panel);
@@ -215,7 +211,6 @@ namespace BalloonRss
             // get data
             Properties.Settings.Default.balloonTimespan = (cntlBalloonTimespan as NumericTextBox).IntValue;
             Properties.Settings.Default.channelAsTitle = (cntlChannelAsTitle as CheckBox).Checked;
-            Properties.Settings.Default.channelConfigFileName = cntlConfigFilename.Text;
             Properties.Settings.Default.displayIntervall = (cntlDisplayIntervall as NumericTextBox).IntValue;
             Properties.Settings.Default.historyDepth = (cntlHistoryDepth as NumericTextBox).IntValue;
             Properties.Settings.Default.retrieveIntervall = (cntlRetrieveIntervall as NumericTextBox).IntValue;
