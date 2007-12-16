@@ -128,8 +128,7 @@ namespace BalloonRss
             }
 
             // set the table headers
-            listView.Columns.Add(resources.str_historyHeaderId, -2, HorizontalAlignment.Left);
-            listView.Columns[0].Width = 0;  // hide the ID column
+            listView.Columns.Add(resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
             listView.Columns.Add(resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
 
