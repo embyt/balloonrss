@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -34,10 +34,10 @@ namespace BalloonRss
 
         public DateTime creationDate = DateTime.MinValue;
         public DateTime dispDate = DateTime.MinValue;
-        public String channel;
+        public RssChannel channel;
 
 
-        public RssItem(XmlNode xmlNode, String channel)
+        public RssItem(XmlNode xmlNode, RssChannel channel)
         {
             this.creationDate = DateTime.Now;
             this.channel = channel;

@@ -206,11 +206,29 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Queue.
+        ///   Looks up a localized string similar to Click Rate.
+        /// </summary>
+        internal static string str_channelHeaderClickRate {
+            get {
+                return ResourceManager.GetString("str_channelHeaderClickRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mess. Queued.
         /// </summary>
         internal static string str_channelHeaderCount {
             get {
                 return ResourceManager.GetString("str_channelHeaderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eff. Prio..
+        /// </summary>
+        internal static string str_channelHeaderEffPrio {
+            get {
+                return ResourceManager.GetString("str_channelHeaderEffPrio", resourceCulture);
             }
         }
         
@@ -233,6 +251,15 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Prio..
+        /// </summary>
+        internal static string str_channelHeaderPrio {
+            get {
+                return ResourceManager.GetString("str_channelHeaderPrio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string str_channelHeaderTitle {
@@ -242,7 +269,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total.
+        ///   Looks up a localized string similar to Mess. in Channel.
         /// </summary>
         internal static string str_channelHeaderTotal {
             get {
@@ -508,6 +535,15 @@ namespace BalloonRss {
         internal static string str_settingsChannelConfigFilename {
             get {
                 return ResourceManager.GetString("str_settingsChannelConfigFilename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority influence of message clicks (prio &lt;-&gt; clicks).
+        /// </summary>
+        internal static string str_settingsClickInfluence {
+            get {
+                return ResourceManager.GetString("str_settingsClickInfluence", resourceCulture);
             }
         }
         

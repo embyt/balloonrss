@@ -82,5 +82,17 @@ namespace BalloonRss.Properties {
                 this["channelAsTitle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public byte clickInfluence {
+            get {
+                return ((byte)(this["clickInfluence"]));
+            }
+            set {
+                this["clickInfluence"] = value;
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ namespace BalloonRss
             // 
             // Form
             // 
-            this.ClientSize = new System.Drawing.Size(400, 200);
+            this.ClientSize = new System.Drawing.Size(480, 200);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
             this.Text = resources.str_channelFormTitle;
@@ -76,6 +76,12 @@ namespace BalloonRss
                 listItems[i] = new ListViewItem(rssChannel[i].title);
                 listItems[i].SubItems.Add("" + rssChannel[i].Count);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
+                listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.priority);
+                if (rssChannel[i].channelViewedCount > 0)
+                    listItems[i].SubItems.Add("" + 100*rssChannel[i].channelOpenedCount / rssChannel[i].channelViewedCount + " %");
+                else
+                    listItems[i].SubItems.Add("-");
+                listItems[i].SubItems.Add("" + rssChannel[i].effectivePriority);
                 listItems[i].SubItems.Add("" + rssChannel[i].lastUpdate);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.link);
             }
@@ -84,6 +90,9 @@ namespace BalloonRss
             listView.Columns.Add(resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
@@ -94,7 +103,7 @@ namespace BalloonRss
             foreach (ListViewItem item in listView.SelectedItems)
             {
                 // start the link of the channel
-                System.Diagnostics.Process.Start(item.SubItems[4].Text);
+                System.Diagnostics.Process.Start(item.SubItems[7].Text);
             }
 
             // close window

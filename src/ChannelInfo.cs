@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ using System.Xml;
 
 namespace BalloonRss
 {
-    class ChannelInfo
+    public class ChannelInfo
     {
         private const String xmlLinkName = "link";
         private const String xmlPriorityName = "priority";

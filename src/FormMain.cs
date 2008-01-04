@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -310,6 +310,9 @@ namespace BalloonRss
         {
             dispTimer.Stop();
 
+            // update the channel effective priorities
+            retriever.CalculateEffectiveChannelPriorities();
+
             FormChannelInfo formChannelInfo = new FormChannelInfo(retriever.GetChannels());
             formChannelInfo.ShowDialog();
 
@@ -392,7 +395,7 @@ namespace BalloonRss
                     // get most recent item of queue
                     RssItem rssItem = retriever.rssHistory.ToArray()[retriever.rssHistory.Count - 1];
                     // start browser
-                    System.Diagnostics.Process.Start(rssItem.link);
+                    rssItem.channel.ActivateItem(rssItem);
                 }
                 else
                 {
@@ -438,7 +441,7 @@ namespace BalloonRss
                 isRssViewed = true;
                 if (Properties.Settings.Default.channelAsTitle)
                 {
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, rssItem.channel, rssItem.title, ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
                 }
                 else
                 {

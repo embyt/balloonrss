@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -36,9 +36,6 @@ namespace BalloonRss
         // the history of shown rss entries
         public Queue<RssItem> rssHistory;
 
-        // total priority used for channel selection
-        private int totalPriority;
-
         // total number of rss messages left
         private int rssCount;
 
@@ -56,11 +53,11 @@ namespace BalloonRss
         }
 
 
+        // read channel config and create instances for all channels
         public void InitializeChannels()
         {
             // do some cleanup since this is executed also in case of a config file change
             this.Clear();
-            totalPriority = 0;
             rssCount = 0;
 
             // read channel configuration file
@@ -72,72 +69,18 @@ namespace BalloonRss
             {
                 this.Add(channelInfo.link, new RssChannel(channelInfo));
             }
+
+            // setup the initial priorities
+            CalculateEffectiveChannelPriorities();
         }
 
 
+        // returns an array of the channels (used for channel information view)
         public RssChannel[] GetChannels()
         {
             RssChannel[] channels = new RssChannel[this.Count];
             this.Values.CopyTo(channels, 0);
             return channels;
-        }
-
-
-        public int GetQueueSize()
-        {
-            return rssCount;
-        }
-
-
-        public RssItem GetNextItem()
-        {
-            // first, choose the channel for this news entry
-
-            // for this I use a random number in the range of the total priority
-            int randomNumber = new Random().Next(totalPriority);
-
-            // now walk through the channel list until we found the number
-            int actualNumber = 0;
-            RssChannel rssChannel = null;
-            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
-            {
-                RssChannel curChannel = keyValuePair.Value;
-                if (curChannel.IsItemAvailable())
-                {
-                    actualNumber += curChannel.channelInfo.priority;
-                }
-
-                // are we done?
-                if (actualNumber > randomNumber)
-                {
-                    rssChannel = curChannel;
-                    break;
-                }
-            }
-
-            // all channels are empty
-            if (rssChannel == null)
-                return null;
-
-
-            // now, as we have the channel, let the channel select the best news item
-            RssItem rssItem = rssChannel.GetNextItem();
-            rssCount--;
-
-            // update total priority if channel is empty now
-            if (rssChannel.IsItemAvailable() == false)
-            {
-                totalPriority -= rssChannel.channelInfo.priority;
-            }
-
-
-            // check whether the queue is full
-            if (rssHistory.Count == Properties.Settings.Default.historyDepth)
-                rssHistory.Dequeue();  // remove last item from history
-            // add item to history queue
-            rssHistory.Enqueue(rssItem);
-
-            return rssItem;
         }
 
 
@@ -208,10 +151,6 @@ namespace BalloonRss
 
                 // update score and count
                 rssCount += newMessages;
-                if ((oldItemCount == 0) && (rssChannel.Count > 0))
-                {
-                    totalPriority += rssChannel.channelInfo.priority;
-                }
             }
             else
             {
@@ -219,5 +158,112 @@ namespace BalloonRss
                 throw new Exception("Could not find channel for " + url);
             }
         }
+
+
+        public int GetQueueSize()
+        {
+            return rssCount;
+        }
+
+
+        public RssItem GetNextItem()
+        {
+            // first, choose the channel for this news entry
+            RssChannel rssChannel = GetNextChannel();
+
+            // all channels are empty
+            if (rssChannel == null)
+                return null;
+
+
+            // now, as we have the channel, let the channel select the best news item
+            RssItem rssItem = rssChannel.GetNextItem();
+            rssCount--;
+
+            // check whether the queue is full
+            if (rssHistory.Count == Properties.Settings.Default.historyDepth)
+                rssHistory.Dequeue();  // remove last item from history
+            // add item to history queue
+            rssHistory.Enqueue(rssItem);
+
+            return rssItem;
+        }
+
+
+        private RssChannel GetNextChannel()
+        {
+            int totalPriority = CalculateEffectiveChannelPriorities();
+
+            // for this I use a random number in the range of the total priority
+            int randomNumber = new Random().Next(totalPriority);
+
+            // now walk through the channel list until we found the number
+            int actualNumber = 0;
+            RssChannel rssChannel = null;
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
+            {
+                RssChannel curChannel = keyValuePair.Value;
+                if (curChannel.IsItemAvailable())
+                {
+                    actualNumber += curChannel.effectivePriority;
+                }
+
+                // are we done?
+                if (actualNumber > randomNumber)
+                {
+                    rssChannel = curChannel;
+                    break;
+                }
+            }
+
+            return rssChannel;
+        }
+
+
+        public int CalculateEffectiveChannelPriorities()
+        {
+            int prioritySum = 0;
+            int viewedSum = 0;
+            int openedSum = 0;
+
+            // determine the sum of all viewed and opened items
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
+            {
+                viewedSum += keyValuePair.Value.channelViewedCount;
+                openedSum += keyValuePair.Value.channelOpenedCount;
+            }
+
+            // determine the effective priority of each channel
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
+            {
+                RssChannel curChannel = keyValuePair.Value;
+
+                // take care on div by zero
+                try
+                {
+                    curChannel.effectivePriority = (int)Math.Round(
+                        curChannel.channelInfo.priority 
+                            * (10 - Properties.Settings.Default.clickInfluence) +
+                        (((float)curChannel.channelOpenedCount / openedSum) / ((float)curChannel.channelViewedCount / viewedSum)) 
+                            * Properties.Settings.Default.clickInfluence );
+                }
+                catch (ArithmeticException)
+                {
+                    // take the default priority if we did not open or view any item yet
+                    curChannel.effectivePriority = 
+                        curChannel.channelInfo.priority 
+                            * (10 - Properties.Settings.Default.clickInfluence) + 
+                        1
+                            * Properties.Settings.Default.clickInfluence;
+                }
+
+                // if the channel is non-empty, add it to the total priority
+                if (curChannel.IsItemAvailable())
+                    prioritySum += keyValuePair.Value.effectivePriority;
+            }
+
+            return prioritySum;
+        }
+
     }
 }

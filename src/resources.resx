@@ -169,8 +169,14 @@
   <data name="str_channelFormTitle" xml:space="preserve">
     <value>RSS Channel Information</value>
   </data>
+  <data name="str_channelHeaderClickRate" xml:space="preserve">
+    <value>Click Rate</value>
+  </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value>Queue</value>
+    <value>Mess. Queued</value>
+  </data>
+  <data name="str_channelHeaderEffPrio" xml:space="preserve">
+    <value>Eff. Prio.</value>
   </data>
   <data name="str_channelHeaderId" xml:space="preserve">
     <value>Id</value>
@@ -178,11 +184,14 @@
   <data name="str_channelHeaderLastUpdate" xml:space="preserve">
     <value>Last Update</value>
   </data>
+  <data name="str_channelHeaderPrio" xml:space="preserve">
+    <value>Set Prio.</value>
+  </data>
   <data name="str_channelHeaderTitle" xml:space="preserve">
     <value>Title</value>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>Total</value>
+    <value>Mess. in Channel</value>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
     <value>Do you really want to delete the RSS channel </value>
@@ -270,6 +279,9 @@
   </data>
   <data name="str_settingsChannelConfigFilename" xml:space="preserve">
     <value>Channel configuration filename</value>
+  </data>
+  <data name="str_settingsClickInfluence" xml:space="preserve">
+    <value>Priority influence of message clicks (prio &lt;-&gt; clicks)</value>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
     <value>Time between displaying two RSS messages [s]</value>
