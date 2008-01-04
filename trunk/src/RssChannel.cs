@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,15 +25,21 @@ using System.IO;
 
 namespace BalloonRss
 {
-    class RssChannel : List<RssItem>
+    public class RssChannel : List<RssItem>
     {
         public ChannelInfo channelInfo;
         public String title;
         public String description = null;
         public DateTime lastUpdate = DateTime.MinValue;
-        public int channelMessageCount = 0;
+        public int channelMessageCount;
+        public int channelViewedCount;
+        public int channelOpenedCount;
+        public int effectivePriority = 0;
+
 
         private String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
+        private String rssViewedFilename = "viewed_";
+        private String rssOpenedFilename = "opened_";
 
 
         public RssChannel(ChannelInfo channelInfo)
@@ -42,6 +48,47 @@ namespace BalloonRss
 
             // as the default title, we take the link
             title = channelInfo.link;
+
+            GetMessageCounters();
+        }
+
+
+        private void GetMessageCounters()
+        {
+            // right now there are no messages queued
+            channelMessageCount = 0;
+
+            // get the number of messages already viewed
+            try
+            {
+                // load channel file
+                XmlDocument channelFile = new XmlDocument();
+                channelFile.Load(GetRssViewedFilename(channelInfo.link));
+
+                // get the items and count them
+                channelViewedCount = channelFile.GetElementsByTagName("RssItem").Count;
+            }
+            catch (Exception)
+            {
+                // if we cannot find a history file, treat the item as new
+                channelViewedCount = 0;
+            }
+
+            // get the number of messages displayed in browser
+            try
+            {
+                // load channel file
+                XmlDocument channelFile = new XmlDocument();
+                channelFile.Load(GetRssOpenedFilename(channelInfo.link));
+
+                // get the items and count them
+                channelOpenedCount = channelFile.GetElementsByTagName("RssItem").Count;
+            }
+            catch (Exception)
+            {
+                // if we cannot find a history file, treat the item as new
+                channelOpenedCount = 0;
+            }
         }
 
 
@@ -80,7 +127,7 @@ namespace BalloonRss
                         RssItem rssItem;
                         try
                         {
-                            rssItem = new RssItem(xmlChild, title);
+                            rssItem = new RssItem(xmlChild, this);
                         }
                         catch (FormatException)
                         {
@@ -158,6 +205,9 @@ namespace BalloonRss
             // remove the item from this list
             this.Remove(rssItem);
 
+            // update counter
+            channelViewedCount++;
+
             // write this information in the channel file
             XmlDocument channelFile = new XmlDocument();
             XmlNode xmlRoot;
@@ -165,7 +215,7 @@ namespace BalloonRss
             // open file and find root node
             try
             {
-                channelFile.Load(GetRssFeedFilename(channelInfo.link));
+                channelFile.Load(GetRssViewedFilename(channelInfo.link));
                 xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
                 if (xmlRoot == null)
                     throw new Exception("Xml Root Element not found.");
@@ -185,12 +235,12 @@ namespace BalloonRss
 
             try
             {
-                channelFile.Save(GetRssFeedFilename(channelInfo.link));
+                channelFile.Save(GetRssViewedFilename(channelInfo.link));
             }
             catch (DirectoryNotFoundException)
             {
                 Directory.CreateDirectory(GetRssFeedFolder());
-                channelFile.Save(GetRssFeedFilename(channelInfo.link));
+                channelFile.Save(GetRssViewedFilename(channelInfo.link));
             }
         }
 
@@ -200,10 +250,14 @@ namespace BalloonRss
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + rssFeedDirName;
         }
 
-        
-        private String GetRssFeedFilename(String url)
+        private String GetRssViewedFilename(String url)
         {
-            return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(url);
+            return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(rssViewedFilename + url);
+        }
+
+        private String GetRssOpenedFilename(String url)
+        {
+            return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(rssOpenedFilename + url);
         }
 
 
@@ -246,7 +300,7 @@ namespace BalloonRss
             // open file
             try
             {
-                channelFile.Load(GetRssFeedFilename(channelInfo.link));
+                channelFile.Load(GetRssViewedFilename(channelInfo.link));
             }
             catch (Exception)
             {
@@ -255,13 +309,54 @@ namespace BalloonRss
             }
 
             // get the items
-            foreach (XmlNode curNode in channelFile.GetElementsByTagName("RssItem"))
+            XmlNodeList itemList = channelFile.GetElementsByTagName("RssItem");
+
+            // search whether the item is already known
+            foreach (XmlNode curNode in itemList)
             {
                 if (item.link == curNode.InnerText)
                     return false;   // we found the item
             }
 
             return true;
+        }
+
+
+        public void ActivateItem(RssItem rssItem)
+        {
+            // store activation
+            // write this information in the file
+            XmlDocument channelFile = new XmlDocument();
+            XmlNode xmlRoot;
+
+            // open file and find root node
+            try
+            {
+                channelFile.Load(GetRssOpenedFilename(rssItem.channel.channelInfo.link));
+                xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
+                if (xmlRoot == null)
+                    throw new Exception("Xml Opened Root Element not found.");
+            }
+            catch (Exception)
+            {
+                channelFile = new XmlDocument();
+                xmlRoot = channelFile.CreateElement("ChannelData");
+                channelFile.AppendChild(xmlRoot);
+            }
+
+            // add the current item
+            XmlElement xmlRssItem = channelFile.CreateElement("RssItem");
+            xmlRssItem.InnerText = rssItem.link;
+            xmlRssItem.SetAttribute("openedDate", DateTime.Now.ToString());
+            xmlRoot.AppendChild(xmlRssItem);
+
+            channelFile.Save(GetRssOpenedFilename(rssItem.channel.channelInfo.link));
+
+            // update counter
+            channelOpenedCount++;
+
+            // open browser
+            System.Diagnostics.Process.Start(rssItem.link);
         }
     }
 }

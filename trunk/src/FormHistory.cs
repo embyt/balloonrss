@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -78,7 +78,7 @@ namespace BalloonRss
             {
                 listItems[i] = new ListViewItem("" + (i+1));
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
-                listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel);
+                listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel.channelInfo.link);
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].dispDate.ToShortTimeString());
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].link);
             }
@@ -94,10 +94,11 @@ namespace BalloonRss
 
         private void OnItemActivate(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in listView.SelectedItems)
+            foreach (ListViewItem listItem in listView.SelectedItems)
             {
                 // start the link of the RSS item
-                System.Diagnostics.Process.Start(item.SubItems[4].Text);
+                RssItem rssItem = rssHistory[rssHistory.Length - 1 - listItem.Index];
+                rssItem.channel.ActivateItem(rssItem);
             }
 
             // close window

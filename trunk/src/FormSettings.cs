@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ namespace BalloonRss
         private Control cntlBalloonTimespan;
         private Control cntlChannelAsTitle;
         private Control cntlHistoryDepth;
+        private Control cntlClickInfluence;
 
 
         public FormSettings()
@@ -71,6 +72,9 @@ namespace BalloonRss
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
             cntlHistoryDepth = CreateSettingControl(Properties.Settings.Default.historyDepth, resources.str_settingsHistoryDepth, out panel, 0, Int32.MaxValue);
+            maxXSize = Math.Max(maxXSize, panel.Width);
+            flPanelMain.Controls.Add(panel);
+            cntlClickInfluence = CreateSettingControl(Properties.Settings.Default.clickInfluence, resources.str_settingsClickInfluence, out panel, 0, 10);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
@@ -149,6 +153,12 @@ namespace BalloonRss
                 control = new CheckBox();
                 ((CheckBox)control).Checked = (bool)settingsObject;
             }
+            else if (settingsObject.GetType() == typeof(byte))
+            {
+                control = new TrackBar();
+                ((TrackBar)control).Maximum = maxValue;
+                ((TrackBar)control).Value = (byte)settingsObject;
+            }
             else
                 throw new Exception("Internal error: Illegal settings data type");
 
@@ -214,6 +224,7 @@ namespace BalloonRss
             Properties.Settings.Default.displayIntervall = (cntlDisplayIntervall as NumericTextBox).IntValue;
             Properties.Settings.Default.historyDepth = (cntlHistoryDepth as NumericTextBox).IntValue;
             Properties.Settings.Default.retrieveIntervall = (cntlRetrieveIntervall as NumericTextBox).IntValue;
+            Properties.Settings.Default.clickInfluence = (byte)(cntlClickInfluence as TrackBar).Value;
         }
 
 
