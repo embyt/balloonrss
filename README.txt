@@ -1,7 +1,7 @@
                                   BalloonRSS
                                ----------------
 
-                      Copyright (C) 2007  Roman Morawek
+                      Copyright (C) 2008  Roman Morawek
                          romor@users.sourceforge.net
                       http://balloonrss.sourceforge.net
 
@@ -9,9 +9,9 @@
 Overview
 --------
 
-BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon 
-tooltips in the windows task bar. The news entries themselves are linked and 
-read with the browser.
+BalloonRSS is a simple RSS aggregator that displays incoming messages as 
+balloon tooltips in the windows task bar. The news entries themselves are 
+linked and read with the browser.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -26,19 +26,11 @@ Features
 - Performs priorisation of news
 - Displays the messages in a balloon tooltip pop-up in the task bar
 - The messages are linked and are opened within the browser if you click them
+- Adaptation of channel priority according the user's click rate
 - The message frequency and viewing period is configurable
 - Configuration via GUI
 - Message history
 ...
-
-
-Planned additional features
----------------------------
-
-- Adaptation of channel priority according the user's click rate
-- Synchronisation of "read news file" such that the RSS entries are displayed 
-  just once even when working on different computers
-- ...
 
 
 Supported systems
@@ -47,11 +39,11 @@ Supported systems
 BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
 2.0 is available, which includes:
 - Windows 98
-- Windows 2000 Service Pack 3
+- Windows 2000
 - Windows ME
 - Windows Server 2003
 - Windows Vista
-- Windows XP Service Pack 2
+- Windows XP
 
 It is tested only on WinXP yet.
 
@@ -63,7 +55,7 @@ Using the installer:
 - Make sure that you have the .NET framework 2.0 installed; otherwise download
   the Microsoft .NET Framework Version 2.0 Redistributable Package from
   Microsoft and install it.
-- start the BalloonRSS_xxx_setup.exe and follow the steps on the screen
+- Start BalloonRSS_xxx_setup.exe and follow the steps on the screen
 - Start the application.
 - Adapt the channel configuration with the RSS feeds of your choice.
 

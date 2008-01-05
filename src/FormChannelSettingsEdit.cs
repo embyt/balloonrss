@@ -221,7 +221,7 @@ namespace BalloonRss
                 if (channelDataCleared)
                     this.DialogResult = DialogResult.Yes;
                 else
-                    this.DialogResult = DialogResult.No;
+                    this.DialogResult = DialogResult.OK;
                 Dispose();
             }
         }
@@ -231,9 +231,9 @@ namespace BalloonRss
             // close window
             // we use the dialog result as an indication whether we cleared the channel data
             if (channelDataCleared)
-                this.DialogResult = DialogResult.Yes;
-            else
                 this.DialogResult = DialogResult.No;
+            else
+                this.DialogResult = DialogResult.Cancel;
             Dispose();
         }
 

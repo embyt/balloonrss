@@ -191,7 +191,7 @@
     <value>Title</value>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>Mess. in Channel</value>
+    <value>Mess. Channel</value>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
     <value>Do you really want to delete the RSS channel </value>
