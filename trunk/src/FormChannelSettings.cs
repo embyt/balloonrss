@@ -151,7 +151,7 @@ namespace BalloonRss
             DialogResult dialogResult = channelEdit.ShowDialog(this);
 
             // if edit is confirmed, store the entry
-            if (dialogResult == DialogResult.OK)
+            if ( (dialogResult == DialogResult.OK) || (dialogResult == DialogResult.Yes) )
             {
                 channelList.Add(channelInfo);
 
@@ -175,13 +175,15 @@ namespace BalloonRss
 
                 // remember whether any private data were changed
                 // we need this to reload the channel settings then
-                if (dialogResult == DialogResult.Yes)
+                if ( (dialogResult == DialogResult.Yes) || (dialogResult == DialogResult.No) )
                     channelDataCleared = true;
 
-                // update list view display
-                // this does not hurt even in case of dialog cancel, since the data will not be changed then
-                curItem.SubItems[1].Text = channelList[selectedChannel].link;
-                curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
+                // update list view display in case of pressing OK
+                if ((dialogResult == DialogResult.Yes) || (dialogResult == DialogResult.OK))
+                {
+                    curItem.SubItems[1].Text = channelList[selectedChannel].link;
+                    curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
+                }
 
                 // we just edit the first selection and skip the remaining ones
                 break;

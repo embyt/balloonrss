@@ -269,7 +269,7 @@ namespace BalloonRss {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mess. in Channel.
+        ///   Looks up a localized string similar to Mess. Channel.
         /// </summary>
         internal static string str_channelHeaderTotal {
             get {

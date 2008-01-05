@@ -74,25 +74,25 @@ namespace BalloonRss
             for (int i = 0; i < rssChannel.Length; i++)
             {
                 listItems[i] = new ListViewItem(rssChannel[i].title);
-                listItems[i].SubItems.Add("" + rssChannel[i].Count);
-                listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.priority);
                 if (rssChannel[i].channelViewedCount > 0)
                     listItems[i].SubItems.Add("" + 100*rssChannel[i].channelOpenedCount / rssChannel[i].channelViewedCount + " %");
                 else
                     listItems[i].SubItems.Add("-");
                 listItems[i].SubItems.Add("" + rssChannel[i].effectivePriority);
+                listItems[i].SubItems.Add("" + rssChannel[i].Count);
+                listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
                 listItems[i].SubItems.Add("" + rssChannel[i].lastUpdate);
                 listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.link);
             }
 
             // set the table headers
             listView.Columns.Add(resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
             listView.Columns.Add(resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
