@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,13 +25,19 @@ namespace BalloonRss
 {
     class FormChannelSettingsEdit : Form
     {
+        // constant definitions
         private const String textFieldSize = "####################################";
 
+        // GUI elements
         private Label fillLabel;
         private Control cntlUrl;
         private Control cntlPriority;
+        private Button ctrlClearChannelData;
 
+        // class data
         private ChannelInfo channelInfo;
+        private bool channelDataCleared = false;
+
 
         public FormChannelSettingsEdit(ChannelInfo channelInfo)
         {
@@ -56,7 +62,7 @@ namespace BalloonRss
             //flPanelMain.Dock = DockStyle.Fill;
             flPanelMain.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
-            // setting
+            // setting controls
             int maxXSize = 0;
             cntlUrl = CreateSettingControl(channelInfo.link, resources.str_channelSettingsHeaderTitle, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
@@ -65,17 +71,25 @@ namespace BalloonRss
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
+            // clear data button
+            ctrlClearChannelData = new Button();
+            ctrlClearChannelData.Text = resources.str_channelSettingsEditClearChannelData;
+            ctrlClearChannelData.Width = TextRenderer.MeasureText(ctrlClearChannelData.Text, ctrlClearChannelData.Font).Width+10;
+            ctrlClearChannelData.Click += new EventHandler(this.OnClearChannelData);
+            maxXSize = Math.Max(maxXSize, ctrlClearChannelData.Width);
+            flPanelMain.Controls.Add(ctrlClearChannelData);
+
             // OK/Cancel button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
             flPanel.FlowDirection = FlowDirection.LeftToRight;
             button = new Button();
             button.Text = resources.str_settingsFormOKButton;
-            button.Click += new System.EventHandler(this.OnOK);
+            button.Click += new EventHandler(this.OnOK);
             this.AcceptButton = button;
             flPanel.Controls.Add(button);
             button = new Button();
             button.Text = resources.str_settingsFormCancelButton;
-            button.Click += new System.EventHandler(this.OnCancel);
+            button.Click += new EventHandler(this.OnCancel);
             this.CancelButton = button;
             flPanel.Controls.Add(button);
             flPanel.AutoSize = true;
@@ -93,7 +107,7 @@ namespace BalloonRss
             this.Text = resources.str_channelSettingsEditFormTitle;
             this.Icon = BalloonRss.resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
-            this.Resize += new System.EventHandler(this.OnResize);
+            this.Resize += new EventHandler(this.OnResize);
 
             this.ResumeLayout();
 
@@ -203,7 +217,11 @@ namespace BalloonRss
             else
             {
                 GetData();
-                this.DialogResult = DialogResult.OK;
+                // we use the dialog result as an indication whether we cleared the channel data
+                if (channelDataCleared)
+                    this.DialogResult = DialogResult.Yes;
+                else
+                    this.DialogResult = DialogResult.No;
                 Dispose();
             }
         }
@@ -211,8 +229,29 @@ namespace BalloonRss
         private void OnCancel(object sender, EventArgs e)
         {
             // close window
-            this.DialogResult = DialogResult.Cancel;
+            // we use the dialog result as an indication whether we cleared the channel data
+            if (channelDataCleared)
+                this.DialogResult = DialogResult.Yes;
+            else
+                this.DialogResult = DialogResult.No;
             Dispose();
+        }
+
+        private void OnClearChannelData(object sender, EventArgs e)
+        {
+            // clear the file system data
+            RssChannel.ClearChannelData(channelInfo);
+            channelDataCleared = true;
+
+            // show confirmation dialog
+            MessageBox.Show(
+                this,
+                resources.str_channelSettingsEditClearChannelDataConfirm,
+                resources.str_channelSettingsEditClearChannelData,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+
+            // update channel
         }
     }
 }

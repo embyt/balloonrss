@@ -21,7 +21,9 @@
 !define APPL_NAME "BalloonRSS"
 !define APPL_VERSION "2.0"
 !define PRODUCT_PUBLISHER "Roman Morawek"
+!define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
+!define PRODUCT_DOWNLOAD_SITE "http://sourceforge.net/project/showfiles.php?group_id=206266"
 
 !define BASEDIR ".."
 
@@ -91,6 +93,12 @@ Section "General" SecGeneral
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "NoRepair" 1
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "Publisher" "${PRODUCT_PUBLISHER}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "URLInfoAbout" "${PRODUCT_PUBLISHER_WEB_SITE}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "DisplayVersion" "${APPL_VERSION}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "HelpLink" "${PRODUCT_WEB_SITE}"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "URLUpdateInfo" "${PRODUCT_DOWNLOAD_SITE}"
+  ;also available: ReadMe, Comments
 
   ; Create uninstaller
   WriteUninstaller "uninstall.exe"

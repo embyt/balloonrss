@@ -305,6 +305,24 @@ namespace BalloonRss {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear collected data of this channel.
+        /// </summary>
+        internal static string str_channelSettingsEditClearChannelData {
+            get {
+                return ResourceManager.GetString("str_channelSettingsEditClearChannelData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All collected data of this channel are deleted now..
+        /// </summary>
+        internal static string str_channelSettingsEditClearChannelDataConfirm {
+            get {
+                return ResourceManager.GetString("str_channelSettingsEditClearChannelDataConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit RSS Channel Settings.
         /// </summary>
         internal static string str_channelSettingsEditFormTitle {
