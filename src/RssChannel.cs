@@ -37,9 +37,9 @@ namespace BalloonRss
         public int effectivePriority = 0;
 
 
-        private String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
-        private String rssViewedFilename = "viewed_";
-        private String rssOpenedFilename = "opened_";
+        private static String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
+        private static String rssViewedFilename = "viewed_";
+        private static String rssOpenedFilename = "opened_";
 
 
         public RssChannel(ChannelInfo channelInfo)
@@ -245,23 +245,23 @@ namespace BalloonRss
         }
 
 
-        private String GetRssFeedFolder()
+        private static String GetRssFeedFolder()
         {
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + rssFeedDirName;
         }
 
-        private String GetRssViewedFilename(String url)
+        private static String GetRssViewedFilename(String url)
         {
             return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(rssViewedFilename + url);
         }
 
-        private String GetRssOpenedFilename(String url)
+        private static String GetRssOpenedFilename(String url)
         {
             return GetRssFeedFolder() + Path.DirectorySeparatorChar + MakeSafeFilename(rssOpenedFilename + url);
         }
 
 
-        private String MakeSafeFilename(String url)
+        private static String MakeSafeFilename(String url)
         {
             String safe = url.ToLower();
 
@@ -357,6 +357,20 @@ namespace BalloonRss
 
             // open browser
             System.Diagnostics.Process.Start(rssItem.link);
+        }
+
+
+        public static void ClearChannelData(ChannelInfo channelInfo)
+        {
+            try
+            {
+                File.Delete(GetRssViewedFilename(channelInfo.link));
+                File.Delete(GetRssOpenedFilename(channelInfo.link));
+            }
+            catch (DirectoryNotFoundException)
+            {
+                // skip this exception, the file does not exist anyway
+            }
         }
     }
 }

@@ -202,6 +202,12 @@
   <data name="str_channelSettingsDefaultLink" xml:space="preserve">
     <value>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml</value>
   </data>
+  <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
+    <value>Clear collected data of this channel</value>
+  </data>
+  <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
+    <value>All collected data of this channel are deleted now.</value>
+  </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
     <value>Edit RSS Channel Settings</value>
   </data>

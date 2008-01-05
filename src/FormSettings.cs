@@ -156,6 +156,7 @@ namespace BalloonRss
             else if (settingsObject.GetType() == typeof(byte))
             {
                 control = new TrackBar();
+                ((TrackBar)control).Minimum = minValue;
                 ((TrackBar)control).Maximum = maxValue;
                 ((TrackBar)control).Value = (byte)settingsObject;
             }

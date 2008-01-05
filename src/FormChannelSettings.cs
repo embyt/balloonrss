@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,12 +24,16 @@ namespace BalloonRss
 {
     class FormChannelSettings : Form
     {
-        private int panelWidth = 480;
-        private int panelHeight = 145;
-        private int splitterBorder = 10;
+        private const int panelWidth = 480;
+        private const int panelHeight = 145;
+        private const int splitterBorder = 10;
 
+        // GUI elements
         private ListView listView;
-        ChannelList channelList;
+
+        // other class data
+        private ChannelList channelList;
+        private bool channelDataCleared = false;
 
 
         public FormChannelSettings()
@@ -169,12 +173,15 @@ namespace BalloonRss
                 FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelList[selectedChannel]);
                 DialogResult dialogResult = channelEdit.ShowDialog(this);
 
+                // remember whether any private data were changed
+                // we need this to reload the channel settings then
+                if (dialogResult == DialogResult.Yes)
+                    channelDataCleared = true;
+
                 // update list view display
-                if (dialogResult == DialogResult.OK)
-                {
-                    curItem.SubItems[1].Text = channelList[selectedChannel].link;
-                    curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
-                }
+                // this does not hurt even in case of dialog cancel, since the data will not be changed then
+                curItem.SubItems[1].Text = channelList[selectedChannel].link;
+                curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
 
                 // we just edit the first selection and skip the remaining ones
                 break;
@@ -230,8 +237,13 @@ namespace BalloonRss
 
         private void OnCancel(object sender, EventArgs e)
         {
+            // even if we press cancel we need to reload the channels if the user cleared the collected channel data
+            if (channelDataCleared)
+                this.DialogResult = DialogResult.OK;
+            else
+                this.DialogResult = DialogResult.Cancel;
+
             // close window
-            this.DialogResult = DialogResult.Cancel;
             Dispose();
         }
     }
