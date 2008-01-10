@@ -46,6 +46,9 @@ namespace BalloonRss
         private bool isPaused = false;
         private bool isRssViewed = false;
 
+        // timer counter to delay pop-ups
+        private int priorityRateCounter = 1;
+
         // some dll calls needed to hide the icon in the ALT+TAB bar
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr window, int index, int value);
@@ -310,8 +313,9 @@ namespace BalloonRss
         {
             dispTimer.Stop();
 
-            // update the channel effective priorities
+            // update the channel effective priorities and best priority ratio
             retriever.CalculateEffectiveChannelPriorities();
+            retriever.UpdateBestPriorityRatio();
 
             FormChannelInfo formChannelInfo = new FormChannelInfo(retriever.GetChannels());
             formChannelInfo.ShowDialog();
@@ -425,6 +429,12 @@ namespace BalloonRss
 
         private void OnDispTimerTick(object source, EventArgs e)
         {
+            if (--priorityRateCounter != 0)
+                return;     // we need to wait until the next tip
+
+            // use next timer tick
+            priorityRateCounter = 1;
+
             // to avoid parallel access, we skip the RSS display access as the retriever is working
             if (retriever.backgroundWorker.IsBusy)
                 return;     // wait for next timer tick...
@@ -451,6 +461,9 @@ namespace BalloonRss
                 // enable the message history (might be already enabled)
                 mi_history.Enabled = true;
                 mi_lastMessage.Enabled = true;
+
+                // get the priority decrement counter for next message
+                priorityRateCounter = retriever.bestPriorityRatio;
             }
             else
             {
