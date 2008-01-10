@@ -39,6 +39,9 @@ namespace BalloonRss
         // total number of rss messages left
         private int rssCount;
 
+        // priority of best channel compared to best available channel
+        public int bestPriorityRatio;
+
 
         public Retriever()
         {
@@ -70,8 +73,9 @@ namespace BalloonRss
                 this.Add(channelInfo.link, new RssChannel(channelInfo));
             }
 
-            // setup the initial priorities
+            // setup the initial priorities and best priority ratio
             CalculateEffectiveChannelPriorities();
+            UpdateBestPriorityRatio();
         }
 
 
@@ -180,6 +184,11 @@ namespace BalloonRss
             RssItem rssItem = rssChannel.GetNextItem();
             rssCount--;
 
+            // update the best priority ratio
+            // we need to do this only if the channel got empty
+            if (!rssChannel.IsItemAvailable())
+                UpdateBestPriorityRatio();
+
             // check whether the queue is full
             if (rssHistory.Count == Properties.Settings.Default.historyDepth)
                 rssHistory.Dequeue();  // remove last item from history
@@ -265,5 +274,28 @@ namespace BalloonRss
             return prioritySum;
         }
 
+
+        public void UpdateBestPriorityRatio()
+        {
+            int bestPriority = 0;
+            int bestAvailablePriority = 0;
+
+            // determine the best and best available effective priority
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
+            {
+                RssChannel curChannel = keyValuePair.Value;
+
+                bestPriority = Math.Max(bestPriority, curChannel.effectivePriority);
+
+                if (curChannel.IsItemAvailable())
+                    bestAvailablePriority = Math.Max(bestAvailablePriority, curChannel.effectivePriority);
+            }
+
+            // determine best priority ratio
+            if (bestAvailablePriority > 0)
+                bestPriorityRatio = bestPriority / bestAvailablePriority;
+            else
+                bestPriorityRatio = 1;  // if there is no RSS entry available we don't care for this value
+        }
     }
 }
