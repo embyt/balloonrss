@@ -40,7 +40,7 @@ namespace BalloonRss
         private int rssCount;
 
         // priority of best channel compared to best available channel
-        public int bestPriorityRatio;
+        public double bestPriorityRatio = 1;
 
 
         public Retriever()
@@ -73,9 +73,8 @@ namespace BalloonRss
                 this.Add(channelInfo.link, new RssChannel(channelInfo));
             }
 
-            // setup the initial priorities and best priority ratio
+            // setup the initial priorities
             CalculateEffectiveChannelPriorities();
-            UpdateBestPriorityRatio();
         }
 
 
@@ -99,6 +98,8 @@ namespace BalloonRss
 
                 RetrieveChannel(keyValuePair.Key);
             }
+            // setup or update the best priority ratio
+            UpdateBestPriorityRatio();
         }
 
 
@@ -141,7 +142,7 @@ namespace BalloonRss
 
 
         // this is called from the background worker
-        public void UpdateChannel(String url, XmlNode xmlNode)
+        private void UpdateChannel(String url, XmlNode xmlNode)
         {
             RssChannel rssChannel;
 
@@ -293,7 +294,7 @@ namespace BalloonRss
 
             // determine best priority ratio
             if (bestAvailablePriority > 0)
-                bestPriorityRatio = bestPriority / bestAvailablePriority;
+                bestPriorityRatio = bestPriority / (double)bestAvailablePriority;
             else
                 bestPriorityRatio = 1;  // if there is no RSS entry available we don't care for this value
         }
