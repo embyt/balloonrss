@@ -46,8 +46,6 @@ namespace BalloonRss
         private bool isPaused = false;
         private bool isRssViewed = false;
 
-        // timer counter to delay pop-ups
-        private int priorityRateCounter = 1;
 
         // some dll calls needed to hide the icon in the ALT+TAB bar
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -274,7 +272,8 @@ namespace BalloonRss
             }
 
             // update timer values
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
+            dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 *
+                retriever.bestPriorityRatio);
             retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
 
             // restart timer
@@ -418,6 +417,9 @@ namespace BalloonRss
             {
                 // start the display timer (it may be already running)
                 dispTimer.Start();
+                // update timer value according actual priority, if this time is shorter
+                if (dispTimer.Interval > Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
+                    dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
                 mi_nextMessage.Enabled = true;
             }
             UpdateIcon();
@@ -429,11 +431,8 @@ namespace BalloonRss
 
         private void OnDispTimerTick(object source, EventArgs e)
         {
-            if (--priorityRateCounter != 0)
-                return;     // we need to wait until the next tip
-
-            // use next timer tick
-            priorityRateCounter = 1;
+            // set default timer for the case of early function return
+            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000;
 
             // to avoid parallel access, we skip the RSS display access as the retriever is working
             if (retriever.backgroundWorker.IsBusy)
@@ -462,8 +461,8 @@ namespace BalloonRss
                 mi_history.Enabled = true;
                 mi_lastMessage.Enabled = true;
 
-                // get the priority decrement counter for next message
-                priorityRateCounter = retriever.bestPriorityRatio;
+                // get the timer intervall for the next message
+                dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
             }
             else
             {
