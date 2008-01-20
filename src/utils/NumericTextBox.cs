@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -112,10 +112,10 @@ namespace BalloonRss
         public String GetErrorMessage()
         {
             if (IntValue < minValue)
-                return description + ": " + resources.str_settingsErrorValueToSmall + minValue + ".";
+                return description + ": " + Properties.resources.str_settingsErrorValueToSmall + minValue + ".";
 
             if (IntValue > maxValue)
-                return description + ": " + resources.str_settingsErrorValueToLarge + maxValue + ".";
+                return description + ": " + Properties.resources.str_settingsErrorValueToLarge + maxValue + ".";
 
             return null;
         }

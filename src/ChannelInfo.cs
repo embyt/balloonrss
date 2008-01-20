@@ -36,7 +36,7 @@ namespace BalloonRss
         // the empty constructor is used as a new channel is entered
         public ChannelInfo()
         {
-            link = resources.str_channelSettingsDefaultLink;
+            link = Properties.resources.str_channelSettingsDefaultLink;
             priority = 5;
         }
 
@@ -64,7 +64,7 @@ namespace BalloonRss
 
             // the link field is mandatory
             if (link == null)
-                throw new FormatException(resources.str_balloonErrorChannelLinkTag);
+                throw new FormatException(Properties.resources.str_balloonErrorChannelLinkTag);
         }
 
 

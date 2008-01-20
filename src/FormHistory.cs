@@ -64,8 +64,8 @@ namespace BalloonRss
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
-            this.Text = resources.str_historyFormTitle;
-            this.Icon = BalloonRss.resources.ico_yellow32;
+            this.Text = Properties.resources.str_historyFormTitle;
+            this.Icon = BalloonRss.Properties.resources.ico_yellow32;
         }
 
 
@@ -84,10 +84,10 @@ namespace BalloonRss
             }
 
             // set the table headers
-            listView.Columns.Add(resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(resources.str_historyHeaderChannel, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(resources.str_historyHeaderTimestamp, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.resources.str_historyHeaderChannel, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.resources.str_historyHeaderTimestamp, -2, HorizontalAlignment.Left);
             listView.Items.AddRange(listItems);
         }
 

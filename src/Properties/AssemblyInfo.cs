@@ -7,10 +7,10 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BalloonRSS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon tooltips in the windows task bar. The news entries themselves are linked and read with the browser.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BalloonRss.Properties")]
+[assembly: AssemblyProduct("BalloonRss")]
 [assembly: AssemblyCopyright("Roman Morawek")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -30,6 +30,6 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
