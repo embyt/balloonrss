@@ -118,7 +118,7 @@ namespace BalloonRss
             {
                 // the report progress function is used for error signaling
                 backgroundWorker.ReportProgress(0, 
-                    new String[] { resources.str_balloonErrorRetrieving + url, e.Message });
+                    new String[] { Properties.resources.str_balloonErrorRetrieving + url, e.Message });
                 return false;
             }
 
@@ -133,7 +133,7 @@ namespace BalloonRss
             catch (Exception e)
             {
                 backgroundWorker.ReportProgress(0, 
-                    new String[] { resources.str_balloonErrorParseRss + url, e.Message });
+                    new String[] { Properties.resources.str_balloonErrorParseRss + url, e.Message });
                 return false;
             }
 

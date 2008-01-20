@@ -59,22 +59,22 @@ namespace BalloonRss
 
             // setting
             int maxXSize = 0;
-            cntlDisplayIntervall = CreateSettingControl(Properties.Settings.Default.displayIntervall, resources.str_settingsDisplayIntervall, out panel, 10, Int32.MaxValue);
+            cntlDisplayIntervall = CreateSettingControl(Properties.Settings.Default.displayIntervall, Properties.resources.str_settingsDisplayIntervall, out panel, 10, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlRetrieveIntervall = CreateSettingControl(Properties.Settings.Default.retrieveIntervall, resources.str_settingsRetrieveIntervall, out panel, 15, Int32.MaxValue);
+            cntlRetrieveIntervall = CreateSettingControl(Properties.Settings.Default.retrieveIntervall, Properties.resources.str_settingsRetrieveIntervall, out panel, 15, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlBalloonTimespan = CreateSettingControl(Properties.Settings.Default.balloonTimespan, resources.str_settingsBalloonTimespan, out panel, 10, Int32.MaxValue);
+            cntlBalloonTimespan = CreateSettingControl(Properties.Settings.Default.balloonTimespan, Properties.resources.str_settingsBalloonTimespan, out panel, 10, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlChannelAsTitle = CreateSettingControl(Properties.Settings.Default.channelAsTitle, resources.str_settingsChannelAsTitle, out panel);
+            cntlChannelAsTitle = CreateSettingControl(Properties.Settings.Default.channelAsTitle, Properties.resources.str_settingsChannelAsTitle, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlHistoryDepth = CreateSettingControl(Properties.Settings.Default.historyDepth, resources.str_settingsHistoryDepth, out panel, 0, Int32.MaxValue);
+            cntlHistoryDepth = CreateSettingControl(Properties.Settings.Default.historyDepth, Properties.resources.str_settingsHistoryDepth, out panel, 0, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlClickInfluence = CreateSettingControl(Properties.Settings.Default.clickInfluence, resources.str_settingsClickInfluence, out panel, 0, 10);
+            cntlClickInfluence = CreateSettingControl(Properties.Settings.Default.clickInfluence, Properties.resources.str_settingsClickInfluence, out panel, 0, 10);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
@@ -82,12 +82,12 @@ namespace BalloonRss
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
             flPanel.FlowDirection = FlowDirection.LeftToRight;
             button = new Button();
-            button.Text = resources.str_settingsFormOKButton;
+            button.Text = Properties.resources.str_settingsFormOKButton;
             button.Click += new System.EventHandler(this.OnOK);
             this.AcceptButton = button;
             flPanel.Controls.Add(button);
             button = new Button();
-            button.Text = resources.str_settingsFormCancelButton;
+            button.Text = Properties.resources.str_settingsFormCancelButton;
             button.Click += new System.EventHandler(this.OnCancel);
             this.CancelButton = button;
             flPanel.Controls.Add(button);
@@ -103,8 +103,8 @@ namespace BalloonRss
             // dialog settings
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.Text = resources.str_settingsFormTitle;
-            this.Icon = BalloonRss.resources.ico_yellow32;
+            this.Text = Properties.resources.str_settingsFormTitle;
+            this.Icon = BalloonRss.Properties.resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
             this.Resize += new System.EventHandler(this.OnResize);
 
@@ -209,7 +209,7 @@ namespace BalloonRss
             // interdependencies
             if ( (cntlRetrieveIntervall as NumericTextBox).IntValue <= (cntlDisplayIntervall as NumericTextBox).IntValue)
             {
-                errorMessage = resources.str_settingsErrorRetrieveSmallerDisplay;
+                errorMessage = Properties.resources.str_settingsErrorRetrieveSmallerDisplay;
                 return false;
             }
 
@@ -243,7 +243,7 @@ namespace BalloonRss
             {
                 MessageBox.Show(
                     errorMessage,
-                    resources.str_settingsFormErrorHeader,
+                    Properties.resources.str_settingsFormErrorHeader,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }

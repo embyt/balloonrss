@@ -66,32 +66,32 @@ namespace BalloonRss
             flPanel.Dock = DockStyle.Fill;
             // "new" button
             Button button = new Button();
-            button.Text = resources.str_channelSettingsFormNewButton;
+            button.Text = Properties.resources.str_channelSettingsFormNewButton;
             button.Click += new System.EventHandler(this.OnNew);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "delete" button
             button = new Button();
-            button.Text = resources.str_channelSettingsFormDeleteButton;
+            button.Text = Properties.resources.str_channelSettingsFormDeleteButton;
             button.Click += new System.EventHandler(this.OnDelete);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "edit" button
             button = new Button();
-            button.Text = resources.str_channelSettingsFormEditButton;
+            button.Text = Properties.resources.str_channelSettingsFormEditButton;
             button.Click += new System.EventHandler(this.OnEdit);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "OK" button
             button = new Button();
-            button.Text = resources.str_settingsFormOKButton;
+            button.Text = Properties.resources.str_settingsFormOKButton;
             button.Click += new System.EventHandler(this.OnOK);
             this.AcceptButton = button;
             button.Anchor = AnchorStyles.Bottom;
             flPanel.Controls.Add(button);
             // "Cancel" button
             button = new Button();
-            button.Text = resources.str_settingsFormCancelButton;
+            button.Text = Properties.resources.str_settingsFormCancelButton;
             button.Click += new System.EventHandler(this.OnCancel);
             this.CancelButton = button;
             button.Anchor = AnchorStyles.Bottom;
@@ -112,8 +112,8 @@ namespace BalloonRss
             this.Controls.Add(mainContainer);
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.MinimizeBox = false;
-            this.Text = resources.str_channelSettingsFormTitle;
-            this.Icon = BalloonRss.resources.ico_yellow32;
+            this.Text = Properties.resources.str_channelSettingsFormTitle;
+            this.Icon = BalloonRss.Properties.resources.ico_yellow32;
         }
 
 
@@ -132,9 +132,9 @@ namespace BalloonRss
             }
 
             // set the table headers
-            listView.Columns.Add(resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
-            listView.Columns.Add(resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
+            listView.Columns.Add(Properties.resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
 
             // fill the list
             listView.Items.AddRange(listItems);
@@ -203,8 +203,8 @@ namespace BalloonRss
                 if (!deleteConfirmed)
                 {
                     DialogResult dialogResult = MessageBox.Show(
-                        resources.str_channelSettingsConfirmDeleteText + channelList[selectedChannel].link + "?",
-                        resources.str_channelSettingsConfirmDeleteTitel,
+                        Properties.resources.str_channelSettingsConfirmDeleteText + channelList[selectedChannel].link + "?",
+                        Properties.resources.str_channelSettingsConfirmDeleteTitel,
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
 

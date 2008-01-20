@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BalloonRss {
+namespace BalloonRss.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace BalloonRss {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BalloonRss.resources", typeof(resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BalloonRss.Properties.resources", typeof(resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -229,15 +229,6 @@ namespace BalloonRss {
         internal static string str_channelHeaderEffPrio {
             get {
                 return ResourceManager.GetString("str_channelHeaderEffPrio", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Id.
-        /// </summary>
-        internal static string str_channelHeaderId {
-            get {
-                return ResourceManager.GetString("str_channelHeaderId", resourceCulture);
             }
         }
         
