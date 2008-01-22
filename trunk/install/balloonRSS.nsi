@@ -1,6 +1,6 @@
 ;
 ;BalloonRSS - Simple RSS news aggregator using balloon tooltips
-;    Copyright (C) 2007  Roman Morawek <romor@users.sourceforge.net>
+;    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
 ;
 ;    This program is free software: you can redistribute it and/or modify
 ;    it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.0"
+!define APPL_VERSION "2.1"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -109,6 +109,11 @@ SectionEnd
 ;--------------------------------
 ; Optional section (can be disabled by the user)
 
+Section "Language Files" SecLanguage
+  File /r /x .svn "${BASEDIR}\bin\de"
+  File /r /x .svn "${BASEDIR}\bin\pt"
+SectionEnd
+
 Section "Source Code" SecSource
   File "${BASEDIR}\license.txt"
   File "${BASEDIR}\balloonRss.sln"
@@ -131,15 +136,7 @@ Section "un.General" SecUnGeneral
 
   ; Remove files and uninstaller
   Delete /REBOOTOK "$INSTDIR\BalloonRss.exe"
-  Delete "$INSTDIR\rssFeeds\*.xml"
-  RMDir "$INSTDIR\rssFeeds"
-  Delete "$INSTDIR\channelConfig.xml"
-  Delete "$INSTDIR\README.txt"
-  Delete "$INSTDIR\license.txt"
-  Delete "$INSTDIR\balloonRss.sln"
-  RMDir /r "$INSTDIR\src"
-  Delete "$INSTDIR\Uninstall.exe"
-  RMDir "$INSTDIR"
+  RMDir /r "$INSTDIR"
 
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}"
@@ -163,6 +160,7 @@ SectionEnd
 ; Language strings
 LangString DESC_SecGeneral ${LANG_ENGLISH} "Installs the appliation, including a sample configuration."
 LangString DESC_SecDotNet ${LANG_ENGLISH} "Installs the Microsoft .NET framework, which is required for this application."
+LangString DESC_SecLanguage ${LANG_ENGLISH} "Installs language files for German and Portuguese."
 LangString DESC_SecSource ${LANG_ENGLISH} "Installs the source code."
 LangString DESC_SecStartMenu ${LANG_ENGLISH} "Makes an entry in the start menu."
 LangString DESC_SecAutostart ${LANG_ENGLISH} "Launch ${APPL_NAME} on start-up."
@@ -175,6 +173,7 @@ LangString DESC_SecUnData ${LANG_ENGLISH} "Removes application specific settings
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecGeneral} $(DESC_SecGeneral)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecDotNet} $(DESC_SecDotNet)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecLanguage} $(DESC_SecLanguage)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecSource} $(DESC_SecSource)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecStartMenu} $(DESC_SecStartMenu)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecAutostart} $(DESC_SecAutostart)

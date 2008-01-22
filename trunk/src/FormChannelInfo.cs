@@ -61,8 +61,8 @@ namespace BalloonRss
             this.ClientSize = new System.Drawing.Size(480, 200);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
-            this.Text = Properties.resources.str_channelFormTitle;
-            this.Icon = BalloonRss.Properties.resources.ico_yellow32;
+            this.Text = Properties.Resources.str_channelFormTitle;
+            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
         }
 
 
@@ -87,13 +87,13 @@ namespace BalloonRss
             }
 
             // set the table headers
-            listView.Columns.Add(Properties.resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(Properties.resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Properties.Resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
 
