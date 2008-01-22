@@ -23,6 +23,7 @@ using System.Threading;
 using System.Net;
 using System.Xml;
 using System.IO;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
@@ -30,6 +31,8 @@ namespace BalloonRss
     // the retriever class is a collection of all RSS channels
     class Retriever : System.Collections.Generic.Dictionary<String, RssChannel>
     {
+        const string updateCheckUrl = "http://balloonrss.sourceforge.net/checkforupdates.php?curVersion=";
+
         // the background worker to retrieve the channels
         public BackgroundWorker backgroundWorker;
 
@@ -42,6 +45,9 @@ namespace BalloonRss
         // priority of best channel compared to best available channel
         public double bestPriorityRatio = 1;
 
+        // special RssItem that exists if a new update is available
+        private RssUpdateItem applicationUpdateInfo = null;
+
 
         public Retriever()
         {
@@ -52,7 +58,7 @@ namespace BalloonRss
             backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RetrieveChannels);
 
             // initialize history queue
-            rssHistory = new Queue<RssItem>(Properties.Settings.Default.historyDepth);
+            rssHistory = new Queue<RssItem>(Settings.Default.historyDepth);
         }
 
 
@@ -93,13 +99,17 @@ namespace BalloonRss
             // get the news from all channels
             foreach (KeyValuePair<String,RssChannel> keyValuePair in this)
             {
-                if (backgroundWorker.CancellationPending)
-                    break;
-
                 RetrieveChannel(keyValuePair.Key);
+
+                if (backgroundWorker.CancellationPending)
+                    return;
             }
             // setup or update the best priority ratio
             UpdateBestPriorityRatio();
+
+            // check for application update
+            if (Settings.Default.checkForUpdates)
+                CheckForUpdates();
         }
 
 
@@ -118,7 +128,7 @@ namespace BalloonRss
             {
                 // the report progress function is used for error signaling
                 backgroundWorker.ReportProgress(0, 
-                    new String[] { Properties.Resources.str_balloonErrorRetrieving + url, e.Message });
+                    new String[] { Resources.str_balloonErrorRetrieving + url, e.Message });
                 return false;
             }
 
@@ -133,7 +143,7 @@ namespace BalloonRss
             catch (Exception e)
             {
                 backgroundWorker.ReportProgress(0, 
-                    new String[] { Properties.Resources.str_balloonErrorParseRss + url, e.Message });
+                    new String[] { Resources.str_balloonErrorParseRss + url, e.Message });
                 return false;
             }
 
@@ -164,6 +174,44 @@ namespace BalloonRss
             }
         }
 
+        // this is called from the background worker
+        private void CheckForUpdates()
+        {
+            // ignore all errors for this comfort feature
+            try
+            {
+                // set current application version
+                Version assemblyVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                int currentVersion = 100*assemblyVersion.Major + assemblyVersion.Minor;
+
+                // get the actual version string
+                HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(updateCheckUrl + currentVersion);
+                HttpWebResponse httpResp = (HttpWebResponse)httpReq.GetResponse();
+                byte[] receiveBuffer = new byte[1024];
+                int count = httpResp.GetResponseStream().Read(receiveBuffer, 0, receiveBuffer.Length);
+                String receiveString = System.Text.Encoding.ASCII.GetString(receiveBuffer, 0, count);
+                httpResp.Close();
+
+                // interpret response
+                int newVersion = Int32.Parse(receiveString);
+
+                // is there a newer version available?
+                if (newVersion > currentVersion)
+                {
+                    // we must not overwrite an update info which was already displayed
+                    if ( (applicationUpdateInfo == null) || (applicationUpdateInfo.NewVersion < newVersion) )
+                        applicationUpdateInfo = new RssUpdateItem();
+
+                    applicationUpdateInfo.NewVersion = newVersion;
+                    applicationUpdateInfo.CurrentVersion = currentVersion;
+                }
+            }
+            catch (Exception)
+            {
+                // ignore this
+            }
+        }
+
 
         public int GetQueueSize()
         {
@@ -173,25 +221,41 @@ namespace BalloonRss
 
         public RssItem GetNextItem()
         {
-            // first, choose the channel for this news entry
-            RssChannel rssChannel = GetNextChannel();
+            RssItem rssItem = null;
 
-            // all channels are empty
-            if (rssChannel == null)
-                return null;
+            // shall we display update info instead of a news message?
+            if ( Settings.Default.checkForUpdates && (applicationUpdateInfo != null) &&
+                ((DateTime.Now - applicationUpdateInfo.dispDate) > TimeSpan.FromDays(1)) )
+            {
+                // OK, we take this one
+                rssItem = applicationUpdateInfo;
+                // set display timestamp
+                rssItem.dispDate = DateTime.Now;
+            }
+            else
+            {
+                // normal news message
+
+                // choose the channel for this news entry
+                RssChannel rssChannel = GetNextChannel();
+
+                // all channels are empty
+                if (rssChannel == null)
+                    return null;
 
 
-            // now, as we have the channel, let the channel select the best news item
-            RssItem rssItem = rssChannel.GetNextItem();
-            rssCount--;
+                // now, as we have the channel, let the channel select the best news item
+                rssItem = rssChannel.GetNextItem();
+                rssCount--;
 
-            // update the best priority ratio
-            // we need to do this only if the channel got empty
-            if (!rssChannel.IsItemAvailable())
-                UpdateBestPriorityRatio();
+                // update the best priority ratio
+                // we need to do this only if the channel got empty
+                if (!rssChannel.IsItemAvailable())
+                    UpdateBestPriorityRatio();
+            }
 
             // check whether the queue is full
-            if (rssHistory.Count == Properties.Settings.Default.historyDepth)
+            if (rssHistory.Count == Settings.Default.historyDepth)
                 rssHistory.Dequeue();  // remove last item from history
             // add item to history queue
             rssHistory.Enqueue(rssItem);
@@ -253,18 +317,18 @@ namespace BalloonRss
                 {
                     curChannel.effectivePriority = (int)Math.Round(
                         curChannel.channelInfo.priority 
-                            * (10 - Properties.Settings.Default.clickInfluence) +
+                            * (10 - Settings.Default.clickInfluence) +
                         (((float)curChannel.channelOpenedCount / openedSum) / ((float)curChannel.channelViewedCount / viewedSum)) 
-                            * Properties.Settings.Default.clickInfluence );
+                            * Settings.Default.clickInfluence );
                 }
                 catch (ArithmeticException)
                 {
                     // take the default priority if we did not open or view any item yet
                     curChannel.effectivePriority = 
                         curChannel.channelInfo.priority 
-                            * (10 - Properties.Settings.Default.clickInfluence) + 
+                            * (10 - Settings.Default.clickInfluence) + 
                         1
-                            * Properties.Settings.Default.clickInfluence;
+                            * Settings.Default.clickInfluence;
                 }
 
                 // if the channel is non-empty, add it to the total priority

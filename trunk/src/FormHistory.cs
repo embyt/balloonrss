@@ -78,7 +78,10 @@ namespace BalloonRss
             {
                 listItems[i] = new ListViewItem("" + (i+1));
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
-                listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel.channelInfo.link);
+                if (rssHistory[rssHistory.Length - 1 - i].GetType() != typeof(RssUpdateItem))
+                    listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel.channelInfo.link);
+                else
+                    listItems[i].SubItems.Add("");
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].dispDate.ToShortTimeString());
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].link);
             }
@@ -98,7 +101,15 @@ namespace BalloonRss
             {
                 // start the link of the RSS item
                 RssItem rssItem = rssHistory[rssHistory.Length - 1 - listItem.Index];
-                rssItem.channel.ActivateItem(rssItem);
+                if (rssItem.GetType() != typeof(RssUpdateItem))
+                {
+                    rssItem.channel.ActivateItem(rssItem);
+                }
+                else
+                {
+                    // this is an RSS update information
+                    System.Diagnostics.Process.Start(rssItem.link);
+                }
             }
 
             // close window

@@ -548,6 +548,15 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check for application updates.
+        /// </summary>
+        internal static string str_settingsCheckForUpdates {
+            get {
+                return ResourceManager.GetString("str_settingsCheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Priority influence of message clicks (prio &lt;-&gt; clicks).
         /// </summary>
         internal static string str_settingsClickInfluence {
@@ -643,6 +652,24 @@ namespace BalloonRss.Properties {
         internal static string str_settingsRetrieveIntervall {
             get {
                 return ResourceManager.GetString("str_settingsRetrieveIntervall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click this message to read the release notes. To disable this message deactivate the update check in the application settings..
+        /// </summary>
+        internal static string str_updateBody {
+            get {
+                return ResourceManager.GetString("str_updateBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New version of BalloonRSS available: .
+        /// </summary>
+        internal static string str_updateTitle {
+            get {
+                return ResourceManager.GetString("str_updateTitle", resourceCulture);
             }
         }
     }

@@ -37,6 +37,14 @@ namespace BalloonRss
         public RssChannel channel;
 
 
+        protected RssItem()
+        {
+            pubDate = DateTime.MinValue;
+            creationDate = DateTime.Now;
+            channel = null;
+            dispDate = DateTime.MinValue;
+        }
+
         public RssItem(XmlNode xmlNode, RssChannel channel)
         {
             this.creationDate = DateTime.Now;

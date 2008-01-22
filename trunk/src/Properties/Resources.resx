@@ -334,6 +334,10 @@
     <value>Channel configuration filename</value>
     <comment>settings information string</comment>
   </data>
+  <data name="str_settingsCheckForUpdates" xml:space="preserve">
+    <value>Check for application updates</value>
+    <comment>settings information string</comment>
+  </data>
   <data name="str_settingsClickInfluence" xml:space="preserve">
     <value>Priority influence of message clicks (prio &lt;-&gt; clicks)</value>
     <comment>settings information string</comment>
@@ -377,5 +381,13 @@
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
     <value>Intervall for retrieving new RSS messages [s]</value>
     <comment>settings information string</comment>
+  </data>
+  <data name="str_updateBody" xml:space="preserve">
+    <value>Click this message to read the release notes. To disable this message deactivate the update check in the application settings.</value>
+    <comment>body text of application update</comment>
+  </data>
+  <data name="str_updateTitle" xml:space="preserve">
+    <value>New version of BalloonRSS available: </value>
+    <comment>title of application update message</comment>
   </data>
 </root>

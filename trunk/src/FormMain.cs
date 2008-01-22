@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
@@ -81,8 +82,8 @@ namespace BalloonRss
                 else
                 {
                     // display error message
-                    MessageBox.Show(Properties.Resources.str_balloonErrorDuplicateInstanceBody,
-                        Properties.Resources.str_balloonErrorDuplicateInstanceHeader,
+                    MessageBox.Show(Resources.str_balloonErrorDuplicateInstanceBody,
+                        Resources.str_balloonErrorDuplicateInstanceHeader,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
@@ -99,13 +100,13 @@ namespace BalloonRss
             dispTimer = new Timer();
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000; // intervall in seconds
+            dispTimer.Interval = Settings.Default.displayIntervall * 1000; // intervall in seconds
 
             // setup retrieve Timer
             retrieveTimer = new Timer();
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
-            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 1000; // intervall in seconds
 
             // setup and start the background worker
             retriever = new Retriever();
@@ -135,9 +136,9 @@ namespace BalloonRss
                     // if also this try failed, we probably could not find the defaultChannels.xml file
                     // display error message
                     notifyIcon.ShowBalloonTip(
-                        Properties.Settings.Default.balloonTimespan * 1000,
-                        Properties.Resources.str_balloonErrorChannelsHeader,
-                        Properties.Resources.str_balloonErrorChannelsBody,
+                        Settings.Default.balloonTimespan * 1000,
+                        Resources.str_balloonErrorChannelsHeader,
+                        Resources.str_balloonErrorChannelsBody,
                         ToolTipIcon.Error);
 
                     // we have to return here to skip welcome message and to not start retrieving
@@ -146,9 +147,9 @@ namespace BalloonRss
 
                 // display welcome message
                 notifyIcon.ShowBalloonTip(
-                    Properties.Settings.Default.balloonTimespan * 1000,
-                    Properties.Resources.str_balloonWelcomeHeader,
-                    Properties.Resources.str_balloonWelcomeBody,
+                    Settings.Default.balloonTimespan * 1000,
+                    Resources.str_balloonWelcomeHeader,
+                    Resources.str_balloonWelcomeBody,
                     ToolTipIcon.Info);
             }
 
@@ -161,7 +162,7 @@ namespace BalloonRss
         {
             this.SuspendLayout();
 
-            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
+            this.Icon = Resources.ico_yellow32;
             this.ClientSize = new System.Drawing.Size(0, 0);
             this.Text = "BalloonRss";
             this.ShowInTaskbar = false;
@@ -187,48 +188,48 @@ namespace BalloonRss
 
             // menuItem Exit
             MenuItem mi_exit = new System.Windows.Forms.MenuItem();
-            mi_exit.Text = Properties.Resources.str_contextMenuExit;
+            mi_exit.Text = Resources.str_contextMenuExit;
             mi_exit.Click += new System.EventHandler(this.MiExitClick);
 
             // menuItem Settings
             MenuItem mi_settings = new System.Windows.Forms.MenuItem();
-            mi_settings.Text = Properties.Resources.str_contextMenuSettings;
+            mi_settings.Text = Resources.str_contextMenuSettings;
             mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
             mi_settings.Enabled = true;
 
             // menuItem Channel Settings
             MenuItem mi_channelSettings = new System.Windows.Forms.MenuItem();
-            mi_channelSettings.Text = Properties.Resources.str_contextMenuChannelSettings;
+            mi_channelSettings.Text = Resources.str_contextMenuChannelSettings;
             mi_channelSettings.Click += new System.EventHandler(this.MiChannelSettingsClick);
             mi_channelSettings.Enabled = true;
 
             // menuItem Channel Info
             MenuItem mi_channelInfo = new System.Windows.Forms.MenuItem();
-            mi_channelInfo.Text = Properties.Resources.str_contextMenuChannelInfo;
+            mi_channelInfo.Text = Resources.str_contextMenuChannelInfo;
             mi_channelInfo.Click += new System.EventHandler(this.MiChannelInfoClick);
             mi_channelInfo.Enabled = true;
 
             // menuItem Get Channels
             MenuItem mi_getChannels = new System.Windows.Forms.MenuItem();
-            mi_getChannels.Text = Properties.Resources.str_contextMenuGetChannels;
+            mi_getChannels.Text = Resources.str_contextMenuGetChannels;
             mi_getChannels.Click += new System.EventHandler(this.MiGetChannelsClick);
             mi_getChannels.Enabled = true;
 
             // menuItem History
             mi_history = new System.Windows.Forms.MenuItem();
-            mi_history.Text = Properties.Resources.str_contextMenuHistory;
+            mi_history.Text = Resources.str_contextMenuHistory;
             mi_history.Click += new System.EventHandler(this.MiHistoryClick);
             mi_history.Enabled = false;
 
             // menuItem Next Message
             mi_nextMessage = new System.Windows.Forms.MenuItem();
-            mi_nextMessage.Text = Properties.Resources.str_contextMenuNextMessage;
+            mi_nextMessage.Text = Resources.str_contextMenuNextMessage;
             mi_nextMessage.Click += new System.EventHandler(this.MiNextMessageClick);
             mi_nextMessage.Enabled = false;
 
             // menuItem Last Message
             mi_lastMessage = new System.Windows.Forms.MenuItem();
-            mi_lastMessage.Text = Properties.Resources.str_contextMenuLastMessage;
+            mi_lastMessage.Text = Resources.str_contextMenuLastMessage;
             mi_lastMessage.Click += new System.EventHandler(this.OnBalloonTipClicked);
             mi_lastMessage.Enabled = false;
 
@@ -273,9 +274,9 @@ namespace BalloonRss
             }
 
             // update timer values
-            dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 *
+            dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 *
                 retriever.bestPriorityRatio);
-            retrieveTimer.Interval = Properties.Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 1000; // intervall in seconds
 
             // restart timer
             retrieveTimer.Start();
@@ -398,13 +399,22 @@ namespace BalloonRss
                 {
                     // get most recent item of queue
                     RssItem rssItem = retriever.rssHistory.ToArray()[retriever.rssHistory.Count - 1];
+
                     // start browser
-                    rssItem.channel.ActivateItem(rssItem);
+                    if (rssItem.GetType() != typeof(RssUpdateItem))
+                    {
+                        rssItem.channel.ActivateItem(rssItem);
+                    }
+                    else
+                    {
+                        // this is an RSS update information
+                        System.Diagnostics.Process.Start(rssItem.link);
+                    }
                 }
                 else
                 {
                     isRssViewed = false;
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, Properties.Resources.str_balloonWarningNoEntryHeader, Properties.Resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
+                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, Resources.str_balloonWarningNoEntryHeader, Resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
                 }
             }
             // if no rss item was viewed, we skip the click
@@ -419,8 +429,8 @@ namespace BalloonRss
                 // start the display timer (it may be already running)
                 dispTimer.Start();
                 // update timer value according actual priority, if this time is shorter
-                if (dispTimer.Interval > Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
-                    dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
+                if (dispTimer.Interval > Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
+                    dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
                 mi_nextMessage.Enabled = true;
             }
             UpdateIcon();
@@ -433,7 +443,7 @@ namespace BalloonRss
         private void OnDispTimerTick(object source, EventArgs e)
         {
             // set default timer for the case of early function return
-            dispTimer.Interval = Properties.Settings.Default.displayIntervall * 1000;
+            dispTimer.Interval = Settings.Default.displayIntervall * 1000;
 
             // to avoid parallel access, we skip the RSS display access as the retriever is working
             if (retriever.backgroundWorker.IsBusy)
@@ -449,13 +459,13 @@ namespace BalloonRss
             {
                 // display the news
                 isRssViewed = true;
-                if (Properties.Settings.Default.channelAsTitle)
+                if (Settings.Default.channelAsTitle)
                 {
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
                 }
                 else
                 {
-                    notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
+                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
                 }
 
                 // enable the message history (might be already enabled)
@@ -463,7 +473,7 @@ namespace BalloonRss
                 mi_lastMessage.Enabled = true;
 
                 // get the timer intervall for the next message
-                dispTimer.Interval = Convert.ToInt32(Properties.Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
+                dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
             }
             else
             {
@@ -491,21 +501,21 @@ namespace BalloonRss
 
                 // update icon
                 if (rssCount > 0)
-                    notifyIcon.Icon = Properties.Resources.ico_yellow16;
+                    notifyIcon.Icon = Resources.ico_yellow16;
                 else
-                    notifyIcon.Icon = Properties.Resources.ico_orange16;
+                    notifyIcon.Icon = Resources.ico_orange16;
 
                 // update info text
                 if (rssCount != 1)
-                    notifyIcon.Text = rssCount + Properties.Resources.str_iconInfoNewsCount;
+                    notifyIcon.Text = rssCount + Resources.str_iconInfoNewsCount;
                 else
-                    notifyIcon.Text = Properties.Resources.str_iconInfoNewsCount1;
+                    notifyIcon.Text = Resources.str_iconInfoNewsCount1;
             }
             else
             {
                 // update icon and text
-                notifyIcon.Icon = Properties.Resources.ico_blue16;
-                notifyIcon.Text = Properties.Resources.str_iconInfoPause;
+                notifyIcon.Icon = Resources.ico_blue16;
+                notifyIcon.Text = Resources.str_iconInfoPause;
             }
         }
 
@@ -515,7 +525,7 @@ namespace BalloonRss
             // report error message via pop-up
             String[] message = e.UserState as String[];
             isRssViewed = false;
-            notifyIcon.ShowBalloonTip(Properties.Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
+            notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
         }
     }
 }
