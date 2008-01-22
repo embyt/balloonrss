@@ -34,6 +34,7 @@ namespace BalloonRss
         private Control cntlChannelAsTitle;
         private Control cntlHistoryDepth;
         private Control cntlClickInfluence;
+        private Control cntlCheckForUpdates;
 
 
         public FormSettings()
@@ -75,6 +76,9 @@ namespace BalloonRss
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
             cntlClickInfluence = CreateSettingControl(Properties.Settings.Default.clickInfluence, Properties.Resources.str_settingsClickInfluence, out panel, 0, 10);
+            maxXSize = Math.Max(maxXSize, panel.Width);
+            flPanelMain.Controls.Add(panel);
+            cntlCheckForUpdates = CreateSettingControl(Properties.Settings.Default.checkForUpdates, Properties.Resources.str_settingsCheckForUpdates, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
@@ -226,6 +230,7 @@ namespace BalloonRss
             Properties.Settings.Default.historyDepth = (cntlHistoryDepth as NumericTextBox).IntValue;
             Properties.Settings.Default.retrieveIntervall = (cntlRetrieveIntervall as NumericTextBox).IntValue;
             Properties.Settings.Default.clickInfluence = (byte)(cntlClickInfluence as TrackBar).Value;
+            Properties.Settings.Default.checkForUpdates = (cntlCheckForUpdates as CheckBox).Checked;
         }
 
 

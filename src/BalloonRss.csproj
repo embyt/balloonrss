@@ -96,6 +96,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RssItem.cs" />
+    <Compile Include="RssUpdateItem.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="utils\NumericTextBox.cs">
       <SubType>Component</SubType>
