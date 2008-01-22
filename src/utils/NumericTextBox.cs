@@ -112,10 +112,10 @@ namespace BalloonRss
         public String GetErrorMessage()
         {
             if (IntValue < minValue)
-                return description + ": " + Properties.resources.str_settingsErrorValueToSmall + minValue + ".";
+                return description + ": " + Properties.Resources.str_settingsErrorValueToSmall + minValue + ".";
 
             if (IntValue > maxValue)
-                return description + ": " + Properties.resources.str_settingsErrorValueToLarge + maxValue + ".";
+                return description + ": " + Properties.Resources.str_settingsErrorValueToLarge + maxValue + ".";
 
             return null;
         }

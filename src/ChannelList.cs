@@ -116,7 +116,7 @@ namespace BalloonRss
 
             if (!gotChannelTag)
             {
-                throw new FormatException(Properties.resources.str_balloonErrorConfigChannelTag);
+                throw new FormatException(Properties.Resources.str_balloonErrorConfigChannelTag);
             }
         }
 

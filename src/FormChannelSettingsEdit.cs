@@ -64,16 +64,16 @@ namespace BalloonRss
 
             // setting controls
             int maxXSize = 0;
-            cntlUrl = CreateSettingControl(channelInfo.link, Properties.resources.str_channelSettingsHeaderTitle, out panel);
+            cntlUrl = CreateSettingControl(channelInfo.link, Properties.Resources.str_channelSettingsHeaderTitle, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlPriority = CreateSettingControl(channelInfo.priority, Properties.resources.str_channelSettingsHeaderPriority, out panel, 0, Byte.MaxValue);
+            cntlPriority = CreateSettingControl(channelInfo.priority, Properties.Resources.str_channelSettingsHeaderPriority, out panel, 0, Byte.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
 
             // clear data button
             ctrlClearChannelData = new Button();
-            ctrlClearChannelData.Text = Properties.resources.str_channelSettingsEditClearChannelData;
+            ctrlClearChannelData.Text = Properties.Resources.str_channelSettingsEditClearChannelData;
             ctrlClearChannelData.Width = TextRenderer.MeasureText(ctrlClearChannelData.Text, ctrlClearChannelData.Font).Width+10;
             ctrlClearChannelData.Click += new EventHandler(this.OnClearChannelData);
             maxXSize = Math.Max(maxXSize, ctrlClearChannelData.Width);
@@ -83,12 +83,12 @@ namespace BalloonRss
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
             flPanel.FlowDirection = FlowDirection.LeftToRight;
             button = new Button();
-            button.Text = Properties.resources.str_settingsFormOKButton;
+            button.Text = Properties.Resources.str_settingsFormOKButton;
             button.Click += new EventHandler(this.OnOK);
             this.AcceptButton = button;
             flPanel.Controls.Add(button);
             button = new Button();
-            button.Text = Properties.resources.str_settingsFormCancelButton;
+            button.Text = Properties.Resources.str_settingsFormCancelButton;
             button.Click += new EventHandler(this.OnCancel);
             this.CancelButton = button;
             flPanel.Controls.Add(button);
@@ -104,8 +104,8 @@ namespace BalloonRss
             // dialog settings
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.Text = Properties.resources.str_channelSettingsEditFormTitle;
-            this.Icon = BalloonRss.Properties.resources.ico_yellow32;
+            this.Text = Properties.Resources.str_channelSettingsEditFormTitle;
+            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
             this.Resize += new EventHandler(this.OnResize);
 
@@ -210,7 +210,7 @@ namespace BalloonRss
             {
                 MessageBox.Show(
                     errorMessage,
-                    Properties.resources.str_settingsFormErrorHeader,
+                    Properties.Resources.str_settingsFormErrorHeader,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -246,8 +246,8 @@ namespace BalloonRss
             // show confirmation dialog
             MessageBox.Show(
                 this,
-                Properties.resources.str_channelSettingsEditClearChannelDataConfirm,
-                Properties.resources.str_channelSettingsEditClearChannelData,
+                Properties.Resources.str_channelSettingsEditClearChannelDataConfirm,
+                Properties.Resources.str_channelSettingsEditClearChannelData,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 

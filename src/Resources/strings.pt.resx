@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
+    <value>Atributo de ligação em falta no ficheiro de configuração</value>
+    <comment>This is a format error in the .xml channel config file.</comment>
+  </data>
+  <data name="str_balloonErrorChannelsBody" xml:space="preserve">
+    <value>Configurações por defeito do canal RSS não encontradas ou estão incorrectas. Por favor, configure os canais manualmente.</value>
+    <comment>the default channel settings file was not found or has illegal format</comment>
+  </data>
+  <data name="str_balloonErrorChannelsHeader" xml:space="preserve">
+    <value>A inicializar BalloonRSS</value>
+    <comment>title of popup displaying an error in the default channel settings file</comment>
+  </data>
+  <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
+    <value>Falta tag obrigatória do "canal".</value>
+    <comment>error in channel config file</comment>
+  </data>
+  <data name="str_balloonErrorDuplicateInstanceBody" xml:space="preserve">
+    <value>Não é possível iniciar BalloonRSS porque o programa já está a ser executado.</value>
+    <comment>start-up error pop-up (body text)</comment>
+  </data>
+  <data name="str_balloonErrorDuplicateInstanceHeader" xml:space="preserve">
+    <value>A iniciar BalloonRSS</value>
+    <comment>start-up error pop-up (header text)</comment>
+  </data>
+  <data name="str_balloonErrorParseRss" xml:space="preserve">
+    <value>Erro ao receber o feed RSS de </value>
+    <comment>we got an illegal RSS file from the remote server "xxx" (appended to text)</comment>
+  </data>
+  <data name="str_balloonErrorRetrieving" xml:space="preserve">
+    <value>Erro ao receber </value>
+    <comment>communication problem while downloading the RSS messages</comment>
+  </data>
+  <data name="str_balloonWarningNoEntryBody" xml:space="preserve">
+    <value>Ainda não há entradas RSS em espera.</value>
+    <comment>we want to display a RSS item but we have none (body text)</comment>
+  </data>
+  <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
+    <value>Mostrar todo o conteúdo RSS</value>
+    <comment>we want to display a RSS item but we have none (header text)</comment>
+  </data>
+  <data name="str_balloonWelcomeBody" xml:space="preserve">
+    <value>Pode aceder ao programa com um clique direito do rato sobre este ícone. Deve começar por adicionar canais de RSS à sua escolha.</value>
+    <comment>welcome message on first application start (body text)</comment>
+  </data>
+  <data name="str_balloonWelcomeHeader" xml:space="preserve">
+    <value>Bem-vindo ao BalloonRSS</value>
+    <comment>welcome message on first application start (header text)</comment>
+  </data>
+  <data name="str_channelFormTitle" xml:space="preserve">
+    <value>Informação do Canal RSS</value>
+    <comment>"RSS channel information" window title</comment>
+  </data>
+  <data name="str_channelHeaderClickRate" xml:space="preserve">
+    <value>Clique Avaliar</value>
+    <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderCount" xml:space="preserve">
+    <value>Mens. Espera</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderEffPrio" xml:space="preserve">
+    <value>Eff. Prio.</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderLastUpdate" xml:space="preserve">
+    <value>Última Actualização</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderPrio" xml:space="preserve">
+    <value>Prioridade</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderTitle" xml:space="preserve">
+    <value>Título</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelHeaderTotal" xml:space="preserve">
+    <value>Mens. Canal</value>
+    <comment>"RSS channel information" column title</comment>
+  </data>
+  <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
+    <value>Deseja mesmo apagar o canal RSS </value>
+    <comment>warning popup (body text)</comment>
+  </data>
+  <data name="str_channelSettingsConfirmDeleteTitel" xml:space="preserve">
+    <value>Confirme apagar o canal RSS</value>
+    <comment>warning popup (header text)</comment>
+  </data>
+  <data name="str_channelSettingsDefaultLink" xml:space="preserve">
+    <value>http://doc.jurispro.net/rss/forum.xmll</value>
+    <comment>default URL entry for new RSS feed link</comment>
+  </data>
+  <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
+    <value>Limpar dados recebidos deste canal</value>
+    <comment>button text to delete all collected data of current channel</comment>
+  </data>
+  <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
+    <value>Todos os dados recebidos deste canal serão apagados agora.</value>
+    <comment>confirmation popup text after channel data deletion (body text)</comment>
+  </data>
+  <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
+    <value>Editar configurações do Canal RSS</value>
+    <comment>edit RSS channel window title</comment>
+  </data>
+  <data name="str_channelSettingsFormDeleteButton" xml:space="preserve">
+    <value>&amp;Apagar</value>
+    <comment>button in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsFormEditButton" xml:space="preserve">
+    <value>&amp;Editar</value>
+    <comment>button in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsFormNewButton" xml:space="preserve">
+    <value>&amp;Novo</value>
+    <comment>button in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsFormTitle" xml:space="preserve">
+    <value>Configurações do Canal RSS</value>
+    <comment>title of "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsHeaderPriority" xml:space="preserve">
+    <value>Prioridade</value>
+    <comment>column header in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsHeaderTitle" xml:space="preserve">
+    <value>Ligação</value>
+    <comment>column header in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_contextMenuChannelInfo" xml:space="preserve">
+    <value>&amp;Informação do Canal RSS</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuChannelSettings" xml:space="preserve">
+    <value>Configuração de &amp;Canais RSS</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuExit" xml:space="preserve">
+    <value>&amp;Sair</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuGetChannels" xml:space="preserve">
+    <value>&amp;Carregar Canais RSS</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuHistory" xml:space="preserve">
+    <value>&amp;Histórico de Mesagens</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuLastMessage" xml:space="preserve">
+    <value>Abrir Ú&amp;ltima Mensagem</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuNextMessage" xml:space="preserve">
+    <value>Mensagem Segui&amp;nte</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuSettings" xml:space="preserve">
+    <value>Configuraçõe&amp;s da Aplicação</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_historyFormTitle" xml:space="preserve">
+    <value>Histórico de Mensagens RSS</value>
+    <comment>"RSS Message History" window title</comment>
+  </data>
+  <data name="str_historyHeaderChannel" xml:space="preserve">
+    <value>Canal</value>
+    <comment>column header in "RSS Message History" window</comment>
+  </data>
+  <data name="str_historyHeaderId" xml:space="preserve">
+    <value>Id</value>
+    <comment>column header in "RSS Message History" window</comment>
+  </data>
+  <data name="str_historyHeaderTimestamp" xml:space="preserve">
+    <value>Visto em</value>
+    <comment>column header in "RSS Message History" window</comment>
+  </data>
+  <data name="str_historyHeaderTitle" xml:space="preserve">
+    <value>Título</value>
+    <comment>column header in "RSS Message History" window</comment>
+  </data>
+  <data name="str_iconInfoNewsCount" xml:space="preserve">
+    <value> mensagens RSS pendentes.</value>
+    <comment>text displayed as mouse is moved over application icon (number put in front of it, thus start string with a space character)</comment>
+  </data>
+  <data name="str_iconInfoNewsCount1" xml:space="preserve">
+    <value>1 mensagem RSS pendente.</value>
+    <comment>text displayed as mouse is moved over application icon when exactly 1 message is left</comment>
+  </data>
+  <data name="str_iconInfoPause" xml:space="preserve">
+    <value>BalloonRSS em pausa.</value>
+    <comment>text displayed as mouse is moved over application icon when application is paused</comment>
+  </data>
+  <data name="str_settingsBalloonTimespan" xml:space="preserve">
+    <value>Tempo de visibilidade do balão</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsChannelAsTitle" xml:space="preserve">
+    <value>Usar nome do canal como título do balão</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsChannelConfigFilename" xml:space="preserve">
+    <value>Nome do ficheiro de configuração do canal</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsClickInfluence" xml:space="preserve">
+    <value>Influência da prioridade de cliques da mensagem (prio &lt;-&gt; cliques)</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsDisplayIntervall" xml:space="preserve">
+    <value>Tempo entre mostrar duas mensagens de RSS</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
+    <value>O tempo de carregamento tem de ser maior que o intervalo de visibilidade.</value>
+    <comment>error message as illegal settings are detected</comment>
+  </data>
+  <data name="str_settingsErrorValueToLarge" xml:space="preserve">
+    <value>Valor maior que o máximo válido </value>
+    <comment>error message as illegal settings are detected</comment>
+  </data>
+  <data name="str_settingsErrorValueToSmall" xml:space="preserve">
+    <value>Valor mais pequeno que o mínimo válido </value>
+    <comment>error message as illegal settings are detected</comment>
+  </data>
+  <data name="str_settingsFormCancelButton" xml:space="preserve">
+    <value>&amp;Cancelar</value>
+    <comment>text of cancel button</comment>
+  </data>
+  <data name="str_settingsFormErrorHeader" xml:space="preserve">
+    <value>Confirmar alterações à configuração da aplicação</value>
+    <comment>title of error message box if illegal settings are detected</comment>
+  </data>
+  <data name="str_settingsFormOKButton" xml:space="preserve">
+    <value>&amp;OK</value>
+    <comment>text of OK button</comment>
+  </data>
+  <data name="str_settingsFormTitle" xml:space="preserve">
+    <value>Configurações de BalloonRSS</value>
+    <comment>settings window title</comment>
+  </data>
+  <data name="str_settingsHistoryDepth" xml:space="preserve">
+    <value>Número de entradas no histórico de mensagens</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsRetrieveIntervall" xml:space="preserve">
+    <value>Intervao para carregar novas mensagens RSS</value>
+    <comment>settings information string</comment>
+  </data>
+</root>
