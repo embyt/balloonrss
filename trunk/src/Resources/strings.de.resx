@@ -117,21 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="str_settingsCheckForUpdates" xml:space="preserve">
+    <value>Suche nach neueren Program Versionen</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_updateBody" xml:space="preserve">
+    <value>Klicke diese Nachricht um Versionsinformationen zu zeigen. In den Programmeinstellungen können Sie diese Meldung deaktivieren.</value>
+    <comment>body text of application update</comment>
+  </data>
+  <data name="str_updateTitle" xml:space="preserve">
+    <value>Eine neue Version von BalloonRss ist verfügbar: </value>
+    <comment>title of application update message (end with ": " because the new version label is appended at the string end)</comment>
+  </data>
   <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
-    <value>Missing link attribute in config file</value>
+    <value>Fehlendes "link" Attribut in der Konfigurationsdatei.</value>
     <comment>This is a format error in the .xml channel config file.</comment>
   </data>
   <data name="str_balloonErrorChannelsBody" xml:space="preserve">
-    <value>Could not find default RSS channel settings or settings are illegal. Please configure your channels manually.</value>
+    <value>Die voreingestellten Kanaleinstellungen konnten nicht gefunden werden oder sind fehlerhaft. Bitte konfigurieren Sie die Kanäle manuell.</value>
     <comment>the default channel settings file was not found or has illegal format</comment>
   </data>
   <data name="str_balloonErrorChannelsHeader" xml:space="preserve">
-    <value>Initialising BalloonRSS</value>
+    <value>Starten von BalloonRSS</value>
     <comment>title of popup displaying an error in the default channel settings file</comment>
   </data>
   <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
-    <value>Missing mandatory "channel" tag.</value>
+    <value>Fehlendes notwendige "channel" Attribut.</value>
     <comment>error in channel config file</comment>
   </data>
   <data name="str_balloonErrorDuplicateInstanceBody" xml:space="preserve">
@@ -143,39 +154,39 @@
     <comment>start-up error pop-up (header text)</comment>
   </data>
   <data name="str_balloonErrorParseRss" xml:space="preserve">
-    <value>Error parsing the RSS feed from </value>
+    <value>Fehler beim Interpretieren des RSS-Kanals von </value>
     <comment>we got an illegal RSS file from the remote server "xxx" (appended to text)</comment>
   </data>
   <data name="str_balloonErrorRetrieving" xml:space="preserve">
-    <value>Error during retrieving </value>
+    <value>Fehler beim Empfangen der Daten</value>
     <comment>communication problem while downloading the RSS messages</comment>
   </data>
   <data name="str_balloonWarningNoEntryBody" xml:space="preserve">
-    <value>No RSS entry in queue yet.</value>
+    <value>Im Buffer befindet sich noch kein RSS Eintrag.</value>
     <comment>we want to display a RSS item but we have none (body text)</comment>
   </data>
   <data name="str_balloonWarningNoEntryHeader" xml:space="preserve">
-    <value>Display full RSS entry</value>
+    <value>Anzeigen des vollen RSS Eintrags</value>
     <comment>we want to display a RSS item but we have none (header text)</comment>
   </data>
   <data name="str_balloonWelcomeBody" xml:space="preserve">
-    <value>You can access the program by right clicking on this application icon. You should start by adding the RSS channels of your choice.</value>
+    <value>Sie bedienen dieses Program durch rechts-Klick auf dieses Programm-Symbol. Sie sollten damit beginnen die RSS Kanäle Ihrer Wahl zu konfigurieren.</value>
     <comment>welcome message on first application start (body text)</comment>
   </data>
   <data name="str_balloonWelcomeHeader" xml:space="preserve">
-    <value>Welcome to BalloonRSS</value>
+    <value>Willkommen zu BalloonRSS</value>
     <comment>welcome message on first application start (header text)</comment>
   </data>
   <data name="str_channelFormTitle" xml:space="preserve">
-    <value>RSS Channel Information</value>
+    <value>RSS Kanal Information</value>
     <comment>"RSS channel information" window title</comment>
   </data>
   <data name="str_channelHeaderClickRate" xml:space="preserve">
-    <value>Click Rate</value>
+    <value>Klick Rate</value>
     <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value>Mess. Queued</value>
+    <value>Nachr.. verf.</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
@@ -183,27 +194,27 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderLastUpdate" xml:space="preserve">
-    <value>Last Update</value>
+    <value>Letzte Aktualisierung</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderPrio" xml:space="preserve">
-    <value>Set Prio.</value>
+    <value>Ges. Prio.</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>Mess. Channel</value>
+    <value>Mess. Kanal</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
-    <value>Do you really want to delete the RSS channel </value>
+    <value>Wollen Sie den Nachrichten-Kanal wirklich löschen </value>
     <comment>warning popup (body text)</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteTitel" xml:space="preserve">
-    <value>Confirm deletion of RSS channel</value>
+    <value>Bestätigung des Kanal-Löschens</value>
     <comment>warning popup (header text)</comment>
   </data>
   <data name="str_channelSettingsDefaultLink" xml:space="preserve">
@@ -211,35 +222,35 @@
     <comment>default URL entry for new RSS feed link</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
-    <value>Clear collected data of this channel</value>
+    <value>Löschen der gesammelten Kanaldaten</value>
     <comment>button text to delete all collected data of current channel</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
-    <value>All collected data of this channel are deleted now.</value>
+    <value>Alle gesammelten Kanaldaten sind nun gelöscht.</value>
     <comment>confirmation popup text after channel data deletion (body text)</comment>
   </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
-    <value>Edit RSS Channel Settings</value>
+    <value>Ändern der RSS Kanal Einstellungen</value>
     <comment>edit RSS channel window title</comment>
   </data>
   <data name="str_channelSettingsFormDeleteButton" xml:space="preserve">
-    <value>&amp;Delete</value>
+    <value>&amp;Löschen</value>
     <comment>button in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsFormEditButton" xml:space="preserve">
-    <value>&amp;Edit</value>
+    <value>&amp;Ändern</value>
     <comment>button in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsFormNewButton" xml:space="preserve">
-    <value>&amp;New</value>
+    <value>&amp;Neu</value>
     <comment>button in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsFormTitle" xml:space="preserve">
-    <value>RSS Channel Settings</value>
+    <value>RSS Kanal Einstellungen</value>
     <comment>title of "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsHeaderPriority" xml:space="preserve">
-    <value>Priority</value>
+    <value>Priorität</value>
     <comment>column header in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsHeaderTitle" xml:space="preserve">
@@ -247,43 +258,43 @@
     <comment>column header in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
-    <value>RSS Channel &amp;Information</value>
+    <value>RSS Kanal &amp;Information</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuChannelSettings" xml:space="preserve">
-    <value>RSS &amp;Channel Settings</value>
+    <value>RSS &amp;Kanal Einstellungen</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuExit" xml:space="preserve">
-    <value>E&amp;xit</value>
+    <value>&amp;Beenden</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuGetChannels" xml:space="preserve">
-    <value>&amp;Retrieve RSS Channels</value>
+    <value>&amp;Laden der RSS Kanäle</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
-    <value>Message &amp;History</value>
+    <value>&amp;Nachrichten Buffer</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
-    <value>Open &amp;Last Message</value>
+    <value>&amp;Zeige letzte Nachricht</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuNextMessage" xml:space="preserve">
-    <value>&amp;Next Message</value>
+    <value>&amp;Nächste Nachricht</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuSettings" xml:space="preserve">
-    <value>Application &amp;Settings</value>
+    <value>Programm &amp;Einstellungen</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_historyFormTitle" xml:space="preserve">
-    <value>RSS Message History</value>
+    <value>RSS Nachrichten Buffer</value>
     <comment>"RSS Message History" window title</comment>
   </data>
   <data name="str_historyHeaderChannel" xml:space="preserve">
-    <value>Channel</value>
+    <value>Kanal</value>
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_historyHeaderId" xml:space="preserve">
@@ -291,63 +302,63 @@
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_historyHeaderTimestamp" xml:space="preserve">
-    <value>Displayed at</value>
+    <value>gezeigt um</value>
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_historyHeaderTitle" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_iconInfoNewsCount" xml:space="preserve">
-    <value> RSS messages pending.</value>
+    <value> RSS Nachrichten bereit.</value>
     <comment>text displayed as mouse is moved over application icon (number put in front of it, thus start string with a space character)</comment>
   </data>
   <data name="str_iconInfoNewsCount1" xml:space="preserve">
-    <value>1 RSS message pending.</value>
+    <value>1 RSS Nachricht bereit.</value>
     <comment>text displayed as mouse is moved over application icon when exactly 1 message is left</comment>
   </data>
   <data name="str_iconInfoPause" xml:space="preserve">
-    <value>BalloonRSS paused.</value>
+    <value>BalloonRSS im Pause-Modus.</value>
     <comment>text displayed as mouse is moved over application icon when application is paused</comment>
   </data>
   <data name="str_settingsBalloonTimespan" xml:space="preserve">
-    <value>Timespan to display balloon pop-up [s]</value>
+    <value>Anzeigedauer der pop-up Nachrichten [s]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelAsTitle" xml:space="preserve">
-    <value>Use channel name as pop-up title</value>
+    <value>Verwende Kanalname als Nachrichten-Titel</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelConfigFilename" xml:space="preserve">
-    <value>Channel configuration filename</value>
+    <value>Dateiname der Kanal-Konfiguration</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsClickInfluence" xml:space="preserve">
-    <value>Priority influence of message clicks (prio &lt;-&gt; clicks)</value>
+    <value>Prioritätseinfluss der Nachrichten-Klicks (Prio &lt;-&gt; Klicks)</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
-    <value>Time between displaying two RSS messages [s]</value>
+    <value>Zeit zwischen 2 RSS Nachrichten [s]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
-    <value>The retriever intervall has to be larger than the display intervall.</value>
+    <value>Das Abruf-Intervall muss länger als das Nachrichten-Intervall sein.</value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsErrorValueToLarge" xml:space="preserve">
-    <value>Value greater than valid maximum </value>
+    <value>Der Wert ist größer als das gültige Maximum </value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsErrorValueToSmall" xml:space="preserve">
-    <value>Value smaller than valid minimum </value>
+    <value>Der Wert ist kleiner als das gültige Minimum </value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsFormCancelButton" xml:space="preserve">
-    <value>&amp;Cancel</value>
+    <value>&amp;Abbruch</value>
     <comment>text of cancel button</comment>
   </data>
   <data name="str_settingsFormErrorHeader" xml:space="preserve">
-    <value>Confirming application settings change</value>
+    <value>Bestätigung der geänderten Einstellungen</value>
     <comment>title of error message box if illegal settings are detected</comment>
   </data>
   <data name="str_settingsFormOKButton" xml:space="preserve">
@@ -355,15 +366,15 @@
     <comment>text of OK button</comment>
   </data>
   <data name="str_settingsFormTitle" xml:space="preserve">
-    <value>BalloonRSS Settings</value>
+    <value>BalloonRSS Einstellungen</value>
     <comment>settings window title</comment>
   </data>
   <data name="str_settingsHistoryDepth" xml:space="preserve">
-    <value>Number of entries in message history</value>
+    <value>Anzahl der Einträge im Nachrichten-Buffer</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Intervall for retrieving new RSS messages [s]</value>
+    <value>Zeitspanne zwischen RSS Nachrichten Abrufen [s]</value>
     <comment>settings information string</comment>
   </data>
 </root>

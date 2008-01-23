@@ -1,6 +1,6 @@
 @ECHO OFF
 
-rem Thsi batch file creates the localization dlls to support different application languages
+rem This batch file creates the localization dlls to support different application languages
 rem Author: Roman Morawek
 
 echo Preparing resource files
