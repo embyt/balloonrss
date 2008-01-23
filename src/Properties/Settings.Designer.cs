@@ -106,5 +106,77 @@ namespace BalloonRss.Properties {
                 this["checkForUpdates"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int updateCheckIntervall {
+            get {
+                return ((int)(this["updateCheckIntervall"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
+        public int updateDisplayIntervall {
+            get {
+                return ((int)(this["updateDisplayIntervall"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://balloonrss.sourceforge.net/checkforupdates.php?curVersion=")]
+        public string updateCheckUrl {
+            get {
+                return ((string)(this["updateCheckUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("channelConfig.xml")]
+        public string configFilename {
+            get {
+                return ((string)(this["configFilename"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("defaultChannels.xml")]
+        public string defaultConfigFilename {
+            get {
+                return ((string)(this["defaultConfigFilename"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("####################################")]
+        public string channelSettingsLinkTextfieldSize {
+            get {
+                return ((string)(this["channelSettingsLinkTextfieldSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("###########")]
+        public string SettingsTextfieldSize {
+            get {
+                return ((string)(this["SettingsTextfieldSize"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://balloonrss.sourceforge.net/releaseinfo.php?curVersion=")]
+        public string updateInfoUrl {
+            get {
+                return ((string)(this["updateInfoUrl"]));
+            }
+        }
     }
 }

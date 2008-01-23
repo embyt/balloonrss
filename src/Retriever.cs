@@ -31,8 +31,6 @@ namespace BalloonRss
     // the retriever class is a collection of all RSS channels
     class Retriever : System.Collections.Generic.Dictionary<String, RssChannel>
     {
-        const string updateCheckUrl = "http://balloonrss.sourceforge.net/checkforupdates.php?curVersion=";
-
         // the background worker to retrieve the channels
         public BackgroundWorker backgroundWorker;
 
@@ -47,6 +45,7 @@ namespace BalloonRss
 
         // special RssItem that exists if a new update is available
         private RssUpdateItem applicationUpdateInfo = null;
+        private int applicationUpdatePreScaler = 0;
 
 
         public Retriever()
@@ -174,9 +173,18 @@ namespace BalloonRss
             }
         }
 
+
         // this is called from the background worker
         private void CheckForUpdates()
         {
+            // we don't check for it every time 
+            if (applicationUpdatePreScaler > 0)
+            {
+                applicationUpdatePreScaler--;
+                return;
+            }
+            applicationUpdatePreScaler = Settings.Default.updateCheckIntervall;
+
             // ignore all errors for this comfort feature
             try
             {
@@ -185,7 +193,7 @@ namespace BalloonRss
                 int currentVersion = 100*assemblyVersion.Major + assemblyVersion.Minor;
 
                 // get the actual version string
-                HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(updateCheckUrl + currentVersion);
+                HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(Settings.Default.updateCheckUrl + currentVersion);
                 HttpWebResponse httpResp = (HttpWebResponse)httpReq.GetResponse();
                 byte[] receiveBuffer = new byte[1024];
                 int count = httpResp.GetResponseStream().Read(receiveBuffer, 0, receiveBuffer.Length);
@@ -225,7 +233,7 @@ namespace BalloonRss
 
             // shall we display update info instead of a news message?
             if ( Settings.Default.checkForUpdates && (applicationUpdateInfo != null) &&
-                ((DateTime.Now - applicationUpdateInfo.dispDate) > TimeSpan.FromDays(1)) )
+                ((DateTime.Now - applicationUpdateInfo.dispDate) > TimeSpan.FromHours(Settings.Default.updateDisplayIntervall)) )
             {
                 // OK, we take this one
                 rssItem = applicationUpdateInfo;

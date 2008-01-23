@@ -18,15 +18,13 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.Text;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
 {
     public class RssUpdateItem : RssItem
     {
-        const string updateInfoUrl = "http://balloonrss.sourceforge.net/releaseinfo.php?curVersion=";
-
-
         private int newVersion;
         public int NewVersion
         {
@@ -37,7 +35,7 @@ namespace BalloonRss
             set
             {
                 newVersion = value;
-                title = Properties.Resources.str_updateTitle + (value/100) + "." + (value%100);
+                title = Resources.str_updateTitle + (value/100) + "." + (value%100);
             }
         }
 
@@ -51,17 +49,17 @@ namespace BalloonRss
             set
             {
                 currentVersion = value;
-                link = updateInfoUrl + value;
+                link = Settings.Default.updateInfoUrl + value;
             }
         }
 
 
         public RssUpdateItem()
         {
-            title = Properties.Resources.str_updateTitle;
-            description = Properties.Resources.str_updateBody;
+            title = Resources.str_updateTitle;
+            description = Resources.str_updateBody;
             author = "Roman Morawek";
-            link = updateInfoUrl;        
+            link = Settings.Default.updateInfoUrl;        
         }
 
     }

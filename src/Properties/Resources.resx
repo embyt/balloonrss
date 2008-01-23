@@ -388,6 +388,6 @@
   </data>
   <data name="str_updateTitle" xml:space="preserve">
     <value>New version of BalloonRSS available: </value>
-    <comment>title of application update message</comment>
+    <comment>title of application update message (end with ": " because the new version label is appended at the string end)</comment>
   </data>
 </root>

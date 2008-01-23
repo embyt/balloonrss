@@ -21,15 +21,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.IO;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
 {
     class ChannelList : List<ChannelInfo>
     {
-        public const String configFilename = "channelConfig.xml";
-        public const String defaultConfigFilename = "defaultChannels.xml";
-
         private const String xmlRootNodeName = "channels";
         private const String xmlItemName = "item";
 
@@ -85,13 +83,13 @@ namespace BalloonRss
         {
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
                 + Path.DirectorySeparatorChar + "BalloonRSS"
-                + Path.DirectorySeparatorChar + configFilename;
+                + Path.DirectorySeparatorChar + Settings.Default.configFilename;
         }
 
         private String GetDefaultChannelsFilename()
         {
             return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)
-                + Path.DirectorySeparatorChar + defaultConfigFilename;
+                + Path.DirectorySeparatorChar + Settings.Default.defaultConfigFilename;
         }
 
         private void ParseChannelConfigFile()
@@ -116,7 +114,7 @@ namespace BalloonRss
 
             if (!gotChannelTag)
             {
-                throw new FormatException(Properties.Resources.str_balloonErrorConfigChannelTag);
+                throw new FormatException(Resources.str_balloonErrorConfigChannelTag);
             }
         }
 
