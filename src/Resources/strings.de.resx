@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="str_settingsCheckForUpdates" xml:space="preserve">
-    <value>Suche nach neueren Program Versionen</value>
+    <value>Automatisch auf neue Programm-Versionen prüfen</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_updateBody" xml:space="preserve">
@@ -182,11 +182,11 @@
     <comment>"RSS channel information" window title</comment>
   </data>
   <data name="str_channelHeaderClickRate" xml:space="preserve">
-    <value>Klick Rate</value>
+    <value>Klickrate</value>
     <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value>Nachr.. verf.</value>
+    <value>N. bereit</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
@@ -198,7 +198,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderPrio" xml:space="preserve">
-    <value>Ges. Prio.</value>
+    <value>Prio.</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTitle" xml:space="preserve">
@@ -206,7 +206,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>Mess. Kanal</value>
+    <value>N. Kanal</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
@@ -222,7 +222,7 @@
     <comment>default URL entry for new RSS feed link</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
-    <value>Löschen der gesammelten Kanaldaten</value>
+    <value>Lösche gesammelte Kanaldaten</value>
     <comment>button text to delete all collected data of current channel</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
@@ -282,7 +282,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuNextMessage" xml:space="preserve">
-    <value>&amp;Nächste Nachricht</value>
+    <value>N&amp;ächste Nachricht</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuSettings" xml:space="preserve">
@@ -322,7 +322,7 @@
     <comment>text displayed as mouse is moved over application icon when application is paused</comment>
   </data>
   <data name="str_settingsBalloonTimespan" xml:space="preserve">
-    <value>Anzeigedauer der pop-up Nachrichten [s]</value>
+    <value>Anzeigedauer der Pop-Up Nachrichten [s]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelAsTitle" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Zeitspanne zwischen RSS Nachrichten Abrufen [s]</value>
+    <value>Zeitspanne zwischen den RSS Kanal Abrufen [s]</value>
     <comment>settings information string</comment>
   </data>
 </root>
