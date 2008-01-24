@@ -69,7 +69,7 @@ Alternative manual installation:
 - Adapt the channel configuration with the RSS feeds of your choice.
 - You might want to link it in the autostart folder.
 
-The base recurrence is set to 90 seconds per default, so you have to wait a bit 
+The base recurrence is set to 5 minutes per default, so you have to wait a bit 
 until your first messages will appear.
 
 

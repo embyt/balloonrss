@@ -218,7 +218,7 @@
     <comment>warning popup (header text)</comment>
   </data>
   <data name="str_channelSettingsDefaultLink" xml:space="preserve">
-    <value>http://doc.jurispro.net/rss/forum.xmll</value>
+    <value>http://doc.jurispro.net/rss/forum.xml</value>
     <comment>default URL entry for new RSS feed link</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
@@ -274,7 +274,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
-    <value>&amp;Histórico de Mesagens</value>
+    <value>&amp;Histórico de Mensagens</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
@@ -302,7 +302,7 @@
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_historyHeaderTimestamp" xml:space="preserve">
-    <value>Visto em</value>
+    <value>Visto às</value>
     <comment>column header in "RSS Message History" window</comment>
   </data>
   <data name="str_historyHeaderTitle" xml:space="preserve">
