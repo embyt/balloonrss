@@ -218,7 +218,7 @@
     <comment>warning popup (header text)</comment>
   </data>
   <data name="str_channelSettingsDefaultLink" xml:space="preserve">
-    <value>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml</value>
+    <value>http://rss.orf.at/futurezone.xml</value>
     <comment>default URL entry for new RSS feed link</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
@@ -338,7 +338,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
-    <value>Zeit zwischen 2 RSS Nachrichten [s]</value>
+    <value>Zeitspanne zwischen der Anzeige zweier RSS Nachrichten [s]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Zeitspanne zwischen den RSS Kanal Abrufen [s]</value>
+    <value>Zeitspanne zwischen zwei Abrüfen der RSS Kanäle [s]</value>
     <comment>settings information string</comment>
   </data>
 </root>

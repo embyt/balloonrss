@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="displayIntervall" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">90</Value>
+      <Value Profile="(Default)">300</Value>
     </Setting>
     <Setting Name="retrieveIntervall" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">600</Value>
+      <Value Profile="(Default)">900</Value>
     </Setting>
     <Setting Name="balloonTimespan" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="historyDepth" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10</Value>
+      <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="channelAsTitle" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
