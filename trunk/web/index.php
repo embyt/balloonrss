@@ -77,7 +77,7 @@ It is tested only on WinXP yet.
 
 <h1>Download &amp; Installation</h1>
 
-<p>The source code as well as the released packages can be downloaded from the <a href="http://sourceforge.net/project/platformdownload.php?group_id=206266">sourceforge project download page</a>.</p>
+<p>The source code as well as the released packages can be downloaded from the <a href="https://sourceforge.net/project/showfiles.php?group_id=206266">sourceforge project download page</a>.</p>
 
 Installation procedure, using the installer:
 <ol>
