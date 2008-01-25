@@ -45,7 +45,7 @@
       <Value Profile="(Default)">###########</Value>
     </Setting>
     <Setting Name="updateInfoUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://balloonrss.sourceforge.net/releaseinfo.php?curVersion=</Value>
+      <Value Profile="(Default)">http://balloonrss.sourceforge.net/releaseinfo.html?curVersion=</Value>
     </Setting>
   </Settings>
 </SettingsFile>

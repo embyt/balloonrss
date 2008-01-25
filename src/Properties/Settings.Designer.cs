@@ -172,7 +172,7 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://balloonrss.sourceforge.net/releaseinfo.php?curVersion=")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://balloonrss.sourceforge.net/releaseinfo.html?curVersion=")]
         public string updateInfoUrl {
             get {
                 return ((string)(this["updateInfoUrl"]));
