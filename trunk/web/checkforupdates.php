@@ -14,7 +14,9 @@ mysql_select_db($DB_NAME, $db) or die(mysql_error());
 // build sql string
 $file = $_SERVER['PHP_SELF'];
 $date = strftime ("%Y-%m-%d %H:%M:%S" ,time());	// format: 2003-09-26 14:42:40
-$crcip = crc32($_SERVER['REMOTE_ADDR']);
+// do not log the IP directly because of privacy reasons
+// only log some derived hash code
+$crcip = crc32($_SERVER['REMOTE_ADDR']); 
 if (isset($_GET['curVersion']))
    $version = $_GET['curVersion'];
 else
@@ -23,7 +25,6 @@ if (!is_numeric($version))
    $version = 0;
 
 $sqlstr = "INSERT INTO $DB_TABLE VALUES ('$file', '$date', $crcip, $version)";
-// echo($sqlstr);
 
 // access database
 $result = mysql_query($sqlstr, $db) or die(mysql_error());
