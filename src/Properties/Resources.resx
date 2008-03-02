@@ -382,6 +382,10 @@
     <value>Intervall for retrieving new RSS messages [s]</value>
     <comment>settings information string</comment>
   </data>
+  <data name="str_settingsStartPaused" xml:space="preserve">
+    <value>Start in pause mode</value>
+    <comment>settings information string</comment>
+  </data>
   <data name="str_updateBody" xml:space="preserve">
     <value>Click this message to read the release notes. To disable this message deactivate the update check in the application settings.</value>
     <comment>body text of application update</comment>

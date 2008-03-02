@@ -44,7 +44,7 @@ namespace BalloonRss
         private Timer retrieveTimer;
 
         // application state variables
-        private bool isPaused = false;
+        private bool isPaused;
         private bool isRssViewed = false;
 
 
@@ -115,6 +115,9 @@ namespace BalloonRss
             retriever.backgroundWorker.ProgressChanged += 
                 new System.ComponentModel.ProgressChangedEventHandler(this.RetrieverProgressError);
 
+            // set initial status
+            isPaused = Settings.Default.startPaused;
+
             // set initial icon
             UpdateIcon();
 
@@ -154,7 +157,8 @@ namespace BalloonRss
             }
 
             // load initial channels
-            retriever.backgroundWorker.RunWorkerAsync();
+            if (!isPaused)
+                retriever.backgroundWorker.RunWorkerAsync();
         }
 
 
@@ -307,7 +311,8 @@ namespace BalloonRss
             }
 
             // start background worker thread to retrieve channels
-            retriever.backgroundWorker.RunWorkerAsync();
+            if (!isPaused)
+                retriever.backgroundWorker.RunWorkerAsync();
         }
 
         private void MiChannelInfoClick(object sender, EventArgs e)
@@ -423,20 +428,25 @@ namespace BalloonRss
 
         private void RetrieveCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            // update icon
             if (retriever.GetQueueSize() > 0)
             {
                 // start the display timer (it may be already running)
-                dispTimer.Start();
+                if (!isPaused)
+                    dispTimer.Start();
+
                 // update timer value according actual priority, if this time is shorter
                 if (dispTimer.Interval > Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
                     dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
+
+                // enable context menu entry
                 mi_nextMessage.Enabled = true;
             }
+            // update icon
             UpdateIcon();
 
             // start the retriever timer
-            retrieveTimer.Start();
+            if (!isPaused)
+                retrieveTimer.Start();
         }
 
 
