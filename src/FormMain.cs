@@ -122,32 +122,10 @@ namespace BalloonRss
             UpdateIcon();
 
             // read channel settings
-            try
-            {
-                // this may raise an exception in case of a fatal error dealing with the config file
-                retriever.InitializeChannels();
-            }
-            catch (Exception)
-            {
-                // at the first exception, the channel config file was created, the second try should work
-                try
-                {
-                    retriever.InitializeChannels();
-                }
-                catch (Exception)
-                {
-                    // if also this try failed, we probably could not find the defaultChannels.xml file
-                    // display error message
-                    notifyIcon.ShowBalloonTip(
-                        Settings.Default.balloonTimespan * 1000,
-                        Resources.str_balloonErrorChannelsHeader,
-                        Resources.str_balloonErrorChannelsBody,
-                        ToolTipIcon.Error);
+            bool firstStart = retriever.InitializeChannels();
 
-                    // we have to return here to skip welcome message and to not start retrieving
-                    return;
-                }
-
+            if (firstStart)
+            {
                 // display welcome message
                 notifyIcon.ShowBalloonTip(
                     Settings.Default.balloonTimespan * 1000,

@@ -86,7 +86,6 @@ Section "General" SecGeneral
   SetOutPath "$INSTDIR"
   
   File "${BASEDIR}\bin\BalloonRss.exe"
-  File "${BASEDIR}\sample\defaultChannels.xml"
   File "${BASEDIR}\README.txt"
   
   ;Store installation folder

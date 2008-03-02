@@ -36,8 +36,26 @@ namespace BalloonRss
         // the empty constructor is used as a new channel is entered
         public ChannelInfo()
         {
-            link = Properties.Resources.str_channelSettingsDefaultLink;
-            priority = 5;
+            link = Properties.Resources.str_channelSettingsDefault1Link;
+            priority = Properties.Settings.Default.defaultChannelPriority;
+        }
+
+        // the empty constructor is used as a new channel is entered
+        public ChannelInfo(string link, string priority)
+        {
+            this.link = link;
+            if (!Uri.IsWellFormedUriString(link, UriKind.RelativeOrAbsolute)
+                || (link.Trim().Length == 0))
+                throw new FormatException();
+
+            try
+            {
+                this.priority = Convert.ToByte(priority);
+            }
+            catch (Exception)
+            {
+                this.priority = Properties.Settings.Default.defaultChannelPriority;
+            }
         }
 
 
@@ -52,6 +70,11 @@ namespace BalloonRss
                 {
                     case xmlLinkName:
                         link = xmlChild.InnerText;
+
+                        if (!Uri.IsWellFormedUriString(link, UriKind.RelativeOrAbsolute)
+                            || (link.Trim().Length == 0) )
+                            throw new FormatException();
+
                         break;
                     case xmlPriorityName:
                         priority = Convert.ToByte(xmlChild.InnerText);
