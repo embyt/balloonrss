@@ -98,24 +98,6 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not find default RSS channel settings or settings are illegal. Please configure your channels manually..
-        /// </summary>
-        internal static string str_balloonErrorChannelsBody {
-            get {
-                return ResourceManager.GetString("str_balloonErrorChannelsBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initialising BalloonRSS.
-        /// </summary>
-        internal static string str_balloonErrorChannelsHeader {
-            get {
-                return ResourceManager.GetString("str_balloonErrorChannelsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Missing mandatory &quot;channel&quot; tag..
         /// </summary>
         internal static string str_balloonErrorConfigChannelTag {
@@ -287,11 +269,74 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://rss.slashdot.org/Slashdot/slashdot.
+        /// </summary>
+        internal static string str_channelSettingsDefault1Link {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault1Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 6.
+        /// </summary>
+        internal static string str_channelSettingsDefault1Priority {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault1Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml.
         /// </summary>
-        internal static string str_channelSettingsDefaultLink {
+        internal static string str_channelSettingsDefault2Link {
             get {
-                return ResourceManager.GetString("str_channelSettingsDefaultLink", resourceCulture);
+                return ResourceManager.GetString("str_channelSettingsDefault2Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4.
+        /// </summary>
+        internal static string str_channelSettingsDefault2Priority {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault2Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string str_channelSettingsDefault3Link {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault3Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string str_channelSettingsDefault3Priority {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault3Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string str_channelSettingsDefault4Link {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault4Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string str_channelSettingsDefault4Priority {
+            get {
+                return ResourceManager.GetString("str_channelSettingsDefault4Priority", resourceCulture);
             }
         }
         

@@ -35,9 +35,6 @@
     <Setting Name="configFilename" Type="System.String" Scope="Application">
       <Value Profile="(Default)">channelConfig.xml</Value>
     </Setting>
-    <Setting Name="defaultConfigFilename" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">defaultChannels.xml</Value>
-    </Setting>
     <Setting Name="channelSettingsLinkTextfieldSize" Type="System.String" Scope="Application">
       <Value Profile="(Default)">####################################</Value>
     </Setting>
@@ -49,6 +46,9 @@
     </Setting>
     <Setting Name="startPaused" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="defaultChannelPriority" Type="System.Byte" Scope="Application">
+      <Value Profile="(Default)">5</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -39,7 +39,8 @@ namespace BalloonRss
         public FormChannelSettings()
         {
             // initialise with current channel settings
-            channelList = new ChannelList(true);
+            bool firstRun;
+            channelList = new ChannelList(out firstRun);
 
             // setup GUI
             this.SuspendLayout();

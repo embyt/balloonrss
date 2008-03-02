@@ -134,14 +134,6 @@
     <value>Missing link attribute in config file</value>
     <comment>This is a format error in the .xml channel config file.</comment>
   </data>
-  <data name="str_balloonErrorChannelsBody" xml:space="preserve">
-    <value>Could not find default RSS channel settings or settings are illegal. Please configure your channels manually.</value>
-    <comment>the default channel settings file was not found or has illegal format</comment>
-  </data>
-  <data name="str_balloonErrorChannelsHeader" xml:space="preserve">
-    <value>Initialising BalloonRSS</value>
-    <comment>title of popup displaying an error in the default channel settings file</comment>
-  </data>
   <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
     <value>Missing mandatory "channel" tag.</value>
     <comment>error in channel config file</comment>
@@ -184,7 +176,7 @@
   </data>
   <data name="str_channelHeaderClickRate" xml:space="preserve">
     <value>Click Rate</value>
-    <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
+    <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
     <value>Mess. Queued</value>
@@ -218,9 +210,37 @@
     <value>Confirm deletion of RSS channel</value>
     <comment>warning popup (header text)</comment>
   </data>
-  <data name="str_channelSettingsDefaultLink" xml:space="preserve">
-    <value>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml</value>
+  <data name="str_channelSettingsDefault1Link" xml:space="preserve">
+    <value>http://rss.slashdot.org/Slashdot/slashdot</value>
     <comment>default URL entry for new RSS feed link</comment>
+  </data>
+  <data name="str_channelSettingsDefault1Priority" xml:space="preserve">
+    <value>6</value>
+    <comment>priority of default channel entry 1</comment>
+  </data>
+  <data name="str_channelSettingsDefault2Link" xml:space="preserve">
+    <value>http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/technology/rss.xml</value>
+    <comment>optional 2nd default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault2Priority" xml:space="preserve">
+    <value>4</value>
+    <comment>priority of optional 2nd default channel entry</comment>
+  </data>
+  <data name="str_channelSettingsDefault3Link" xml:space="preserve">
+    <value />
+    <comment>optional 3rd default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault3Priority" xml:space="preserve">
+    <value />
+    <comment>priority of optional 3rd default channel entry</comment>
+  </data>
+  <data name="str_channelSettingsDefault4Link" xml:space="preserve">
+    <value />
+    <comment>optional 4th default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault4Priority" xml:space="preserve">
+    <value />
+    <comment>priority of optional 4th default channel entry</comment>
   </data>
   <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
     <value>Clear collected data of this channel</value>

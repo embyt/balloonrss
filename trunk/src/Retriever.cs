@@ -62,15 +62,16 @@ namespace BalloonRss
 
 
         // read channel config and create instances for all channels
-        public void InitializeChannels()
+        public bool InitializeChannels()
         {
+            bool firstRun = false;
+
             // do some cleanup since this is executed also in case of a config file change
             this.Clear();
             rssCount = 0;
 
             // read channel configuration file
-            // this may raise an exception in case of a fatal error dealing with the config file
-            ChannelList channelList = new ChannelList(false);
+            ChannelList channelList = new ChannelList(out firstRun);
 
             // add the channels found
             foreach (ChannelInfo channelInfo in channelList)
@@ -80,6 +81,8 @@ namespace BalloonRss
 
             // setup the initial priorities
             CalculateEffectiveChannelPriorities();
+
+            return firstRun;
         }
 
 

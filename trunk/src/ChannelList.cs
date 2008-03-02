@@ -32,49 +32,30 @@ namespace BalloonRss
         private const String xmlItemName = "item";
 
 
-        public ChannelList(bool skipErrors)
+        public ChannelList(out bool fallbackToDefaultChannels)
         {
-            if (!skipErrors)
+            fallbackToDefaultChannels = false;
+
+            // we try to read the config file; if it does not exist we use default settings
+            try
             {
-                // this is the normal usage:
-                // we try to read the config file, if it does not exist, we copy the default and throw an exception
-                try
-                {
-                    ParseChannelConfigFile();
-                }
-                catch (DirectoryNotFoundException e)
-                {
-                    // create settings directory
-                    Directory.CreateDirectory(Path.GetDirectoryName(GetChannelConfigFilename()));
-
-                    // copy default configuration
-                    File.Copy(GetDefaultChannelsFilename(), GetChannelConfigFilename());
-
-                    // we have to re-throw the exception to signal this event to the calling application
-                    throw e;
-                }
-                catch (Exception e)
-                {
-                    // most probably this is a FileNotFoundException which means we have to copy the default config file
-                    // but it might be another exception like an illegal config file; also copy the default file then
-
-                    // copy default configuration
-                    File.Copy(GetDefaultChannelsFilename(), GetChannelConfigFilename());
-
-                    // we have to re-throw the exception to signal this event to the calling application
-                    throw e;
-                }
+                ParseChannelConfigFile();
             }
-            else
+            catch (DirectoryNotFoundException)
             {
-                // if loading the channel config file results in an error, we continue with the best possible
-                try
-                {
-                    ParseChannelConfigFile();
-                }
-                catch (Exception)
-                {
-                }
+                // create settings directory
+                Directory.CreateDirectory(Path.GetDirectoryName(GetChannelConfigFilename()));
+
+                // we have to use the default channels
+                LoadDefaultChannelSettings();
+                fallbackToDefaultChannels = true;
+            }
+            catch (Exception)
+            {
+                // this may be a FileNotFoundException but it might be another exception like an illegal config file
+                // we have to load default channels
+                LoadDefaultChannelSettings();
+                fallbackToDefaultChannels = true;
             }
         }
 
@@ -86,10 +67,50 @@ namespace BalloonRss
                 + Path.DirectorySeparatorChar + Settings.Default.configFilename;
         }
 
-        private String GetDefaultChannelsFilename()
+        private void LoadDefaultChannelSettings()
         {
-            return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)
-                + Path.DirectorySeparatorChar + Settings.Default.defaultConfigFilename;
+            // there might be channels left from a config file read attempt; clear them
+            this.Clear();
+
+            // create up to 4 default channels
+            try
+            {
+                ChannelInfo newChannel = new ChannelInfo(
+                    Properties.Resources.str_channelSettingsDefault1Link,
+                    Properties.Resources.str_channelSettingsDefault1Priority);
+                this.Add(newChannel);
+            }
+            catch (Exception) { };
+
+            try
+            {
+                ChannelInfo newChannel = new ChannelInfo(
+                    Properties.Resources.str_channelSettingsDefault2Link,
+                    Properties.Resources.str_channelSettingsDefault2Priority);
+                this.Add(newChannel);
+            }
+            catch (Exception) { };
+
+            try
+            {
+                ChannelInfo newChannel = new ChannelInfo(
+                    Properties.Resources.str_channelSettingsDefault3Link,
+                    Properties.Resources.str_channelSettingsDefault3Priority);
+                this.Add(newChannel);
+            }
+            catch (Exception) { };
+
+            try
+            {
+                ChannelInfo newChannel = new ChannelInfo(
+                    Properties.Resources.str_channelSettingsDefault4Link,
+                    Properties.Resources.str_channelSettingsDefault4Priority);
+                this.Add(newChannel);
+            }
+            catch (Exception) { };
+
+            // as the last step, dump the settings file
+            SaveToFile();
         }
 
         private void ParseChannelConfigFile()
@@ -128,6 +149,14 @@ namespace BalloonRss
                 {
                     // create new channel with this information
                     ChannelInfo newChannel = new ChannelInfo(xmlNode);
+
+                    // search for duplicate node
+                    foreach (ChannelInfo curChannel in this)
+                    {
+                        if (curChannel.link == newChannel.link)
+                            throw new FormatException("duplicate link found");
+                    }
+
                     this.Add(newChannel);
                 }
             }

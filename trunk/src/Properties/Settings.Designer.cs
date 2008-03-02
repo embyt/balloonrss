@@ -145,15 +145,6 @@ namespace BalloonRss.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("defaultChannels.xml")]
-        public string defaultConfigFilename {
-            get {
-                return ((string)(this["defaultConfigFilename"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("####################################")]
         public string channelSettingsLinkTextfieldSize {
             get {
@@ -188,6 +179,15 @@ namespace BalloonRss.Properties {
             }
             set {
                 this["startPaused"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public byte defaultChannelPriority {
+            get {
+                return ((byte)(this["defaultChannelPriority"]));
             }
         }
     }
