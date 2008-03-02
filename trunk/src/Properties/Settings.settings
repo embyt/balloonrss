@@ -47,5 +47,8 @@
     <Setting Name="updateInfoUrl" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://balloonrss.sourceforge.net/releaseinfo.html?curVersion=</Value>
     </Setting>
+    <Setting Name="startPaused" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

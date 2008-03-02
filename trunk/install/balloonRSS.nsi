@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.1"
+!define APPL_VERSION "2.2"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -32,6 +32,7 @@
 ;Includes
 !include dotnet.nsh
 !include "MUI.nsh"               ;Include Modern UI
+;!include "MUI2.nsh"               ;MUI2 does not provide an UNFUNCTION_DESCRIPTION yet
 
 
 ;--------------------------------
@@ -47,6 +48,9 @@ InstallDir "$PROGRAMFILES\${APPL_NAME}"
 ;Get installation folder from registry if available
 InstallDirRegKey HKLM "Software\${APPL_NAME}" "Install_Dir"
 
+;Set installer icon
+!define MUI_ICON yellow32.ico
+!define MUI_UNICON yellow32.ico
 
 ;--------------------------------
 ;Pages
