@@ -179,6 +179,24 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear collected data.
+        /// </summary>
+        internal static string str_channelContextMenuClearData {
+            get {
+                return ResourceManager.GetString("str_channelContextMenuClearData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark all read.
+        /// </summary>
+        internal static string str_channelContextMenuMarkRead {
+            get {
+                return ResourceManager.GetString("str_channelContextMenuMarkRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RSS Channel Information.
         /// </summary>
         internal static string str_channelFormTitle {
@@ -341,24 +359,6 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear collected data of this channel.
-        /// </summary>
-        internal static string str_channelSettingsEditClearChannelData {
-            get {
-                return ResourceManager.GetString("str_channelSettingsEditClearChannelData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All collected data of this channel are deleted now..
-        /// </summary>
-        internal static string str_channelSettingsEditClearChannelDataConfirm {
-            get {
-                return ResourceManager.GetString("str_channelSettingsEditClearChannelDataConfirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit RSS Channel Settings.
         /// </summary>
         internal static string str_channelSettingsEditFormTitle {
@@ -418,6 +418,15 @@ namespace BalloonRss.Properties {
         internal static string str_channelSettingsHeaderTitle {
             get {
                 return ResourceManager.GetString("str_channelSettingsHeaderTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illegal format of RSS link: .
+        /// </summary>
+        internal static string str_channelSettingsIllegalLink {
+            get {
+                return ResourceManager.GetString("str_channelSettingsIllegalLink", resourceCulture);
             }
         }
         

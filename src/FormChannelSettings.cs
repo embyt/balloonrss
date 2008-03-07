@@ -18,6 +18,7 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.Windows.Forms;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
@@ -33,7 +34,6 @@ namespace BalloonRss
 
         // other class data
         private ChannelList channelList;
-        private bool channelDataCleared = false;
 
 
         public FormChannelSettings()
@@ -53,8 +53,8 @@ namespace BalloonRss
         private void InitializeComponent()
         {
             // list control
-            this.listView = new System.Windows.Forms.ListView();
-            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView = new ListView();
+            this.listView.Dock = DockStyle.Fill;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = View.Details;
             this.listView.AllowColumnReorder = true;
@@ -67,33 +67,33 @@ namespace BalloonRss
             flPanel.Dock = DockStyle.Fill;
             // "new" button
             Button button = new Button();
-            button.Text = Properties.Resources.str_channelSettingsFormNewButton;
-            button.Click += new System.EventHandler(this.OnNew);
+            button.Text = Resources.str_channelSettingsFormNewButton;
+            button.Click += new EventHandler(this.OnNew);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "delete" button
             button = new Button();
-            button.Text = Properties.Resources.str_channelSettingsFormDeleteButton;
-            button.Click += new System.EventHandler(this.OnDelete);
+            button.Text = Resources.str_channelSettingsFormDeleteButton;
+            button.Click += new EventHandler(this.OnDelete);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "edit" button
             button = new Button();
-            button.Text = Properties.Resources.str_channelSettingsFormEditButton;
-            button.Click += new System.EventHandler(this.OnEdit);
+            button.Text = Resources.str_channelSettingsFormEditButton;
+            button.Click += new EventHandler(this.OnEdit);
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "OK" button
             button = new Button();
-            button.Text = Properties.Resources.str_settingsFormOKButton;
-            button.Click += new System.EventHandler(this.OnOK);
+            button.Text = Resources.str_settingsFormOKButton;
+            button.Click += new EventHandler(this.OnOK);
             this.AcceptButton = button;
             button.Anchor = AnchorStyles.Bottom;
             flPanel.Controls.Add(button);
             // "Cancel" button
             button = new Button();
-            button.Text = Properties.Resources.str_settingsFormCancelButton;
-            button.Click += new System.EventHandler(this.OnCancel);
+            button.Text = Resources.str_settingsFormCancelButton;
+            button.Click += new EventHandler(this.OnCancel);
             this.CancelButton = button;
             button.Anchor = AnchorStyles.Bottom;
             flPanel.Controls.Add(button);
@@ -113,8 +113,8 @@ namespace BalloonRss
             this.Controls.Add(mainContainer);
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.MinimizeBox = false;
-            this.Text = Properties.Resources.str_channelSettingsFormTitle;
-            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
+            this.Text = Resources.str_channelSettingsFormTitle;
+            this.Icon = Resources.ico_yellow32;
         }
 
 
@@ -122,6 +122,11 @@ namespace BalloonRss
         {
             // clear any old data
             listView.Clear();
+
+            // set the table headers
+            listView.Columns.Add(Resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
+            listView.Columns.Add(Resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
 
             // create the list items
             ListViewItem[] listItems = new ListViewItem[channelList.Count];
@@ -132,16 +137,12 @@ namespace BalloonRss
                 listItems[i].SubItems.Add(channelList[i].priority.ToString());
             }
 
-            // set the table headers
-            listView.Columns.Add(Properties.Resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
-            listView.Columns.Add(Properties.Resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(Properties.Resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
-
             // fill the list
             listView.Items.AddRange(listItems);
         }
 
 
+        // open a child window to create a new channel
         private void OnNew(object sender, EventArgs e)
         {
             // create new enty
@@ -152,7 +153,7 @@ namespace BalloonRss
             DialogResult dialogResult = channelEdit.ShowDialog(this);
 
             // if edit is confirmed, store the entry
-            if ( (dialogResult == DialogResult.OK) || (dialogResult == DialogResult.Yes) )
+            if (dialogResult == DialogResult.OK)
             {
                 channelList.Add(channelInfo);
 
@@ -163,6 +164,7 @@ namespace BalloonRss
             }
         }
 
+        // open child window to edit channel
         private void OnEdit(object sender, EventArgs e)
         {
             // get selected enty
@@ -174,13 +176,8 @@ namespace BalloonRss
                 FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelList[selectedChannel]);
                 DialogResult dialogResult = channelEdit.ShowDialog(this);
 
-                // remember whether any private data were changed
-                // we need this to reload the channel settings then
-                if ( (dialogResult == DialogResult.Yes) || (dialogResult == DialogResult.No) )
-                    channelDataCleared = true;
-
                 // update list view display in case of pressing OK
-                if ((dialogResult == DialogResult.Yes) || (dialogResult == DialogResult.OK))
+                if (dialogResult == DialogResult.OK)
                 {
                     curItem.SubItems[1].Text = channelList[selectedChannel].link;
                     curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
@@ -241,10 +238,7 @@ namespace BalloonRss
         private void OnCancel(object sender, EventArgs e)
         {
             // even if we press cancel we need to reload the channels if the user cleared the collected channel data
-            if (channelDataCleared)
-                this.DialogResult = DialogResult.OK;
-            else
-                this.DialogResult = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
 
             // close window
             Dispose();

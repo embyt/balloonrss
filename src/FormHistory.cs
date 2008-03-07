@@ -19,6 +19,7 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
@@ -34,23 +35,23 @@ namespace BalloonRss
 
         public FormHistory(Queue<RssItem> rssHistory)
         {
+            // store associated data
             this.rssHistory = rssHistory.ToArray();
 
+            // build GUI
             this.SuspendLayout();
-
             InitializeComponent();
             FillHistoryList();
-
             this.ResumeLayout();
         }
 
 
         private void InitializeComponent()
         {
-            this.listView = new System.Windows.Forms.ListView();
             // 
             // listHistory
             // 
+            this.listView = new ListView();
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = View.Details;
@@ -64,8 +65,8 @@ namespace BalloonRss
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
-            this.Text = Properties.Resources.str_historyFormTitle;
-            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
+            this.Text = Resources.str_historyFormTitle;
+            this.Icon = Resources.ico_yellow32;
         }
 
 
@@ -73,10 +74,16 @@ namespace BalloonRss
         {
             ListViewItem[] listItems = new ListViewItem[rssHistory.Length];
 
+            // set the table headers
+            listView.Columns.Add(Resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Resources.str_historyHeaderChannel, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Resources.str_historyHeaderTimestamp, -2, HorizontalAlignment.Left);
+
             // create the list items
             for (int i = 0; i < rssHistory.Length; i++)
             {
-                listItems[i] = new ListViewItem("" + (i+1));
+                listItems[i] = new ListViewItem("" + (i + 1));
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
                 if (rssHistory[rssHistory.Length - 1 - i].GetType() != typeof(RssUpdateItem))
                     listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel.channelInfo.link);
@@ -85,16 +92,11 @@ namespace BalloonRss
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].dispDate.ToShortTimeString());
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].link);
             }
-
-            // set the table headers
-            listView.Columns.Add(Properties.Resources.str_historyHeaderId, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_historyHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(Properties.Resources.str_historyHeaderChannel, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(Properties.Resources.str_historyHeaderTimestamp, -2, HorizontalAlignment.Left);
             listView.Items.AddRange(listItems);
         }
 
 
+        // as an item is double clicked, open the link
         private void OnItemActivate(object sender, EventArgs e)
         {
             foreach (ListViewItem listItem in listView.SelectedItems)
@@ -107,7 +109,7 @@ namespace BalloonRss
                 }
                 else
                 {
-                    // this is an RSS update information
+                    // this is an application update information
                     System.Diagnostics.Process.Start(rssItem.link);
                 }
             }

@@ -17,87 +17,117 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
 {
     class FormChannelInfo : Form
     {
+        private const int panelWidth = 480;
+        private const int panelHeight = 200;
+
         private RssChannel[] rssChannel;
         private ListView listView;
+        private ListViewItem[] listItems;
+        private ContextMenuStrip contextMenu;
 
 
         public FormChannelInfo(RssChannel[] rssChannel)
         {
+            // store references to the channels
             this.rssChannel = rssChannel;
 
+            // build GUI
             this.SuspendLayout();
-
             InitializeComponent();
             FillChannelList();
-
             this.ResumeLayout();
         }
 
 
         private void InitializeComponent()
         {
+            // contextMenu
+            contextMenu = new ContextMenuStrip();
+            ToolStripMenuItem menuItem = new ToolStripMenuItem();
+            menuItem.Text = Resources.str_channelContextMenuMarkRead;
+            menuItem.Click += new EventHandler(MiMarkAllReadClick);
+            contextMenu.Items.Add(menuItem);
+            menuItem = new ToolStripMenuItem();
+            menuItem.Text = Resources.str_channelContextMenuClearData;
+            menuItem.Click += new EventHandler(MiClearChannelDataClick);
+            contextMenu.Items.Add(menuItem);
+
+            // listView
             this.listView = new System.Windows.Forms.ListView();
-            // 
-            // listHistory
-            // 
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = View.Details;
             this.listView.AllowColumnReorder = true;
             this.listView.FullRowSelect = true;
             this.listView.DoubleClick += new EventHandler(OnItemActivate);
+            //this.listView.ContextMenuStrip = contextMenu;
+            this.listView.MouseClick += new MouseEventHandler(ListView_MouseClick);
 
-            // 
             // Form
-            // 
-            this.ClientSize = new System.Drawing.Size(480, 200);
+            this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
-            this.Text = Properties.Resources.str_channelFormTitle;
-            this.Icon = BalloonRss.Properties.Resources.ico_yellow32;
+            this.Text = Resources.str_channelFormTitle;
+            this.Icon = Resources.ico_yellow32;
         }
 
 
         private void FillChannelList()
         {
-            ListViewItem[] listItems = new ListViewItem[rssChannel.Length];
+            listItems = new ListViewItem[rssChannel.Length];
+
+            // set the table headers
+            listView.Columns.Add(Resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
+            listView.Columns.Add(Resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
+            listView.Columns.Add(Resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
 
             // create the list items
             for (int i = 0; i < rssChannel.Length; i++)
             {
-                listItems[i] = new ListViewItem(rssChannel[i].title);
-                listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.priority);
-                if (rssChannel[i].channelViewedCount > 0)
-                    listItems[i].SubItems.Add("" + 100*rssChannel[i].channelOpenedCount / rssChannel[i].channelViewedCount + " %");
-                else
-                    listItems[i].SubItems.Add("-");
-                listItems[i].SubItems.Add("" + rssChannel[i].effectivePriority);
-                listItems[i].SubItems.Add("" + rssChannel[i].Count);
-                listItems[i].SubItems.Add("" + rssChannel[i].channelMessageCount);
-                listItems[i].SubItems.Add("" + rssChannel[i].lastUpdate);
-                listItems[i].SubItems.Add("" + rssChannel[i].channelInfo.link);
+                listItems[i] = new ListViewItem();
+                FillListSubItems(i);
             }
-
-            // set the table headers
-            listView.Columns.Add(Properties.Resources.str_channelHeaderTitle, -2, HorizontalAlignment.Left);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderPrio, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderClickRate, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderEffPrio, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderCount, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderTotal, -2, HorizontalAlignment.Center);
-            listView.Columns.Add(Properties.Resources.str_channelHeaderLastUpdate, -2, HorizontalAlignment.Center);
             listView.Items.AddRange(listItems);
         }
 
+        // this fills the text of a list item
+        // the list item has to be created before
+        private void FillListSubItems(int index)
+        {
+            string viewCount = "-";
+            if (rssChannel[index].channelViewedCount > 0)
+                viewCount = "" + 100 * rssChannel[index].channelOpenedCount / rssChannel[index].channelViewedCount + " %";
 
+            // we need to clear potential old list data for the case of a refresh
+            listItems[index].SubItems.Clear();
+
+            // add the text data
+            listItems[index].Text = rssChannel[index].title;
+            listItems[index].SubItems.AddRange(new string[] {
+                "" + rssChannel[index].channelInfo.priority,
+                viewCount,
+                "" + rssChannel[index].effectivePriority,
+                "" + rssChannel[index].Count,
+                "" + rssChannel[index].channelMessageCount,
+                "" + rssChannel[index].lastUpdate,
+                "" + rssChannel[index].channelInfo.link,
+            } );
+        }
+
+
+        // start link to channel on double click
         private void OnItemActivate(object sender, EventArgs e)
         {
             foreach (ListViewItem item in listView.SelectedItems)
@@ -108,6 +138,39 @@ namespace BalloonRss
 
             // close window
             Dispose();
+        }
+
+
+        // display context menu
+        private void ListView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if ((e.Button == MouseButtons.Right) && (e.Clicks == 1))
+            {
+                contextMenu.Show(listView, e.Location);
+            }
+        }
+
+
+        // mark all channel data as read for all selected list items
+        private void MiMarkAllReadClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                rssChannel[item.Index].MarkAllRead();
+                // also update the display
+                FillListSubItems(item.Index);
+            }
+        }
+
+        // clear channel data as read for all selected list items
+        private void MiClearChannelDataClick(object sender, EventArgs e)
+        {
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                rssChannel[item.Index].ClearChannelData();
+                // also update the display
+                FillListSubItems(item.Index);
+            }
         }
     }
 }

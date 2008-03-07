@@ -17,7 +17,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BalloonRss.Properties;
 
@@ -55,7 +54,6 @@ namespace BalloonRss
             FlowLayoutPanel flPanelMain = new FlowLayoutPanel();
             flPanelMain.FlowDirection = FlowDirection.TopDown;
             flPanelMain.AutoSize = true;
-            //flPanelMain.Dock = DockStyle.Fill;
             flPanelMain.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
             // setting
@@ -90,12 +88,12 @@ namespace BalloonRss
             flPanel.FlowDirection = FlowDirection.LeftToRight;
             button = new Button();
             button.Text = Resources.str_settingsFormOKButton;
-            button.Click += new System.EventHandler(this.OnOK);
+            button.Click += new EventHandler(this.OnOK);
             this.AcceptButton = button;
             flPanel.Controls.Add(button);
             button = new Button();
             button.Text = Resources.str_settingsFormCancelButton;
-            button.Click += new System.EventHandler(this.OnCancel);
+            button.Click += new EventHandler(this.OnCancel);
             this.CancelButton = button;
             flPanel.Controls.Add(button);
             flPanel.AutoSize = true;
@@ -113,7 +111,7 @@ namespace BalloonRss
             this.Text = Resources.str_settingsFormTitle;
             this.Icon = Resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
-            this.Resize += new System.EventHandler(this.OnResize);
+            this.Resize += new EventHandler(this.OnResize);
 
             this.ResumeLayout();
 
@@ -133,7 +131,7 @@ namespace BalloonRss
             // create the label
             Label label = new Label();
             label.Text = labelText + ":";
-            label.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            label.Anchor = AnchorStyles.Left;
             label.Size = new System.Drawing.Size(
                 TextRenderer.MeasureText(label.Text, label.Font).Width,
                 TextRenderer.MeasureText(label.Text, label.Font).Height);
@@ -170,7 +168,6 @@ namespace BalloonRss
             else
                 throw new Exception("Internal error: Illegal settings data type");
 
-            //control.Anchor = AnchorStyles.Right;
             control.Dock = DockStyle.Right;
             control.AutoSize = true;
 
@@ -211,7 +208,7 @@ namespace BalloonRss
                 errorMessage = (cntlRetrieveIntervall as NumericTextBox).GetErrorMessage();
                 return false;
             }
-            // no check for cntlConfigFilename, cntlChannelAsTitle
+            // no check for cntlConfigFilename and boolean variables
             
             // interdependencies
             if ( (cntlRetrieveIntervall as NumericTextBox).IntValue <= (cntlDisplayIntervall as NumericTextBox).IntValue)

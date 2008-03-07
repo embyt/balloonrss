@@ -27,6 +27,9 @@ namespace BalloonRss
 {
     public class RssChannel : List<RssItem>
     {
+        private const String xmlRootNodeName = "ChannelData";
+        private const String xmlItemName = "RssItem";
+
         public ChannelInfo channelInfo;
         public String title;
         public String description = null;
@@ -66,7 +69,7 @@ namespace BalloonRss
                 channelFile.Load(GetRssViewedFilename(channelInfo.link));
 
                 // get the items and count them
-                channelViewedCount = channelFile.GetElementsByTagName("RssItem").Count;
+                channelViewedCount = channelFile.GetElementsByTagName(xmlItemName).Count;
             }
             catch (Exception)
             {
@@ -82,7 +85,7 @@ namespace BalloonRss
                 channelFile.Load(GetRssOpenedFilename(channelInfo.link));
 
                 // get the items and count them
-                channelOpenedCount = channelFile.GetElementsByTagName("RssItem").Count;
+                channelOpenedCount = channelFile.GetElementsByTagName(xmlItemName).Count;
             }
             catch (Exception)
             {
@@ -216,19 +219,19 @@ namespace BalloonRss
             try
             {
                 channelFile.Load(GetRssViewedFilename(channelInfo.link));
-                xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
-                if (xmlRoot == null)
+                xmlRoot = channelFile.DocumentElement;
+                if (channelFile.DocumentElement.Name != xmlRootNodeName)
                     throw new Exception("Xml Root Element not found.");
             }
             catch (Exception)
             {
                 channelFile = new XmlDocument();
-                xmlRoot = channelFile.CreateElement("ChannelData");
+                xmlRoot = channelFile.CreateElement(xmlRootNodeName);
                 channelFile.AppendChild(xmlRoot);
             }
 
             // add the current item
-            XmlElement xmlRssItem = channelFile.CreateElement("RssItem");
+            XmlElement xmlRssItem = channelFile.CreateElement(xmlItemName);
             xmlRssItem.InnerText = rssItem.link;
             xmlRssItem.SetAttribute("dispDate", DateTime.Now.ToString());
             xmlRoot.AppendChild(xmlRssItem);
@@ -308,8 +311,15 @@ namespace BalloonRss
                 return true;
             }
 
+            // check root tag
+            if (channelFile.DocumentElement.Name != xmlRootNodeName)
+            {
+                // if we face an illegal history file, treat the item as new
+                return true;
+            }
+
             // get the items
-            XmlNodeList itemList = channelFile.GetElementsByTagName("RssItem");
+            XmlNodeList itemList = channelFile.GetElementsByTagName(xmlItemName);
 
             // search whether the item is already known
             foreach (XmlNode curNode in itemList)
@@ -333,19 +343,19 @@ namespace BalloonRss
             try
             {
                 channelFile.Load(GetRssOpenedFilename(rssItem.channel.channelInfo.link));
-                xmlRoot = channelFile.GetElementsByTagName("ChannelData")[0];
-                if (xmlRoot == null)
+                xmlRoot = channelFile.DocumentElement;
+                if (channelFile.DocumentElement.Name != xmlRootNodeName)
                     throw new Exception("Xml Opened Root Element not found.");
             }
             catch (Exception)
             {
                 channelFile = new XmlDocument();
-                xmlRoot = channelFile.CreateElement("ChannelData");
+                xmlRoot = channelFile.CreateElement(xmlRootNodeName);
                 channelFile.AppendChild(xmlRoot);
             }
 
             // add the current item
-            XmlElement xmlRssItem = channelFile.CreateElement("RssItem");
+            XmlElement xmlRssItem = channelFile.CreateElement(xmlItemName);
             xmlRssItem.InnerText = rssItem.link;
             xmlRssItem.SetAttribute("openedDate", DateTime.Now.ToString());
             xmlRoot.AppendChild(xmlRssItem);
@@ -360,7 +370,7 @@ namespace BalloonRss
         }
 
 
-        public static void ClearChannelData(ChannelInfo channelInfo)
+        public void ClearChannelData()
         {
             try
             {
@@ -371,6 +381,52 @@ namespace BalloonRss
             {
                 // skip this exception, the file does not exist anyway
             }
+        }
+
+
+        public void MarkAllRead()
+        {
+            // write this information in the channel file
+            XmlDocument channelFile = new XmlDocument();
+            XmlNode xmlRoot;
+
+            // open file and find root node
+            try
+            {
+                channelFile.Load(GetRssViewedFilename(channelInfo.link));
+                xmlRoot = channelFile.DocumentElement;
+                if (channelFile.DocumentElement.Name != xmlRootNodeName)
+                    throw new Exception("Xml Root Element not found.");
+            }
+            catch (Exception)
+            {
+                channelFile = new XmlDocument();
+                xmlRoot = channelFile.CreateElement(xmlRootNodeName);
+                channelFile.AppendChild(xmlRoot);
+            }
+
+            // loop over all items
+            foreach (RssItem rssItem in this)
+            {
+                // add the current item
+                XmlElement xmlRssItem = channelFile.CreateElement(xmlItemName);
+                xmlRssItem.InnerText = rssItem.link;
+                xmlRssItem.SetAttribute("dispDate", "never");
+                xmlRoot.AppendChild(xmlRssItem);
+            }
+
+            try
+            {
+                channelFile.Save(GetRssViewedFilename(channelInfo.link));
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Directory.CreateDirectory(GetRssFeedFolder());
+                channelFile.Save(GetRssViewedFilename(channelInfo.link));
+            }
+
+            // remove all items from this list
+            this.Clear();
         }
     }
 }

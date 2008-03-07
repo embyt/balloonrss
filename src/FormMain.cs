@@ -18,7 +18,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using BalloonRss.Properties;
@@ -28,13 +27,13 @@ namespace BalloonRss
 {
     public class FormMain : Form
     {
-        // some important GUI elements
-        private NotifyIcon notifyIcon;
+        // some most important GUI element
+        private NotifyIcon applicationIcon;
 
-        // context menu items
-        private MenuItem mi_history;
-        private MenuItem mi_nextMessage;
-        private MenuItem mi_lastMessage;
+        // some context menu items
+        private ToolStripMenuItem mi_history;
+        private ToolStripMenuItem mi_nextMessage;
+        private ToolStripMenuItem mi_lastMessage;
 
         // the "working horse"
         private Retriever retriever;
@@ -46,6 +45,7 @@ namespace BalloonRss
         // application state variables
         private bool isPaused;
         private bool isRssViewed = false;
+        private DateTime lastRetrieval = DateTime.MinValue;
 
 
         // some dll calls needed to hide the icon in the ALT+TAB bar
@@ -91,6 +91,7 @@ namespace BalloonRss
         }
 
 
+        // constructor of main form
         public FormMain()
         {
             // setup GUI
@@ -118,7 +119,7 @@ namespace BalloonRss
             // set initial status
             isPaused = Settings.Default.startPaused;
 
-            // set initial icon
+            // set icon and tooltip text
             UpdateIcon();
 
             // read channel settings
@@ -127,14 +128,14 @@ namespace BalloonRss
             if (firstStart)
             {
                 // display welcome message
-                notifyIcon.ShowBalloonTip(
+                applicationIcon.ShowBalloonTip(
                     Settings.Default.balloonTimespan * 1000,
                     Resources.str_balloonWelcomeHeader,
                     Resources.str_balloonWelcomeBody,
                     ToolTipIcon.Info);
             }
 
-            // load initial channels
+            // load initial channels in background task
             if (!isPaused)
                 retriever.backgroundWorker.RunWorkerAsync();
         }
@@ -146,88 +147,88 @@ namespace BalloonRss
 
             this.Icon = Resources.ico_yellow32;
             this.ClientSize = new System.Drawing.Size(0, 0);
-            this.Text = "BalloonRss";
+            this.Text = "BalloonRss";   // no need to take a resource, this name is nowhere shown
             this.ShowInTaskbar = false;
             this.Visible = false;
             this.WindowState = FormWindowState.Minimized;
             // remove appliation from the ALT+TAB menu
             SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle, GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
 
-            // Create the NotifyIcon.
-            this.notifyIcon = new System.Windows.Forms.NotifyIcon();
-            notifyIcon.ContextMenu = CreateContextMenu();
-            notifyIcon.Visible = true;
-            notifyIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
-            notifyIcon.MouseClick += new MouseEventHandler(OnIconClicked);
+            // Create the NotifyIcon
+            this.applicationIcon = new NotifyIcon();
+            applicationIcon.ContextMenuStrip = CreateContextMenu();
+            applicationIcon.Visible = true;
+            applicationIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
+            applicationIcon.MouseClick += new MouseEventHandler(OnIconClicked);
 
             this.ResumeLayout(false);
         }
 
 
-        private ContextMenu CreateContextMenu()
+        private ContextMenuStrip CreateContextMenu()
         {
-            ContextMenu contextMenu = new ContextMenu();
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
 
             // menuItem Exit
-            MenuItem mi_exit = new System.Windows.Forms.MenuItem();
+            ToolStripMenuItem mi_exit = new ToolStripMenuItem();
             mi_exit.Text = Resources.str_contextMenuExit;
-            mi_exit.Click += new System.EventHandler(this.MiExitClick);
+            mi_exit.Click += new EventHandler(this.MiExitClick);
 
             // menuItem Settings
-            MenuItem mi_settings = new System.Windows.Forms.MenuItem();
+            ToolStripMenuItem mi_settings = new ToolStripMenuItem();
             mi_settings.Text = Resources.str_contextMenuSettings;
-            mi_settings.Click += new System.EventHandler(this.MiSettingsClick);
+            mi_settings.Click += new EventHandler(this.MiSettingsClick);
             mi_settings.Enabled = true;
 
             // menuItem Channel Settings
-            MenuItem mi_channelSettings = new System.Windows.Forms.MenuItem();
+            ToolStripMenuItem mi_channelSettings = new ToolStripMenuItem();
             mi_channelSettings.Text = Resources.str_contextMenuChannelSettings;
-            mi_channelSettings.Click += new System.EventHandler(this.MiChannelSettingsClick);
+            mi_channelSettings.Click += new EventHandler(this.MiChannelSettingsClick);
             mi_channelSettings.Enabled = true;
 
             // menuItem Channel Info
-            MenuItem mi_channelInfo = new System.Windows.Forms.MenuItem();
+            ToolStripMenuItem mi_channelInfo = new ToolStripMenuItem();
             mi_channelInfo.Text = Resources.str_contextMenuChannelInfo;
-            mi_channelInfo.Click += new System.EventHandler(this.MiChannelInfoClick);
+            mi_channelInfo.Click += new EventHandler(this.MiChannelInfoClick);
             mi_channelInfo.Enabled = true;
 
             // menuItem Get Channels
-            MenuItem mi_getChannels = new System.Windows.Forms.MenuItem();
+            ToolStripMenuItem mi_getChannels = new ToolStripMenuItem();
             mi_getChannels.Text = Resources.str_contextMenuGetChannels;
-            mi_getChannels.Click += new System.EventHandler(this.MiGetChannelsClick);
+            mi_getChannels.Click += new EventHandler(this.MiGetChannelsClick);
             mi_getChannels.Enabled = true;
 
             // menuItem History
-            mi_history = new System.Windows.Forms.MenuItem();
+            mi_history = new ToolStripMenuItem();
             mi_history.Text = Resources.str_contextMenuHistory;
-            mi_history.Click += new System.EventHandler(this.MiHistoryClick);
+            mi_history.Click += new EventHandler(this.MiHistoryClick);
             mi_history.Enabled = false;
 
             // menuItem Next Message
-            mi_nextMessage = new System.Windows.Forms.MenuItem();
+            mi_nextMessage = new ToolStripMenuItem();
             mi_nextMessage.Text = Resources.str_contextMenuNextMessage;
-            mi_nextMessage.Click += new System.EventHandler(this.MiNextMessageClick);
+            mi_nextMessage.Click += new EventHandler(this.MiNextMessageClick);
             mi_nextMessage.Enabled = false;
 
             // menuItem Last Message
-            mi_lastMessage = new System.Windows.Forms.MenuItem();
+            mi_lastMessage = new ToolStripMenuItem();
             mi_lastMessage.Text = Resources.str_contextMenuLastMessage;
-            mi_lastMessage.Click += new System.EventHandler(this.OnBalloonTipClicked);
+            mi_lastMessage.Click += new EventHandler(this.OnBalloonTipClicked);
             mi_lastMessage.Enabled = false;
 
             // Initialize contextMenu
-            contextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] 
+            contextMenu.Items.AddRange(new ToolStripItem[] 
             { 
                 mi_channelSettings,
                 mi_settings,
-                new System.Windows.Forms.MenuItem("-"),
+                new ToolStripSeparator(),
                 mi_channelInfo,
                 mi_getChannels,
-                new System.Windows.Forms.MenuItem("-"),
+                new ToolStripSeparator(),
                 mi_history,
                 mi_lastMessage,
                 mi_nextMessage,
-                new System.Windows.Forms.MenuItem("-"),
+                new ToolStripSeparator(),
                 mi_exit,
             });
 
@@ -252,7 +253,6 @@ namespace BalloonRss
             {
                 // restore icon properties
                 UpdateIcon();
-                mi_nextMessage.Enabled = false;
             }
 
             // update timer values
@@ -303,6 +303,9 @@ namespace BalloonRss
 
             FormChannelInfo formChannelInfo = new FormChannelInfo(retriever.GetChannels());
             formChannelInfo.ShowDialog();
+
+            // restore icon properties, the channels may be cleared
+            UpdateIcon();
 
             dispTimer.Start();
         }
@@ -363,7 +366,15 @@ namespace BalloonRss
                 {
                     // re-enable the application
                     // re-enable timers
-                    retrieveTimer.Start();
+                    if ( (DateTime.Now - lastRetrieval).TotalSeconds > Settings.Default.retrieveIntervall)
+                    {
+                        // the last retrieval is long time ago (or never happened)
+                        // start background worker thread to retrieve channels
+                        retriever.backgroundWorker.RunWorkerAsync();
+                    }
+                    else
+                        retrieveTimer.Start();
+
                     dispTimer.Start();
                 }
 
@@ -397,7 +408,7 @@ namespace BalloonRss
                 else
                 {
                     isRssViewed = false;
-                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, Resources.str_balloonWarningNoEntryHeader, Resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
+                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, Resources.str_balloonWarningNoEntryHeader, Resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
                 }
             }
             // if no rss item was viewed, we skip the click
@@ -406,6 +417,8 @@ namespace BalloonRss
 
         private void RetrieveCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            lastRetrieval = DateTime.Now;
+
             if (retriever.GetQueueSize() > 0)
             {
                 // start the display timer (it may be already running)
@@ -415,9 +428,6 @@ namespace BalloonRss
                 // update timer value according actual priority, if this time is shorter
                 if (dispTimer.Interval > Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
                     dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
-
-                // enable context menu entry
-                mi_nextMessage.Enabled = true;
             }
             // update icon
             UpdateIcon();
@@ -449,11 +459,11 @@ namespace BalloonRss
                 isRssViewed = true;
                 if (Settings.Default.channelAsTitle)
                 {
-                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
+                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
                 }
                 else
                 {
-                    notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
+                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
                 }
 
                 // enable the message history (might be already enabled)
@@ -466,7 +476,6 @@ namespace BalloonRss
             else
             {
                 dispTimer.Stop();
-                mi_nextMessage.Enabled = false;
             }
         }
 
@@ -483,28 +492,33 @@ namespace BalloonRss
 
         private void UpdateIcon()
         {
+            int rssCount = retriever.GetQueueSize();
+
             if (!isPaused)
             {
-                int rssCount = retriever.GetQueueSize();
-
                 // update icon
                 if (rssCount > 0)
-                    notifyIcon.Icon = Resources.ico_yellow16;
+                    applicationIcon.Icon = Resources.ico_yellow16;
                 else
-                    notifyIcon.Icon = Resources.ico_orange16;
+                    applicationIcon.Icon = Resources.ico_orange16;
 
                 // update info text
                 if (rssCount != 1)
-                    notifyIcon.Text = rssCount + Resources.str_iconInfoNewsCount;
+                    applicationIcon.Text = rssCount + Resources.str_iconInfoNewsCount;
                 else
-                    notifyIcon.Text = Resources.str_iconInfoNewsCount1;
+                    applicationIcon.Text = Resources.str_iconInfoNewsCount1;
             }
             else
             {
                 // update icon and text
-                notifyIcon.Icon = Resources.ico_blue16;
-                notifyIcon.Text = Resources.str_iconInfoPause;
+                applicationIcon.Icon = Resources.ico_blue16;
+                applicationIcon.Text = Resources.str_iconInfoPause;
             }
+
+            if (rssCount != 0)
+                mi_nextMessage.Enabled = true;
+            else
+                mi_nextMessage.Enabled = false;
         }
 
 
@@ -513,7 +527,7 @@ namespace BalloonRss
             // report error message via pop-up
             String[] message = e.UserState as String[];
             isRssViewed = false;
-            notifyIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
+            applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, message[0], message[1], ToolTipIcon.Error);
         }
     }
 }
