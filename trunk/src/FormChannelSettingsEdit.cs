@@ -17,7 +17,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BalloonRss.Properties;
 
@@ -30,11 +29,9 @@ namespace BalloonRss
         private Label fillLabel;
         private Control cntlUrl;
         private Control cntlPriority;
-        private Button ctrlClearChannelData;
 
         // class data
         private ChannelInfo channelInfo;
-        private bool channelDataCleared = false;
 
 
         public FormChannelSettingsEdit(ChannelInfo channelInfo)
@@ -68,14 +65,6 @@ namespace BalloonRss
             cntlPriority = CreateSettingControl(channelInfo.priority, Resources.str_channelSettingsHeaderPriority, out panel, 0, Byte.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-
-            // clear data button
-            ctrlClearChannelData = new Button();
-            ctrlClearChannelData.Text = Resources.str_channelSettingsEditClearChannelData;
-            ctrlClearChannelData.Width = TextRenderer.MeasureText(ctrlClearChannelData.Text, ctrlClearChannelData.Font).Width+10;
-            ctrlClearChannelData.Click += new EventHandler(this.OnClearChannelData);
-            maxXSize = Math.Max(maxXSize, ctrlClearChannelData.Width);
-            flPanelMain.Controls.Add(ctrlClearChannelData);
 
             // OK/Cancel button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
@@ -175,6 +164,13 @@ namespace BalloonRss
         {
             errorMessage = null;
 
+            // check link format
+            if (!ChannelInfo.IsValidLink(cntlUrl.Text))
+            {
+                errorMessage = Resources.str_channelSettingsIllegalLink + cntlUrl.Text;
+                return false;
+            }
+
             // check data ranges
             if (!(cntlPriority as NumericTextBox).IsValueValid())
             {
@@ -188,7 +184,8 @@ namespace BalloonRss
 
         private void GetData()
         {
-            // get data
+            // store the data in the associated channel info
+            // the data were already checked for validy before
             channelInfo.link = cntlUrl.Text;
             channelInfo.priority = (byte)(cntlPriority as NumericTextBox).IntValue;
         }
@@ -215,11 +212,7 @@ namespace BalloonRss
             else
             {
                 GetData();
-                // we use the dialog result as an indication whether we cleared the channel data
-                if (channelDataCleared)
-                    this.DialogResult = DialogResult.Yes;
-                else
-                    this.DialogResult = DialogResult.OK;
+                this.DialogResult = DialogResult.OK;
                 Dispose();
             }
         }
@@ -227,29 +220,8 @@ namespace BalloonRss
         private void OnCancel(object sender, EventArgs e)
         {
             // close window
-            // we use the dialog result as an indication whether we cleared the channel data
-            if (channelDataCleared)
-                this.DialogResult = DialogResult.No;
-            else
-                this.DialogResult = DialogResult.Cancel;
+            this.DialogResult = DialogResult.Cancel;
             Dispose();
-        }
-
-        private void OnClearChannelData(object sender, EventArgs e)
-        {
-            // clear the file system data
-            RssChannel.ClearChannelData(channelInfo);
-            channelDataCleared = true;
-
-            // show confirmation dialog
-            MessageBox.Show(
-                this,
-                Resources.str_channelSettingsEditClearChannelDataConfirm,
-                Resources.str_channelSettingsEditClearChannelData,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-
-            // update channel
         }
     }
 }

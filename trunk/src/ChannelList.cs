@@ -32,6 +32,7 @@ namespace BalloonRss
         private const String xmlItemName = "item";
 
 
+        // the constructor loads the channel config file
         public ChannelList(out bool fallbackToDefaultChannels)
         {
             fallbackToDefaultChannels = false;
@@ -52,7 +53,7 @@ namespace BalloonRss
             }
             catch (Exception)
             {
-                // this may be a FileNotFoundException but it might be another exception like an illegal config file
+                // this may be a FileNotFoundException or another exception in case of an illegal config file
                 // we have to load default channels
                 LoadDefaultChannelSettings();
                 fallbackToDefaultChannels = true;
@@ -60,12 +61,13 @@ namespace BalloonRss
         }
 
 
-        private String GetChannelConfigFilename()
+        private static String GetChannelConfigFilename()
         {
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
                 + Path.DirectorySeparatorChar + "BalloonRSS"
                 + Path.DirectorySeparatorChar + Settings.Default.configFilename;
         }
+
 
         private void LoadDefaultChannelSettings()
         {
@@ -113,57 +115,40 @@ namespace BalloonRss
             SaveToFile();
         }
 
+
+        // this parses and loads the channel config file
+        // in case of any error an exception shall be thrown
         private void ParseChannelConfigFile()
         {
-            bool gotChannelTag = false;
-
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
-
             configFile.Load(GetChannelConfigFilename());
 
-            // parse configuration file
-            foreach (XmlNode rootNode in configFile)
-            {
-                // search for "channels" tag
-                if (rootNode.Name.Trim().ToLower() == xmlRootNodeName)
-                {
-                    gotChannelTag = true;
-                    ParseRootNode(rootNode);
-                }
-            }
-
-            if (!gotChannelTag)
-            {
+            // check root tag
+            if (configFile.DocumentElement.Name != xmlRootNodeName)
                 throw new FormatException(Resources.str_balloonErrorConfigChannelTag);
-            }
-        }
 
-
-        private void ParseRootNode(XmlNode channelsNode)
-        {
-            foreach (XmlNode xmlNode in channelsNode)
+            // loop over all channel entries
+            XmlNodeList itemList = configFile.GetElementsByTagName(xmlItemName);
+            foreach (XmlNode xmlNode in itemList)
             {
-                // search for "item" tag
-                if (xmlNode.Name.Trim().ToLower() == xmlItemName)
+                // create new channel with this information
+                ChannelInfo newChannel = new ChannelInfo(xmlNode);
+
+                // search for duplicate node
+                foreach (ChannelInfo curChannel in this)
                 {
-                    // create new channel with this information
-                    ChannelInfo newChannel = new ChannelInfo(xmlNode);
-
-                    // search for duplicate node
-                    foreach (ChannelInfo curChannel in this)
-                    {
-                        if (curChannel.link == newChannel.link)
-                            throw new FormatException("duplicate link found");
-                    }
-
-                    this.Add(newChannel);
+                    if (curChannel.link == newChannel.link)
+                        throw new FormatException("duplicate link found");
                 }
+
+                this.Add(newChannel);
             }
             // configuration read finished
         }
 
 
+        // dump the current channel list to the xml file
         public void SaveToFile()
         {
             // write this information in the channel file
@@ -182,6 +167,7 @@ namespace BalloonRss
                 xmlRoot.AppendChild(xmlChannelInfo);
             }
 
+            // save the file
             channelFile.Save(GetChannelConfigFilename());
         }
     }

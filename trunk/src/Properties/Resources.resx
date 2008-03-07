@@ -170,6 +170,14 @@
     <value>Welcome to BalloonRSS</value>
     <comment>welcome message on first application start (header text)</comment>
   </data>
+  <data name="str_channelContextMenuClearData" xml:space="preserve">
+    <value>Clear collected data</value>
+    <comment>context menu string in Channel Information dialog</comment>
+  </data>
+  <data name="str_channelContextMenuMarkRead" xml:space="preserve">
+    <value>Mark all read</value>
+    <comment>context menu string in Channel Information dialog</comment>
+  </data>
   <data name="str_channelFormTitle" xml:space="preserve">
     <value>RSS Channel Information</value>
     <comment>"RSS channel information" window title</comment>
@@ -242,14 +250,6 @@
     <value />
     <comment>priority of optional 4th default channel entry</comment>
   </data>
-  <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
-    <value>Clear collected data of this channel</value>
-    <comment>button text to delete all collected data of current channel</comment>
-  </data>
-  <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
-    <value>All collected data of this channel are deleted now.</value>
-    <comment>confirmation popup text after channel data deletion (body text)</comment>
-  </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
     <value>Edit RSS Channel Settings</value>
     <comment>edit RSS channel window title</comment>
@@ -277,6 +277,10 @@
   <data name="str_channelSettingsHeaderTitle" xml:space="preserve">
     <value>Link</value>
     <comment>column header in "RSS Channel Settings" window</comment>
+  </data>
+  <data name="str_channelSettingsIllegalLink" xml:space="preserve">
+    <value>Illegal format of RSS link: </value>
+    <comment>error message as illegal link is entered in the channel settings (end with ": " because the link is appended at the string end)</comment>
   </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
     <value>RSS Channel &amp;Information</value>

@@ -17,9 +17,9 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using BalloonRss.Properties;
 
 
 namespace BalloonRss
@@ -29,32 +29,37 @@ namespace BalloonRss
         private const String xmlLinkName = "link";
         private const String xmlPriorityName = "priority";
 
-        public String link = null;
-        public byte priority = 0;
+        public String link;
+        public byte priority;
 
 
         // the empty constructor is used as a new channel is entered
         public ChannelInfo()
         {
-            link = Properties.Resources.str_channelSettingsDefault1Link;
-            priority = Properties.Settings.Default.defaultChannelPriority;
+            link = Resources.str_channelSettingsDefault1Link;
+            priority = Settings.Default.defaultChannelPriority;
         }
 
-        // the empty constructor is used as a new channel is entered
+
+        // this constructor is used as the default channels are initialized
         public ChannelInfo(string link, string priority)
         {
+            // check and save link
             this.link = link;
-            if (!Uri.IsWellFormedUriString(link, UriKind.RelativeOrAbsolute)
-                || (link.Trim().Length == 0))
+            if (!IsValidLink(link))
+            {
                 throw new FormatException();
+            }
 
+            // check and save priority
             try
             {
                 this.priority = Convert.ToByte(priority);
             }
             catch (Exception)
             {
-                this.priority = Properties.Settings.Default.defaultChannelPriority;
+                // if the priority is illegal, use the default without comment
+                this.priority = Settings.Default.defaultChannelPriority;
             }
         }
 
@@ -62,43 +67,64 @@ namespace BalloonRss
         // this constructor is used by reading the config file
         public ChannelInfo(XmlNode itemNode)
         {
+            // default settings
+            link = null;
+            priority = Settings.Default.defaultChannelPriority;
+
+            // the xml node we get is already a channel node
             foreach (XmlNode xmlChild in itemNode)
             {
                 String curTag = xmlChild.Name.Trim().ToLower();
 
+                // what xml tag did we find?
                 switch (curTag)
                 {
+                    // the mandatory link tag
                     case xmlLinkName:
                         link = xmlChild.InnerText;
-
-                        if (!Uri.IsWellFormedUriString(link, UriKind.RelativeOrAbsolute)
-                            || (link.Trim().Length == 0) )
+                        if (!IsValidLink(link))
                             throw new FormatException();
-
                         break;
+
+                    // the optional priority tag
                     case xmlPriorityName:
+                        // if this raises an exception, that's fine
                         priority = Convert.ToByte(xmlChild.InnerText);
                         break;
+
+                    // skip all unknown tags without comment
                     default:
-                        // skip this unknown tag
                         break;
                 }
             }
 
             // the link field is mandatory
             if (link == null)
-                throw new FormatException(Properties.Resources.str_balloonErrorChannelLinkTag);
+                throw new FormatException(Resources.str_balloonErrorChannelLinkTag);
         }
 
 
+        // this is used as the channel settings are written to the xml file
         public void DumpChannelInfo(XmlDocument channelFile, XmlElement xmlChannelInfo)
         {
+            // save link tag
             XmlElement xmlLink = channelFile.CreateElement(xmlLinkName);
             xmlLink.InnerText = this.link;
             xmlChannelInfo.AppendChild(xmlLink);
+            // save priority tag
             XmlElement xmlPriority = channelFile.CreateElement(xmlPriorityName);
             xmlPriority.InnerText = this.priority.ToString();
             xmlChannelInfo.AppendChild(xmlPriority);
+        }
+
+    
+        public static bool IsValidLink(String link)
+        {
+            if (Uri.IsWellFormedUriString(link, UriKind.RelativeOrAbsolute)
+                && (link.Trim().Length > 0))
+                return true;
+            else
+                return false;
         }
     }
 }
