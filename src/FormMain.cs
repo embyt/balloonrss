@@ -419,7 +419,10 @@ namespace BalloonRss
         {
             lastRetrieval = DateTime.Now;
 
-            if (retriever.GetQueueSize() > 0)
+            // update icon
+            bool messagesAvailable = UpdateIcon();
+
+            if (messagesAvailable)
             {
                 // start the display timer (it may be already running)
                 if (!isPaused)
@@ -429,8 +432,6 @@ namespace BalloonRss
                 if (dispTimer.Interval > Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
                     dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
             }
-            // update icon
-            UpdateIcon();
 
             // start the retriever timer
             if (!isPaused)
@@ -490,7 +491,8 @@ namespace BalloonRss
         }
         
 
-        private void UpdateIcon()
+        // updates the application icon and its mouse-over-text
+        private bool UpdateIcon()
         {
             int rssCount = retriever.GetQueueSize();
 
@@ -519,6 +521,8 @@ namespace BalloonRss
                 mi_nextMessage.Enabled = true;
             else
                 mi_nextMessage.Enabled = false;
+
+            return (rssCount > 0);
         }
 
 

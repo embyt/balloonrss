@@ -29,16 +29,13 @@ using BalloonRss.Properties;
 namespace BalloonRss
 {
     // the retriever class is a collection of all RSS channels
-    class Retriever : System.Collections.Generic.Dictionary<String, RssChannel>
+    class Retriever : Dictionary<String, RssChannel>
     {
         // the background worker to retrieve the channels
         public BackgroundWorker backgroundWorker;
 
         // the history of shown rss entries
         public Queue<RssItem> rssHistory;
-
-        // total number of rss messages left
-        private int rssCount;
 
         // priority of best channel compared to best available channel
         public double bestPriorityRatio = 1;
@@ -68,7 +65,6 @@ namespace BalloonRss
 
             // do some cleanup since this is executed also in case of a config file change
             this.Clear();
-            rssCount = 0;
 
             // read channel configuration file
             ChannelList channelList = new ChannelList(out firstRun);
@@ -116,6 +112,7 @@ namespace BalloonRss
 
 
         // this is called from the background worker
+        // it fetches the RSS file from the server
         private bool RetrieveChannel(String url)
         {
             WebResponse httpResp;
@@ -137,7 +134,7 @@ namespace BalloonRss
             // parse rss file
             try
             {
-                XmlDocument rssDocument = new System.Xml.XmlDocument();
+                XmlDocument rssDocument = new XmlDocument();
                 rssDocument.Load(httpResp.GetResponseStream());
                 UpdateChannel(url, rssDocument);
                 httpResp.Close();
@@ -154,6 +151,7 @@ namespace BalloonRss
 
 
         // this is called from the background worker
+        // it invokes the corresponding channel to parse the RSS file
         private void UpdateChannel(String url, XmlNode xmlNode)
         {
             RssChannel rssChannel;
@@ -164,10 +162,7 @@ namespace BalloonRss
                 int oldItemCount = rssChannel.Count;
 
                 // update the channel with the new rss data
-                int newMessages = rssChannel.UpdateChannel(xmlNode);
-
-                // update score and count
-                rssCount += newMessages;
+                rssChannel.UpdateChannel(xmlNode);
             }
             else
             {
@@ -226,6 +221,12 @@ namespace BalloonRss
 
         public int GetQueueSize()
         {
+            int rssCount = 0;
+
+            foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
+            {
+                rssCount += keyValuePair.Value.Count;
+            }
             return rssCount;
         }
 
@@ -254,10 +255,8 @@ namespace BalloonRss
                 if (rssChannel == null)
                     return null;
 
-
                 // now, as we have the channel, let the channel select the best news item
                 rssItem = rssChannel.GetNextItem();
-                rssCount--;
 
                 // update the best priority ratio
                 // we need to do this only if the channel got empty

@@ -11,11 +11,11 @@ echo.
 echo Creating dll for culture de
 al /t:lib /embed:BalloonRss.Properties.Resources.de.resources /culture:de /out:BalloonRss.resources.dll
 del BalloonRss.Properties.Resources.de.resources
-mv BalloonRss.resources.dll ..\bin\de
+move BalloonRss.resources.dll ..\bin\de
 
 echo Creating dll for culture pt
 al /t:lib /embed:BalloonRss.Properties.Resources.pt.resources /culture:pt /out:BalloonRss.resources.dll
 del BalloonRss.Properties.Resources.pt.resources
-mv BalloonRss.resources.dll ..\bin\pt
+move BalloonRss.resources.dll ..\bin\pt
 
 pause
