@@ -17,7 +17,6 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 */
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
@@ -62,9 +61,17 @@ namespace BalloonRss
                         this.title = curXmlNode.InnerText;
                         break;
                     case "link":
-                        this.link = curXmlNode.InnerText;
+                        if (channel.channelType != "feed")
+                        {
+                            this.link = curXmlNode.InnerText;
+                        }
+                        else
+                        {
+                            this.link = curXmlNode.Attributes.GetNamedItem("href").Value;
+                        }
                         break;
-                    case "description":
+                    case "description": // for rss and rdf feeds
+                    case "summary":     // for atom feeds
                         this.description = curXmlNode.InnerText;
                         break;
 
@@ -72,7 +79,8 @@ namespace BalloonRss
                     case "author":
                         this.author = curXmlNode.InnerText;
                         break;
-                    case "pubdate":
+                    case "pubdate":     // for rss and rdf feeds
+                    case "updated":     // for atom feeds
                         this.pubDate = ParseDate(curXmlNode.InnerText);
                         break;
 

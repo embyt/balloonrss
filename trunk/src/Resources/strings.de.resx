@@ -117,6 +117,54 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_channelContextMenuClearData" xml:space="preserve">
+    <value>Lösche gesammelte Daten</value>
+    <comment>context menu string in Channel Information dialog</comment>
+  </data>
+  <data name="str_channelContextMenuMarkRead" xml:space="preserve">
+    <value>Alle Nachrichten als gelesen markieren</value>
+    <comment>context menu string in Channel Information dialog</comment>
+  </data>
+  <data name="str_channelSettingsDefault1Link" xml:space="preserve">
+    <value>http://www.heise.de/tr/news-atom.xml</value>
+    <comment>default URL entry for new RSS feed link</comment>
+  </data>
+  <data name="str_channelSettingsDefault1Priority" xml:space="preserve">
+    <value>6</value>
+    <comment>priority of default channel entry 1</comment>
+  </data>
+  <data name="str_channelSettingsDefault2Link" xml:space="preserve">
+    <value>http://rss.orf.at/futurezone.xml</value>
+    <comment>optional 2nd default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault2Priority" xml:space="preserve">
+    <value>5</value>
+    <comment>priority of optional 2nd default channel entry</comment>
+  </data>
+  <data name="str_channelSettingsDefault3Link" xml:space="preserve">
+    <value />
+    <comment>optional 3rd default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault3Priority" xml:space="preserve">
+    <value />
+    <comment>priority of optional 3rd default channel entry</comment>
+  </data>
+  <data name="str_channelSettingsDefault4Link" xml:space="preserve">
+    <value />
+    <comment>optional 4th default channel entry; leave blank if not needed</comment>
+  </data>
+  <data name="str_channelSettingsDefault4Priority" xml:space="preserve">
+    <value />
+    <comment>priority of optional 4th default channel entry</comment>
+  </data>
+  <data name="str_channelSettingsIllegalLink" xml:space="preserve">
+    <value>Ungültiges Format des RSS Links: </value>
+    <comment>error message as illegal link is entered in the channel settings (end with ": " because the link is appended at the string end)</comment>
+  </data>
+  <data name="str_settingsStartPaused" xml:space="preserve">
+    <value>Im Pause-Mode starten</value>
+    <comment>settings information string</comment>
+  </data>
   <data name="str_settingsCheckForUpdates" xml:space="preserve">
     <value>Automatisch auf neue Programm-Versionen prüfen</value>
     <comment>settings information string</comment>
@@ -132,14 +180,6 @@
   <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
     <value>Fehlendes "link" Attribut in der Konfigurationsdatei.</value>
     <comment>This is a format error in the .xml channel config file.</comment>
-  </data>
-  <data name="str_balloonErrorChannelsBody" xml:space="preserve">
-    <value>Die voreingestellten Kanaleinstellungen konnten nicht gefunden werden oder sind fehlerhaft. Bitte konfigurieren Sie die Kanäle manuell.</value>
-    <comment>the default channel settings file was not found or has illegal format</comment>
-  </data>
-  <data name="str_balloonErrorChannelsHeader" xml:space="preserve">
-    <value>Starten von BalloonRSS</value>
-    <comment>title of popup displaying an error in the default channel settings file</comment>
   </data>
   <data name="str_balloonErrorConfigChannelTag" xml:space="preserve">
     <value>Fehlendes notwendige "channel" Attribut.</value>
@@ -216,18 +256,6 @@
   <data name="str_channelSettingsConfirmDeleteTitel" xml:space="preserve">
     <value>Bestätigung des Kanal-Löschens</value>
     <comment>warning popup (header text)</comment>
-  </data>
-  <data name="str_channelSettingsDefaultLink" xml:space="preserve">
-    <value>http://rss.orf.at/futurezone.xml</value>
-    <comment>default URL entry for new RSS feed link</comment>
-  </data>
-  <data name="str_channelSettingsEditClearChannelData" xml:space="preserve">
-    <value>Lösche gesammelte Kanaldaten</value>
-    <comment>button text to delete all collected data of current channel</comment>
-  </data>
-  <data name="str_channelSettingsEditClearChannelDataConfirm" xml:space="preserve">
-    <value>Alle gesammelten Kanaldaten sind nun gelöscht.</value>
-    <comment>confirmation popup text after channel data deletion (body text)</comment>
   </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
     <value>Ändern der RSS Kanal Einstellungen</value>

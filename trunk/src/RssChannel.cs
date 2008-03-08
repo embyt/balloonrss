@@ -27,9 +27,11 @@ namespace BalloonRss
 {
     public class RssChannel : List<RssItem>
     {
+        // format definitions of collected xml data
         private const String xmlRootNodeName = "ChannelData";
         private const String xmlItemName = "RssItem";
 
+        // public information on channel properties
         public ChannelInfo channelInfo;
         public String title;
         public String description = null;
@@ -38,8 +40,9 @@ namespace BalloonRss
         public int channelViewedCount;
         public int channelOpenedCount;
         public int effectivePriority = 0;
+        public string channelType;
 
-
+        // filename defintions
         private static String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
         private static String rssViewedFilename = "viewed_";
         private static String rssOpenedFilename = "opened_";
@@ -73,7 +76,7 @@ namespace BalloonRss
             }
             catch (Exception)
             {
-                // if we cannot find a history file, treat the item as new
+                // if we cannot find a history file, treat the channel as new
                 channelViewedCount = 0;
             }
 
@@ -89,14 +92,16 @@ namespace BalloonRss
             }
             catch (Exception)
             {
-                // if we cannot find a history file, treat the item as new
+                // if we cannot find a history file, treat the channel as new
                 channelOpenedCount = 0;
             }
         }
 
 
+        // add the new rss items of the xml input to the collection
         public int UpdateChannel(XmlNode xmlNode)
         {
+            // initialize variables
             int messageCount = 0;
             int newMessages = 0;
 
@@ -108,8 +113,16 @@ namespace BalloonRss
                 {
                     // umbrella tags that needs to be resolved into deeper level
                     case "rss":
-                    case "channel":
                     case "rdf:rdf":
+                    case "feed":
+                        // store channel type tag
+                        channelType = curTag;
+                        // step into child node
+                        newMessages = UpdateChannel(xmlChild);
+                        break;
+
+                    // the actual channel information
+                    case "channel":     // for rss and rdf feeds
                         newMessages = UpdateChannel(xmlChild);
                         break;
 
@@ -126,7 +139,8 @@ namespace BalloonRss
                         break;
 
                     // the news items within this channel
-                    case "item":
+                    case "item":    // for rss and rdf feeds
+                    case "entry":   // for atom feeds
                         RssItem rssItem;
                         try
                         {
@@ -376,6 +390,8 @@ namespace BalloonRss
             {
                 File.Delete(GetRssViewedFilename(channelInfo.link));
                 File.Delete(GetRssOpenedFilename(channelInfo.link));
+                channelViewedCount = 0;
+                channelOpenedCount = 0;
             }
             catch (DirectoryNotFoundException)
             {
