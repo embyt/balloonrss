@@ -134,6 +134,8 @@ Screenshot: Status display if you place the mouse cursor over the application it
 
 <p>For general discussions, you might want to use the <a href="http://sourceforge.net/forum/?group_id=206266">project forums</a>.</p>
 
+<p>You also might want to look into the <a href="releasenotes.html">release notes</a>.</p>
+
 <hr>
 <table width="100%"><tr>
 <td><i>last update: <?php echo date ("r", filemtime($_SERVER["SCRIPT_FILENAME"]))?><br>
