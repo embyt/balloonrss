@@ -55,6 +55,7 @@ the Free Software Foundation; either version 3 of the license, or
 <li>the message frequency and viewing period is configurable
 <li>configuration via GUI or using .xml files
 <li>message history
+<li>multi-language support: English, German, Portuguese
 <li>...
 </ul>
 
@@ -89,8 +90,7 @@ Installation procedure, using the installer:
 Alternative manual installation:
 <ol>
 <li>Make sure that you have the .NET framework 2.0 installed; otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
-<li>Copy the executable "balloonrss.exe" together with the default channel configuration 
-  "defaultChannels.xml" in any directory of your choice.
+<li>Copy the executable "balloonrss.exe" in any directory of your choice.
 <li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
 <li>You might want to link it in the autostart folder.
 </ol>
@@ -140,7 +140,7 @@ Screenshot: Status display if you place the mouse cursor over the application it
 <table width="100%"><tr>
 <td><i>last update: <?php echo date ("r", filemtime($_SERVER["SCRIPT_FILENAME"]))?><br>
 Roman Morawek</i></td>
-<td align="right"><table align="right"><tr><td><a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=206266&amp;type=2" width="125" height="37" border="0" alt="SourceForge.net Logo" /></a></td><td><a href="http://jigsaw.w3.org/css-validator/check/referer"><img border=0 width=88 height=31 SRC="http://jigsaw.w3.org/css-validator/images/vcss.gif" ALT="Valid CSS!"></a></td>
+<td align="right"><table align="right"><tr><td><a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=206266&amp;type=2" width="125" height="37" border="0" alt="SourceForge.net Logo"></a></td><td><a href="http://jigsaw.w3.org/css-validator/check/referer"><img border=0 width=88 height=31 SRC="http://jigsaw.w3.org/css-validator/images/vcss.gif" ALT="Valid CSS!"></a></td>
 <td><a href="http://validator.w3.org/check/referer"><img border=0 src="http://validator.w3.org/images/vh40" alt="Valid HTML 4.0!" height=31 width=88></a></td></tr></table></td>
 </tr></table>
 </body>
