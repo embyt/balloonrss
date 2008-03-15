@@ -323,7 +323,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to http://feeds.wired.com/wired/index.
         /// </summary>
         internal static string str_channelSettingsDefault3Link {
             get {
@@ -332,7 +332,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to 5.
         /// </summary>
         internal static string str_channelSettingsDefault3Priority {
             get {

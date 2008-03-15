@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="str_channelContextMenuClearData" xml:space="preserve">
-    <value>Clear collected data</value>
+    <value>Limpar dados recebidos</value>
     <comment>context menu string in Channel Information dialog</comment>
   </data>
   <data name="str_channelContextMenuMarkRead" xml:space="preserve">
-    <value>Mark all read</value>
+    <value>Marcar tudo como lido</value>
     <comment>context menu string in Channel Information dialog</comment>
   </data>
   <data name="str_channelSettingsDefault1Link" xml:space="preserve">
@@ -158,11 +158,11 @@
     <comment>priority of optional 4th default channel entry</comment>
   </data>
   <data name="str_channelSettingsIllegalLink" xml:space="preserve">
-    <value>Illegal format of RSS link: </value>
+    <value>Formato incorrecto do endereço de RSS: </value>
     <comment>error message as illegal link is entered in the channel settings (end with ": " because the link is appended at the string end)</comment>
   </data>
   <data name="str_settingsStartPaused" xml:space="preserve">
-    <value>Start in pause mode</value>
+    <value>Iniciar em modo pausa</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsCheckForUpdates" xml:space="preserve">
@@ -230,7 +230,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
-    <value>Eff. Prio.</value>
+    <value>Ef. Prio.</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderLastUpdate" xml:space="preserve">
@@ -374,11 +374,11 @@
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsErrorValueToLarge" xml:space="preserve">
-    <value>Valor maior que o máximo válido </value>
+    <value>Valor maior que o máximo permitido </value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsErrorValueToSmall" xml:space="preserve">
-    <value>Valor mais pequeno que o mínimo válido </value>
+    <value>Valor mais pequeno que o mínimo permitido </value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsFormCancelButton" xml:space="preserve">
