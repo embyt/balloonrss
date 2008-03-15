@@ -30,6 +30,7 @@ Features
 - The message frequency and viewing period is configurable
 - Configuration via GUI
 - Message history
+- Multi-language support: English, German, Portuguese
 ...
 
 
@@ -63,8 +64,7 @@ Alternative manual installation:
 - Make sure that you have the .NET framework 2.0 installed; otherwise download
   the Microsoft .NET Framework Version 2.0 Redistributable Package from
   Microsoft and install it.
-- Copy the executable "balloonrss.exe" together with the channel configuration 
-  "defaultChannels.xml" in any directory of your choice.
+- Copy the executable "balloonrss.exe" in any directory of your choice.
 - Start the application.
 - Adapt the channel configuration with the RSS feeds of your choice.
 - You might want to link it in the autostart folder.

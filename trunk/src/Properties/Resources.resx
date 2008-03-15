@@ -235,11 +235,11 @@
     <comment>priority of optional 2nd default channel entry</comment>
   </data>
   <data name="str_channelSettingsDefault3Link" xml:space="preserve">
-    <value />
+    <value>http://feeds.wired.com/wired/index</value>
     <comment>optional 3rd default channel entry; leave blank if not needed</comment>
   </data>
   <data name="str_channelSettingsDefault3Priority" xml:space="preserve">
-    <value />
+    <value>5</value>
     <comment>priority of optional 3rd default channel entry</comment>
   </data>
   <data name="str_channelSettingsDefault4Link" xml:space="preserve">
