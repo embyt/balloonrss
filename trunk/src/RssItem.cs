@@ -58,7 +58,7 @@ namespace BalloonRss
                 {
                     // mandatory attributes
                     case "title":
-                        this.title = curXmlNode.InnerText;
+                        this.title = StripHtml(curXmlNode.InnerText);
                         break;
                     case "link":
                         if (channel.channelType != "feed")
@@ -72,7 +72,7 @@ namespace BalloonRss
                         break;
                     case "description": // for rss and rdf feeds
                     case "summary":     // for atom feeds
-                        this.description = curXmlNode.InnerText;
+                        this.description = StripHtml(curXmlNode.InnerText);
                         break;
 
                     // optional attributes
@@ -99,6 +99,32 @@ namespace BalloonRss
                 title = " ";
             if (description == "")
                 description = " ";
+        }
+
+
+        private String StripHtml(String text)
+        {
+            String escapedText = null;
+            // strip all html tags like <b> and translate special chars like &amp;
+            /* this would strip everything but it yields an exception in case of 
+             * an already escaped string like "harry & sally" */
+            try
+            {
+                XmlNode xmlNode = new XmlDocument().CreateElement("stripEntity");
+                xmlNode.InnerXml = text;
+                escapedText = xmlNode.InnerText;
+            }
+            catch (Exception)
+            {
+                // it seems that the text was already escaped
+                // should we still remove the tags like <b>?
+                // we could do it by the regexp "<^[>]+>"
+
+                // fixme: we just go with the text and assume it is already proper shaped
+                escapedText = text;
+            }
+
+            return escapedText;
         }
 
 

@@ -53,17 +53,17 @@ Installation
 ------------
 
 Using the installer:
-- Make sure that you have the .NET framework 2.0 installed; otherwise download
-  the Microsoft .NET Framework Version 2.0 Redistributable Package from
-  Microsoft and install it.
+- Make sure that you have the .NET framework 2.0 installed (it is included with 
+  Vista); otherwise download the Microsoft .NET Framework Version 2.0
+  Redistributable Package from Microsoft and install it.
 - Start BalloonRSS_xxx_setup.exe and follow the steps on the screen
 - Start the application.
 - Adapt the channel configuration with the RSS feeds of your choice.
 
 Alternative manual installation:
-- Make sure that you have the .NET framework 2.0 installed; otherwise download
-  the Microsoft .NET Framework Version 2.0 Redistributable Package from
-  Microsoft and install it.
+- Make sure that you have the .NET framework 2.0 installed (it is included with 
+  Vista); otherwise download the Microsoft .NET Framework Version 2.0
+  Redistributable Package from Microsoft and install it.
 - Copy the executable "balloonrss.exe" in any directory of your choice.
 - Start the application.
 - Adapt the channel configuration with the RSS feeds of your choice.

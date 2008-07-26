@@ -190,5 +190,17 @@ namespace BalloonRss.Properties {
                 return ((byte)(this["defaultChannelPriority"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool reportNetworkErrors {
+            get {
+                return ((bool)(this["reportNetworkErrors"]));
+            }
+            set {
+                this["reportNetworkErrors"] = value;
+            }
+        }
     }
 }

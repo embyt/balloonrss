@@ -402,6 +402,10 @@
     <value>Number of entries in message history</value>
     <comment>settings information string</comment>
   </data>
+  <data name="str_settingsReportNetworkErrors" xml:space="preserve">
+    <value>Report network errors</value>
+    <comment>settings information string</comment>
+  </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
     <value>Intervall for retrieving new RSS messages [s]</value>
     <comment>settings information string</comment>

@@ -100,7 +100,10 @@ namespace BalloonRss
                 RetrieveChannel(keyValuePair.Key);
 
                 if (backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
                     return;
+                }
             }
             // setup or update the best priority ratio
             UpdateBestPriorityRatio();
@@ -125,9 +128,12 @@ namespace BalloonRss
             }
             catch (Exception e)
             {
-                // the report progress function is used for error signaling
-                backgroundWorker.ReportProgress(0, 
-                    new String[] { Resources.str_balloonErrorRetrieving + url, e.Message });
+                if (Settings.Default.reportNetworkErrors)
+                {
+                    // the report progress function is used for error signaling
+                    backgroundWorker.ReportProgress(0,
+                        new String[] { Resources.str_balloonErrorRetrieving + url, e.Message });
+                }
                 return false;
             }
 

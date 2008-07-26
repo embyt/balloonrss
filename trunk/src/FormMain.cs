@@ -290,7 +290,22 @@ namespace BalloonRss
 
             // start background worker thread to retrieve channels
             if (!isPaused)
-                retriever.backgroundWorker.RunWorkerAsync();
+            {
+                // we might get a race condition here, if the worker thread is still not cancelled!
+                if (retriever.backgroundWorker.IsBusy == false)
+                {
+                    // worker already finished, everything fine
+                    retriever.backgroundWorker.RunWorkerAsync();
+                }
+                else
+                {
+                    // work still pending, we cannot restart right now
+
+                    // in this case, we start the retriever timer and 
+                    // hope that the worker is finished before the timer expires!
+                    retrieveTimer.Start();
+                }
+            }
         }
 
         private void MiChannelInfoClick(object sender, EventArgs e)
