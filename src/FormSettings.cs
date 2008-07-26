@@ -34,6 +34,7 @@ namespace BalloonRss
         private Control cntlClickInfluence;
         private Control cntlCheckForUpdates;
         private Control cntlStartPaused;
+        private Control cntlReportNetworkErrors;
 
 
         public FormSettings()
@@ -82,7 +83,10 @@ namespace BalloonRss
             cntlCheckForUpdates = CreateSettingControl(Settings.Default.checkForUpdates, Resources.str_settingsCheckForUpdates, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-
+            cntlReportNetworkErrors = CreateSettingControl(Settings.Default.reportNetworkErrors, Resources.str_settingsReportNetworkErrors, out panel);
+            maxXSize = Math.Max(maxXSize, panel.Width);
+            flPanelMain.Controls.Add(panel);
+            
             // OK/Cancel button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
             flPanel.FlowDirection = FlowDirection.LeftToRight;
@@ -232,6 +236,7 @@ namespace BalloonRss
             Settings.Default.clickInfluence = (byte)(cntlClickInfluence as TrackBar).Value;
             Settings.Default.checkForUpdates = (cntlCheckForUpdates as CheckBox).Checked;
             Settings.Default.startPaused = (cntlStartPaused as CheckBox).Checked;
+            Settings.Default.reportNetworkErrors = (cntlReportNetworkErrors as CheckBox).Checked;
         }
 
 

@@ -701,6 +701,15 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report network errors.
+        /// </summary>
+        internal static string str_settingsReportNetworkErrors {
+            get {
+                return ResourceManager.GetString("str_settingsReportNetworkErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Intervall for retrieving new RSS messages [s].
         /// </summary>
         internal static string str_settingsRetrieveIntervall {

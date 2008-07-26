@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.2"
+!define APPL_VERSION "2.3"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -31,8 +31,9 @@
 ;--------------------------------
 ;Includes
 !include dotnet.nsh
-!include "MUI.nsh"               ;Include Modern UI
-;!include "MUI2.nsh"               ;MUI2 does not provide an UNFUNCTION_DESCRIPTION yet
+;!include "MUI.nsh"               ;Include Modern UI
+;MUI2 did not provide an UNFUNCTION_DESCRIPTION but seems to work now
+!include "MUI2.nsh"
 
 
 ;--------------------------------

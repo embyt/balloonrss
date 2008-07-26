@@ -30,6 +30,7 @@ namespace BalloonRss
         // format definitions of collected xml data
         private const String xmlRootNodeName = "ChannelData";
         private const String xmlItemName = "RssItem";
+        private const String xmlDispAttr = "dispDate";
 
         // public information on channel properties
         public ChannelInfo channelInfo;
@@ -72,7 +73,14 @@ namespace BalloonRss
                 channelFile.Load(GetRssViewedFilename(channelInfo.link));
 
                 // get the items and count them
-                channelViewedCount = channelFile.GetElementsByTagName(xmlItemName).Count;
+                channelViewedCount = 0;
+                // we need to make sure that they are really displayed and not covered by "mark all read"
+                foreach(XmlElement rssItemElement in channelFile.GetElementsByTagName(xmlItemName))
+                {
+                    String viewedOn = rssItemElement.GetAttribute(xmlDispAttr);
+                    if (String.Compare(viewedOn, "never") != 0)
+                        channelViewedCount++;
+                }
             }
             catch (Exception)
             {
@@ -247,7 +255,7 @@ namespace BalloonRss
             // add the current item
             XmlElement xmlRssItem = channelFile.CreateElement(xmlItemName);
             xmlRssItem.InnerText = rssItem.link;
-            xmlRssItem.SetAttribute("dispDate", DateTime.Now.ToString());
+            xmlRssItem.SetAttribute(xmlDispAttr, DateTime.Now.ToString());
             xmlRoot.AppendChild(xmlRssItem);
 
             try
@@ -427,7 +435,7 @@ namespace BalloonRss
                 // add the current item
                 XmlElement xmlRssItem = channelFile.CreateElement(xmlItemName);
                 xmlRssItem.InnerText = rssItem.link;
-                xmlRssItem.SetAttribute("dispDate", "never");
+                xmlRssItem.SetAttribute(xmlDispAttr, "never");
                 xmlRoot.AppendChild(xmlRssItem);
             }
 

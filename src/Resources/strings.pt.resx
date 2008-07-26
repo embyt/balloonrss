@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_settingsReportNetworkErrors" xml:space="preserve">
+    <value>Report network errors</value>
+    <comment>settings information string</comment>
+  </data>
   <data name="str_channelContextMenuClearData" xml:space="preserve">
     <value>Limpar dados recebidos</value>
     <comment>context menu string in Channel Information dialog</comment>
