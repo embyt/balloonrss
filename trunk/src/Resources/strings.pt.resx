@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="str_settingsReportNetworkErrors" xml:space="preserve">
-    <value>Relate erros da rede</value>
+    <value>Ver erros de rede</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_channelContextMenuClearData" xml:space="preserve">
