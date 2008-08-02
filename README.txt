@@ -46,7 +46,7 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 - Windows Vista
 - Windows XP
 
-It is tested only on WinXP yet.
+It is tested only on WinXP and Vista yet.
 
 
 Installation
