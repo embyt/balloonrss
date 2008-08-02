@@ -215,7 +215,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mess. Queued.
+        ///   Looks up a localized string similar to # Queued.
         /// </summary>
         internal static string str_channelHeaderCount {
             get {
@@ -260,7 +260,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mess. Channel.
+        ///   Looks up a localized string similar to # Channel.
         /// </summary>
         internal static string str_channelHeaderTotal {
             get {

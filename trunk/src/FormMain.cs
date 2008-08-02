@@ -473,9 +473,12 @@ namespace BalloonRss
             {
                 // display the news
                 isRssViewed = true;
-                if (Settings.Default.channelAsTitle)
+
+                // determine prefered display mode
+                // take care: an RssUpdateItem cannot be displayed with the channel as title!
+                if (Settings.Default.channelAsTitle && (rssItem.channel != null))
                 {
-                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
+                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
                 }
                 else
                 {

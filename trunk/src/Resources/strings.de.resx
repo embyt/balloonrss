@@ -230,7 +230,7 @@
     <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value>N. bereit</value>
+    <value># bereit</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
@@ -250,7 +250,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value>N. Kanal</value>
+    <value># Kanal</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
@@ -294,7 +294,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuChannelSettings" xml:space="preserve">
-    <value>RSS &amp;Kanal Einstellungen</value>
+    <value>&amp;Kanal Einstellungen</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuExit" xml:space="preserve">
@@ -302,7 +302,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuGetChannels" xml:space="preserve">
-    <value>&amp;Laden der RSS Kanäle</value>
+    <value>RSS Kanäle &amp;laden</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
@@ -310,7 +310,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
-    <value>&amp;Zeige letzte Nachricht</value>
+    <value>&amp;Öffne letzte Nachricht</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuNextMessage" xml:space="preserve">
@@ -406,7 +406,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Zeitspanne zwischen zwei Abrüfen der RSS Kanäle [s]</value>
+    <value>Zeitspanne zwischen zwei Abfragen der RSS Kanäle [s]</value>
     <comment>settings information string</comment>
   </data>
 </root>
