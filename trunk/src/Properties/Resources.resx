@@ -130,6 +130,12 @@
   <data name="ico_yellow32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yellow32.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="img_locked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\locked.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="img_unlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unlocked.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
     <value>Missing link attribute in config file</value>
     <comment>This is a format error in the .xml channel config file.</comment>

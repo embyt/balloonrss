@@ -20,6 +20,10 @@ using System;
 using System.Windows.Forms;
 using BalloonRss.Properties;
 
+using System.Drawing;
+using System.Reflection;
+using System.IO;
+
 
 namespace BalloonRss
 {
@@ -128,7 +132,23 @@ namespace BalloonRss
             // clear any old data
             listView.Clear();
 
+            // populate and set image list
+            ImageList imageList = new ImageList();
+            imageList.Images.Add(Resources.img_unlocked);
+            imageList.Images.Add(Resources.img_locked);
+            listView.StateImageList = imageList;
+
+            // check whether we have only non-global channels
+            bool onlyUserChannels = true;
+            foreach (ChannelInfo curChannel in channelList)
+            {
+                if (curChannel.globalChannel)
+                    onlyUserChannels = false;
+            }
+
             // set the table headers
+            // the locked image column has no header and is invisible if only user items exist
+            listView.Columns.Add(null, onlyUserChannels ? 0 : -1, HorizontalAlignment.Left);
             listView.Columns.Add(Resources.str_historyHeaderId, 0, HorizontalAlignment.Left);   // hide the ID column
             listView.Columns.Add(Resources.str_channelSettingsHeaderTitle, -2, HorizontalAlignment.Left);
             listView.Columns.Add(Resources.str_channelSettingsHeaderPriority, -2, HorizontalAlignment.Left);
@@ -137,9 +157,11 @@ namespace BalloonRss
             ListViewItem[] listItems = new ListViewItem[channelList.Count];
             for (int i = 0; i < listItems.Length; i++)
             {
-                listItems[i] = new ListViewItem(i.ToString());
+                listItems[i] = new ListViewItem();
+                listItems[i].SubItems.Add(i.ToString());
                 listItems[i].SubItems.Add(channelList[i].link);
                 listItems[i].SubItems.Add(channelList[i].priority.ToString());
+                listItems[i].StateImageIndex = Convert.ToInt16(channelList[i].globalChannel);
             }
 
             // fill the list
@@ -154,7 +176,7 @@ namespace BalloonRss
             {
                 foreach (ListViewItem curItem in listView.SelectedItems)
                 {
-                    int selectedChannel = Int32.Parse(curItem.Text);
+                    int selectedChannel = Int32.Parse(curItem.SubItems[1].Text);
 
                     editButton.Enabled = !channelList[selectedChannel].globalChannel;
                     deleteButton.Enabled = !channelList[selectedChannel].globalChannel;
@@ -190,9 +212,11 @@ namespace BalloonRss
                     // OK, let's add it
                     channelList.Add(channelInfo);
 
-                    ListViewItem listItem = new ListViewItem(listView.Items.Count.ToString());
+                    ListViewItem listItem = new ListViewItem();
+                    listItem.SubItems.Add(listView.Items.Count.ToString());
                     listItem.SubItems.Add(channelInfo.link);
                     listItem.SubItems.Add(channelInfo.priority.ToString());
+                    listItem.StateImageIndex = Convert.ToInt16(channelInfo.globalChannel);
                     listView.Items.Add(listItem);
                 }
                 else
@@ -216,7 +240,7 @@ namespace BalloonRss
             // get selected enty
             foreach (ListViewItem curItem in listView.SelectedItems)
             {
-                int selectedChannel = Int32.Parse(curItem.Text);
+                int selectedChannel = Int32.Parse(curItem.SubItems[1].Text);
 
                 // do not edit global items (this may happen at double click)
                 if (channelList[selectedChannel].globalChannel)
@@ -235,8 +259,8 @@ namespace BalloonRss
                     {
                         // override the stored channel
                         channelList[selectedChannel] = channelInfo;
-                        curItem.SubItems[1].Text = channelList[selectedChannel].link;
-                        curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
+                        curItem.SubItems[2].Text = channelList[selectedChannel].link;
+                        curItem.SubItems[3].Text = channelList[selectedChannel].priority.ToString();
                     }
                     else
                     {
@@ -264,7 +288,7 @@ namespace BalloonRss
             // just delete the first selected entry
             foreach (ListViewItem curItem in listView.SelectedItems)
             {
-                int selectedChannel = Int32.Parse(curItem.Text);
+                int selectedChannel = Int32.Parse(curItem.SubItems[1].Text);
 
                 // ask for confirmation just once
                 if (!deleteConfirmed)
