@@ -31,6 +31,8 @@ namespace BalloonRss
 
         // GUI elements
         private ListView listView;
+        private Button editButton;
+        private Button deleteButton;
 
         // other class data
         private ChannelList channelList;
@@ -60,6 +62,7 @@ namespace BalloonRss
             this.listView.AllowColumnReorder = true;
             this.listView.FullRowSelect = true;
             this.listView.DoubleClick += new EventHandler(OnEdit);
+            this.listView.SelectedIndexChanged += new EventHandler(listView_SelectedIndexChanged);
 
             // button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
@@ -72,17 +75,19 @@ namespace BalloonRss
             button.Anchor = AnchorStyles.Top;
             flPanel.Controls.Add(button);
             // "delete" button
-            button = new Button();
-            button.Text = Resources.str_channelSettingsFormDeleteButton;
-            button.Click += new EventHandler(this.OnDelete);
-            button.Anchor = AnchorStyles.Top;
-            flPanel.Controls.Add(button);
+            deleteButton = new Button();
+            deleteButton.Text = Resources.str_channelSettingsFormDeleteButton;
+            deleteButton.Click += new EventHandler(this.OnDelete);
+            deleteButton.Anchor = AnchorStyles.Top;
+            deleteButton.Enabled = false;
+            flPanel.Controls.Add(deleteButton);
             // "edit" button
-            button = new Button();
-            button.Text = Resources.str_channelSettingsFormEditButton;
-            button.Click += new EventHandler(this.OnEdit);
-            button.Anchor = AnchorStyles.Top;
-            flPanel.Controls.Add(button);
+            editButton = new Button();
+            editButton.Text = Resources.str_channelSettingsFormEditButton;
+            editButton.Click += new EventHandler(this.OnEdit);
+            editButton.Anchor = AnchorStyles.Top;
+            editButton.Enabled = false;
+            flPanel.Controls.Add(editButton);
             // "OK" button
             button = new Button();
             button.Text = Resources.str_settingsFormOKButton;
@@ -142,6 +147,30 @@ namespace BalloonRss
         }
 
 
+        void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // get selected enty
+            if (listView.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem curItem in listView.SelectedItems)
+                {
+                    int selectedChannel = Int32.Parse(curItem.Text);
+
+                    editButton.Enabled = !channelList[selectedChannel].globalChannel;
+                    deleteButton.Enabled = !channelList[selectedChannel].globalChannel;
+
+                    // we just use the first selection
+                    break;
+                }
+            }
+            else
+            {
+                editButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+        }
+
+
         // open a child window to create a new channel
         private void OnNew(object sender, EventArgs e)
         {
@@ -155,13 +184,30 @@ namespace BalloonRss
             // if edit is confirmed, store the entry
             if (dialogResult == DialogResult.OK)
             {
-                channelList.Add(channelInfo);
+                // check for duplicate channel
+                if (channelList.IsNewChannel(channelInfo))
+                {
+                    // OK, let's add it
+                    channelList.Add(channelInfo);
 
-                ListViewItem listItem = new ListViewItem(listView.Items.Count.ToString());
-                listItem.SubItems.Add(channelInfo.link);
-                listItem.SubItems.Add(channelInfo.priority.ToString());
-                listView.Items.Add(listItem);
+                    ListViewItem listItem = new ListViewItem(listView.Items.Count.ToString());
+                    listItem.SubItems.Add(channelInfo.link);
+                    listItem.SubItems.Add(channelInfo.priority.ToString());
+                    listView.Items.Add(listItem);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        Resources.str_channelSettingsDuplicateLink,
+                        Resources.str_settingsFormErrorHeader,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
+
+            // we need to reselect an entry after this operation
+            editButton.Enabled = false;
+            deleteButton.Enabled = false;
         }
 
         // open child window to edit channel
@@ -172,20 +218,43 @@ namespace BalloonRss
             {
                 int selectedChannel = Int32.Parse(curItem.Text);
 
+                // do not edit global items (this may happen at double click)
+                if (channelList[selectedChannel].globalChannel)
+                    break;
+
                 // diaplay edit box
-                FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelList[selectedChannel]);
+                ChannelInfo channelInfo = new ChannelInfo(channelList[selectedChannel]);
+                FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo);
                 DialogResult dialogResult = channelEdit.ShowDialog(this);
 
                 // update list view display in case of pressing OK
                 if (dialogResult == DialogResult.OK)
                 {
-                    curItem.SubItems[1].Text = channelList[selectedChannel].link;
-                    curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
+                    // check for duplicate channel
+                    if (channelList.IsNewChannel(channelInfo))
+                    {
+                        // override the stored channel
+                        channelList[selectedChannel] = channelInfo;
+                        curItem.SubItems[1].Text = channelList[selectedChannel].link;
+                        curItem.SubItems[2].Text = channelList[selectedChannel].priority.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show(
+                            Resources.str_channelSettingsDuplicateLink,
+                            Resources.str_settingsFormErrorHeader,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
                 }
 
                 // we just edit the first selection and skip the remaining ones
                 break;
             }
+
+            // we need to reselect an entry after this operation
+            editButton.Enabled = false;
+            deleteButton.Enabled = false;
         }
 
         private void OnDelete(object sender, EventArgs e)
@@ -223,7 +292,12 @@ namespace BalloonRss
                 // skip other selected entries
                 break;  // otherwise you need to take care on (*) index changes (*) confirm dialog text
             }
+
+            // we need to reselect an entry after this operation
+            editButton.Enabled = false;
+            deleteButton.Enabled = false;
         }
+
 
         private void OnOK(object sender, EventArgs e)
         {
