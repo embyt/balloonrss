@@ -250,6 +250,10 @@
     <value />
     <comment>priority of optional 4th default channel entry</comment>
   </data>
+  <data name="str_channelSettingsDuplicateLink" xml:space="preserve">
+    <value>This RSS channel is already present. Input discarded.</value>
+    <comment>error message as duplicate link is entered in "new" or "edit" dialog box</comment>
+  </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
     <value>Edit RSS Channel Settings</value>
     <comment>edit RSS channel window title</comment>

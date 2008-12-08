@@ -37,34 +37,61 @@ namespace BalloonRss
         {
             fallbackToDefaultChannels = false;
 
-            // we try to read the config file; if it does not exist we use default settings
+            // first, we try to read the global config file; 
             try
             {
-                ParseChannelConfigFile();
+                ParseChannelConfigFile(GetGlobalChannelConfigFilename());
+            }
+            catch (Exception)
+            {
+                // if it does not exist we just ignore it
+            }
+            // mark the global channels (to distinguish for editing)
+            foreach (ChannelInfo curChannel in this)
+                curChannel.globalChannel = true;
+
+            // second, we try to read the user config file;
+            // if it does not exist and the global config was also empty, we use default settings
+            try
+            {
+                ParseChannelConfigFile(GetUserChannelConfigFilename());
             }
             catch (DirectoryNotFoundException)
             {
                 // create settings directory
-                Directory.CreateDirectory(Path.GetDirectoryName(GetChannelConfigFilename()));
+                Directory.CreateDirectory(Path.GetDirectoryName(GetUserChannelConfigFilename()));
 
-                // we have to use the default channels
-                LoadDefaultChannelSettings();
-                fallbackToDefaultChannels = true;
+                // if the global config file was inexistant or empty, create default channels
+                if (this.Count == 0)
+                {
+                    LoadDefaultChannelSettings();
+                    fallbackToDefaultChannels = true;
+                }
             }
             catch (Exception)
             {
                 // this may be a FileNotFoundException or another exception in case of an illegal config file
                 // we have to load default channels
-                LoadDefaultChannelSettings();
-                fallbackToDefaultChannels = true;
+                // if the global config file was inexistant or empty, create default channels
+                if (this.Count == 0)
+                {
+                    LoadDefaultChannelSettings();
+                    fallbackToDefaultChannels = true;
+                }
             }
         }
 
 
-        private static String GetChannelConfigFilename()
+        private static String GetUserChannelConfigFilename()
         {
             return System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
                 + Path.DirectorySeparatorChar + "BalloonRSS"
+                + Path.DirectorySeparatorChar + Settings.Default.configFilename;
+        }
+
+        private static String GetGlobalChannelConfigFilename()
+        {
+            return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath)
                 + Path.DirectorySeparatorChar + Settings.Default.configFilename;
         }
 
@@ -89,7 +116,8 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault2Link,
                     Properties.Resources.str_channelSettingsDefault2Priority);
-                this.Add(newChannel);
+                if (IsNewChannel(newChannel))
+                    this.Add(newChannel);
             }
             catch (Exception) { };
 
@@ -98,7 +126,8 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault3Link,
                     Properties.Resources.str_channelSettingsDefault3Priority);
-                this.Add(newChannel);
+                if (IsNewChannel(newChannel))
+                    this.Add(newChannel);
             }
             catch (Exception) { };
 
@@ -107,7 +136,8 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault4Link,
                     Properties.Resources.str_channelSettingsDefault4Priority);
-                this.Add(newChannel);
+                if (IsNewChannel(newChannel))
+                    this.Add(newChannel);
             }
             catch (Exception) { };
 
@@ -118,11 +148,11 @@ namespace BalloonRss
 
         // this parses and loads the channel config file
         // in case of any error an exception shall be thrown
-        private void ParseChannelConfigFile()
+        private void ParseChannelConfigFile(string configFilename)
         {
             // open xml configuration file
             XmlDocument configFile = new XmlDocument();
-            configFile.Load(GetChannelConfigFilename());
+            configFile.Load(configFilename);
 
             // check root tag
             if (configFile.DocumentElement.Name != xmlRootNodeName)
@@ -136,15 +166,23 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(xmlNode);
 
                 // search for duplicate node
-                foreach (ChannelInfo curChannel in this)
-                {
-                    if (curChannel.link == newChannel.link)
-                        throw new FormatException("duplicate link found");
-                }
+                if (!IsNewChannel(newChannel))
+                    throw new FormatException("duplicate link found");
 
                 this.Add(newChannel);
             }
             // configuration read finished
+        }
+
+
+        public bool IsNewChannel(ChannelInfo channel)
+        {
+            foreach (ChannelInfo curChannel in this)
+            {
+                if (curChannel.link == channel.link)
+                    return false;
+            }
+            return true;
         }
 
 
@@ -162,13 +200,17 @@ namespace BalloonRss
             // add content
             foreach (ChannelInfo curChannelInfo in this)
             {
-                XmlElement xmlChannelInfo = channelFile.CreateElement(xmlItemName);
-                curChannelInfo.DumpChannelInfo(channelFile, xmlChannelInfo);
-                xmlRoot.AppendChild(xmlChannelInfo);
+                // only store user specific channel settings and do not modify global channels
+                if (curChannelInfo.globalChannel == false)
+                {
+                    XmlElement xmlChannelInfo = channelFile.CreateElement(xmlItemName);
+                    curChannelInfo.DumpChannelInfo(channelFile, xmlChannelInfo);
+                    xmlRoot.AppendChild(xmlChannelInfo);
+                }
             }
 
             // save the file
-            channelFile.Save(GetChannelConfigFilename());
+            channelFile.Save(GetUserChannelConfigFilename());
         }
     }
 }

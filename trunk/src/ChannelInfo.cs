@@ -31,6 +31,7 @@ namespace BalloonRss
 
         public String link;
         public byte priority;
+        public bool globalChannel = false;
 
 
         // the empty constructor is used as a new channel is entered
@@ -61,6 +62,15 @@ namespace BalloonRss
                 // if the priority is illegal, use the default without comment
                 this.priority = Settings.Default.defaultChannelPriority;
             }
+        }
+
+
+        // the clone constructor is used for temporary editing channels
+        public ChannelInfo(ChannelInfo templateChannel)
+        {
+            link = templateChannel.link;
+            priority = templateChannel.priority;
+            globalChannel = templateChannel.globalChannel;
         }
 
 
