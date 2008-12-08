@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.3"
+!define APPL_VERSION "2.4"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -31,8 +31,6 @@
 ;--------------------------------
 ;Includes
 !include dotnet.nsh
-;!include "MUI.nsh"               ;Include Modern UI
-;MUI2 did not provide an UNFUNCTION_DESCRIPTION but seems to work now
 !include "MUI2.nsh"
 
 
@@ -45,13 +43,24 @@ OutFile "${APPL_NAME}_${APPL_VERSION}_setup.exe"
 
 ;Default installation folder
 InstallDir "$PROGRAMFILES\${APPL_NAME}"
-  
+
 ;Get installation folder from registry if available
 InstallDirRegKey HKLM "Software\${APPL_NAME}" "Install_Dir"
+
+;Start Menu Folder Page Configuration
+!define MUI_STARTMENUPAGE_DEFAULTFOLDER "${APPL_NAME}"
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU" 
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\${APPL_NAME}" 
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start_Menu_Folder"
 
 ;Set installer icon
 !define MUI_ICON yellow32.ico
 !define MUI_UNICON yellow32.ico
+
+;--------------------------------
+;Variables
+
+Var StartMenuFolder
 
 ;--------------------------------
 ;Pages
@@ -60,6 +69,7 @@ InstallDirRegKey HKLM "Software\${APPL_NAME}" "Install_Dir"
 !insertmacro MUI_PAGE_LICENSE "${BASEDIR}\license.txt"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_COMPONENTS
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
 !insertmacro MUI_PAGE_INSTFILES
 !define MUI_FINISHPAGE_RUN "$INSTDIR\BalloonRss.exe"
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\README.txt"
@@ -89,8 +99,14 @@ Section "General" SecGeneral
   File "${BASEDIR}\bin\BalloonRss.exe"
   File "${BASEDIR}\README.txt"
   
+  ;Create shortcuts
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\${APPL_NAME}.lnk" "$INSTDIR\BalloonRss.exe"
+  !insertmacro MUI_STARTMENU_WRITE_END
+
   ;Store installation folder
-  WriteRegStr HKLM "Software\${APPL_NAME}" "" $INSTDIR
+  WriteRegStr HKLM "Software\${APPL_NAME}" "Install_Dir" $INSTDIR
   
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}" "DisplayName" "${APPL_NAME}"
@@ -124,10 +140,6 @@ Section "Source Code" SecSource
   File /r /x obj /x .svn /x BalloonRss.csproj.user "${BASEDIR}\src"
 SectionEnd
 
-Section "Start Menu Shortcuts" SecStartMenu
-  CreateShortCut "$SMPROGRAMS\${APPL_NAME}.lnk" "$INSTDIR\BalloonRss.exe" "" "$INSTDIR\BalloonRss.exe" 0
-SectionEnd
-
 Section "Autostart Program" SecAutostart
   CreateShortCut "$SMPROGRAMS\Autostart\${APPL_NAME}.lnk" "$INSTDIR\BalloonRss.exe" "" "$INSTDIR\BalloonRss.exe" 0
 SectionEnd
@@ -142,13 +154,16 @@ Section "un.General" SecUnGeneral
   Delete /REBOOTOK "$INSTDIR\BalloonRss.exe"
   RMDir /r "$INSTDIR"
 
+  ; Remove shortcuts, if any
+  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
+  Delete "$SMPROGRAMS\$StartMenuFolder\${APPL_NAME}.lnk"
+  RMDir "$SMPROGRAMS\$StartMenuFolder"  ; this will just remove the dir if it is emty
+  Delete "$SMPROGRAMS\Autostart\${APPL_NAME}.lnk"
+
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}"
-  DeleteRegKey HKLM SOFTWARE\${APPL_NAME}
-
-  ; Remove shortcuts, if any
-  Delete "$SMPROGRAMS\${APPL_NAME}.lnk"
-  Delete "$SMPROGRAMS\Autostart\${APPL_NAME}.lnk"
+  DeleteRegKey HKLM "SOFTWARE\${APPL_NAME}"
+  DeleteRegKey HKCU "Software\${APPL_NAME}"
 
 SectionEnd
 
@@ -162,11 +177,10 @@ SectionEnd
 ;Descriptions
 
 ; Language strings
-LangString DESC_SecGeneral ${LANG_ENGLISH} "Installs the appliation, including a sample configuration."
-LangString DESC_SecDotNet ${LANG_ENGLISH} "Installs the Microsoft .NET framework, which is required for this application."
+LangString DESC_SecGeneral ${LANG_ENGLISH} "Installs the required application files."
+LangString DESC_SecDotNet ${LANG_ENGLISH} "Installs the Microsoft .NET framework, which is required for this application. This will be skipped if the .NET framework is already present."
 LangString DESC_SecLanguage ${LANG_ENGLISH} "Installs language files for German and Portuguese."
 LangString DESC_SecSource ${LANG_ENGLISH} "Installs the source code."
-LangString DESC_SecStartMenu ${LANG_ENGLISH} "Makes an entry in the start menu."
 LangString DESC_SecAutostart ${LANG_ENGLISH} "Launch ${APPL_NAME} on start-up."
 
 LangString DESC_SecUnGeneral ${LANG_ENGLISH} "Uninstalls the application."
@@ -179,7 +193,6 @@ LangString DESC_SecUnData ${LANG_ENGLISH} "Removes application specific settings
     !insertmacro MUI_DESCRIPTION_TEXT ${SecDotNet} $(DESC_SecDotNet)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecLanguage} $(DESC_SecLanguage)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecSource} $(DESC_SecSource)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecStartMenu} $(DESC_SecStartMenu)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecAutostart} $(DESC_SecAutostart)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
