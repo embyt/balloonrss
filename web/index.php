@@ -73,7 +73,7 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 <li>Windows XP
 </ul>
 
-It is tested only on WinXP yet.
+It is tested only on WinXP and Vista yet.
 
 
 <h1>Download &amp; Installation</h1>
@@ -82,15 +82,15 @@ It is tested only on WinXP yet.
 
 Installation procedure, using the installer:
 <ol>
-<li>Make sure that you have the .NET framework 2.0 installed; otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
+<li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
 <li>Start BalloonRSS_xxx_setup.exe and follow the steps on the screen.
 <li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
 </ol>
 
 Alternative manual installation:
 <ol>
-<li>Make sure that you have the .NET framework 2.0 installed; otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
-<li>Copy the executable "balloonrss.exe" in any directory of your choice.
+<li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
+<li>Copy the executable "balloonrss.exe" (available using the <a href="http://balloonrss.svn.sourceforge.net/">subversion access</a>) in any directory of your choice.
 <li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
 <li>You might want to link it in the autostart folder.
 </ol>
