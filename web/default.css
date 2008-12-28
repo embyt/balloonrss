@@ -19,42 +19,52 @@ body, p, td
 	font-size:		small;
 }
 
+p, ol, ul
+{
+	margin-left:		3ex;
+}
+
 H1
 {
 	text-align:		left;
-	margin-top:		2ex;
-	margin-bottom:	1ex;
+	margin-top:		3ex;
+	margin-bottom:		1ex;
+	margin-left:		0ex;
 }
 
 H2
 {
 	margin-top:		2ex;
-	margin-bottom:	1ex;
+	margin-bottom:		1ex;
+	margin-left:		0ex;
 }
 
 H3
 {
 	margin-top:		1ex;
-	margin-bottom:	1ex;
+	margin-bottom:		1ex;
+	margin-left:		0ex;
 }
 
 H4
 {
 	margin-top:		10px;
-	margin-bottom:	0px;
+	margin-bottom:		0px;
+	margin-left:		0ex;
 }
 
 H5
 {
 	margin-top:		10px;
-	margin-bottom:	0px;
+	margin-bottom:		0px;
+	margin-left:		0ex;
 }
 
 Div.Titel P, Div.Titel table
 {
 	text-align:		center;
 	margin-top:		60px;
-	margin-bottom:	40px;
+	margin-bottom:		40px;
 }
 
 Div.Titel P

@@ -62,8 +62,7 @@ the Free Software Foundation; either version 3 of the license, or
 
 <h1>Supported Systems</h1>
 
-BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
-2.0 is available, which includes:
+<p>BalloonRSS is developed to be used on any Win32 system, where the .NET framework 2.0 is available, which includes: </p>
 <ul>
 <li>Windows 2000
 <li>Windows 98
@@ -73,14 +72,14 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 <li>Windows XP
 </ul>
 
-It is tested on WinXP and Vista.
+<p>It is tested on WinXP and Vista.</p>
 
 
 <h1>Download &amp; Installation</h1>
 
 <p>The source code as well as the released packages can be downloaded from the <a href="https://sourceforge.net/project/showfiles.php?group_id=206266">sourceforge project download page</a>.</p>
 
-Installation procedure, using the installer:
+<p>Installation procedure, using the installer:</p>
 <ol>
 <li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
 <li>Start BalloonRSS_xxx_setup.exe and follow the steps on the screen.
@@ -99,7 +98,7 @@ menu (right click on the icon).</p>
 
 <p>A single left click on the application icon in the task bar enters pause mode. This is indicated with the color of the icon. No messages will be displayed in this status.</p>
 
-Color codes of the icon:
+<p>Color codes of the icon:</p>
 <ul style="list-style-type:none">
 <li><img src="icon/blue16.png" width="16" height="16" alt="blue icon"> blue: application paused
 <li><img src="icon/yellow16.png" width="16" height="16" alt="yellow icon"> yellow: messages pending
@@ -110,7 +109,7 @@ Color codes of the icon:
 <h2>Advanced Usage</h2>
 
 <h3>Configuration in Multi-User Environment</h3>
-BalloonRSS uses 2 channel configuration files: 
+<p>BalloonRSS uses 2 channel configuration files:</p>
 <ol>
 <li>A user specific channel configuration (located in the user settings directory, e.g. C:\Users\roman\AppData\Roaming\BalloonRSS)
 <li>A computer specific channel configuration (located in the program directory, e.g. C:\Program Files\BalloonRSS).
@@ -122,9 +121,9 @@ BalloonRSS uses 2 channel configuration files:
 
 
 <h3>Alternative Manual Installation</h3>
-</p>If you do not want to use the installer to setup BalloonRSS, you can just obtain the appliction .exe file from the SVN repository and copy it to your desired directory.</p>
+<p>If you do not want to use the installer to setup BalloonRSS, you can just obtain the appliction .exe file from the SVN repository and copy it to your desired directory.</p>
 
-The steps in detail:
+<p>The steps in detail:</p>
 <ol>
 <li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
 <li>Copy the executable "balloonrss.exe" (available using the <a href="http://balloonrss.svn.sourceforge.net/">subversion access</a>) in any directory of your choice.
