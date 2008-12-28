@@ -73,7 +73,7 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 <li>Windows XP
 </ul>
 
-It is tested only on WinXP and Vista yet.
+It is tested on WinXP and Vista.
 
 
 <h1>Download &amp; Installation</h1>
@@ -87,21 +87,17 @@ Installation procedure, using the installer:
 <li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
 </ol>
 
-Alternative manual installation:
-<ol>
-<li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
-<li>Copy the executable "balloonrss.exe" (available using the <a href="http://balloonrss.svn.sourceforge.net/">subversion access</a>) in any directory of your choice.
-<li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
-<li>You might want to link it in the autostart folder.
-</ol>
-
 <p>The base recurrence is set to 90 seconds per default, so you have to wait a bit until your messages will appear.</p>
 
 
 <h1>Usage</h1>
 
 <p>As you start the application you get a notify icon in the windows task bar (at the right botton, near the clock). All commands are accessed by the context
-menu (right click on the icon). A single left click enters pause mode.</p>
+menu (right click on the icon).</p>
+
+<p>The first thing you might want to do is add your favourite RSS channels to be displayed. For this you need to select <i>RSS Channel Settings</i> and add them there. If you read multiple channels you may want to assign different priorities. Messages from higher priority RSS channels are more likely to be displayed. The effective priority is calculated by the pre-selected priority of the channel settings and the user's click rate. Thus, if you click more messages from one channel, this increases its effective priority and display probability.</p>
+
+<p>A single left click on the application icon in the task bar enters pause mode. This is indicated with the color of the icon. No messages will be displayed in this status.</p>
 
 Color codes of the icon:
 <ul style="list-style-type:none">
@@ -109,6 +105,33 @@ Color codes of the icon:
 <li><img src="icon/yellow16.png" width="16" height="16" alt="yellow icon"> yellow: messages pending
 <li><img src="icon/orange16.png" width="16" height="16" alt="orange icon"> orange: no messages pending
 </ul>
+
+
+<h2>Advanced Usage</h2>
+
+<h3>Configuration in Multi-User Environment</h3>
+BalloonRSS uses 2 channel configuration files: 
+<ol>
+<li>A user specific channel configuration (located in the user settings directory, e.g. C:\Users\roman\AppData\Roaming\BalloonRSS)
+<li>A computer specific channel configuration (located in the program directory, e.g. C:\Program Files\BalloonRSS).
+</ol>
+
+<p>Using the configuration dialogs in the GUI, you always modify user's channel entries. The global channel settings can only be changed by directly editing the configuration .xml file.</p>
+
+<p>The easiest way to configure the global channel settings is to configure the desired global channels as a user and then move the channelConfig.xml file from the user settings directory to the program directory. Afterwards you may add additional user channels.</p>
+
+
+<h3>Alternative Manual Installation</h3>
+</p>If you do not want to use the installer to setup BalloonRSS, you can just obtain the appliction .exe file from the SVN repository and copy it to your desired directory.</p>
+
+The steps in detail:
+<ol>
+<li>Make sure that you have the .NET framework 2.0 installed (it is already included in Vista); otherwise download the <a href="http://msdn2.microsoft.com/en-us/netframework/aa731542.aspx">Microsoft .NET Framework Version 2.0 Redistributable Package</a> from Microsoft and install it.
+<li>Copy the executable "balloonrss.exe" (available using the <a href="http://balloonrss.svn.sourceforge.net/">subversion access</a>) in any directory of your choice.
+<li>Start the application and adapt the channel configuration with the RSS feeds of your choice.
+<li>You might want to link it in the autostart folder.
+</ol>
+
 
 
 <h1>Screenshots</h1>
