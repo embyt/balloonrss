@@ -60,17 +60,8 @@ Using the installer:
 - Start the application.
 - Adapt the channel configuration with the RSS feeds of your choice.
 
-Alternative manual installation:
-- Make sure that you have the .NET framework 2.0 installed (it is included with 
-  Vista); otherwise download the Microsoft .NET Framework Version 2.0
-  Redistributable Package from Microsoft and install it.
-- Copy the executable "balloonrss.exe" in any directory of your choice.
-- Start the application.
-- Adapt the channel configuration with the RSS feeds of your choice.
-- You might want to link it in the autostart folder.
-
-The base recurrence is set to 5 minutes per default, so you have to wait a bit 
-until your first messages will appear.
+The base message recurrence is set to 5 minutes per default, so you have to wait
+a bit until your first messages will appear.
 
 
 Usage
@@ -84,3 +75,6 @@ Color codes of the icon:
 - blue: application paused
 - yellow: messages pending
 - orange: no messages pending
+
+You can obtain further information on the website:
+http://balloonrss.sourceforge.net
