@@ -377,7 +377,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
-    <value>Time between displaying two RSS messages [s]</value>
+    <value>Time between displaying two RSS messages [min]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
@@ -417,7 +417,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Intervall for retrieving new RSS messages [s]</value>
+    <value>Intervall for retrieving new RSS messages [min]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsStartPaused" xml:space="preserve">

@@ -358,7 +358,7 @@
     <comment>text displayed as mouse is moved over application icon when application is paused</comment>
   </data>
   <data name="str_settingsBalloonTimespan" xml:space="preserve">
-    <value>Tempo de visibilidade do balão</value>
+    <value>Tempo de visibilidade do balão [s]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelAsTitle" xml:space="preserve">
@@ -374,7 +374,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
-    <value>Tempo entre mostrar duas mensagens de RSS</value>
+    <value>Tempo entre mostrar duas mensagens de RSS [min]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
@@ -410,7 +410,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Intervalo para carregar novas mensagens RSS</value>
+    <value>Intervalo para carregar novas mensagens RSS [min]</value>
     <comment>settings information string</comment>
   </data>
 </root>

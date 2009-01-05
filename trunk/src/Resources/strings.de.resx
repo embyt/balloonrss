@@ -374,7 +374,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsDisplayIntervall" xml:space="preserve">
-    <value>Zeitspanne zwischen der Anzeige zweier RSS Nachrichten [s]</value>
+    <value>Zeitspanne zwischen der Anzeige zweier RSS Nachrichten [min]</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
@@ -410,7 +410,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
-    <value>Zeitspanne zwischen zwei Abfragen der RSS Kanäle [s]</value>
+    <value>Zeitspanne zwischen zwei Abfragen der RSS Kanäle [min]</value>
     <comment>settings information string</comment>
   </data>
 </root>

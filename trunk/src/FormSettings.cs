@@ -59,10 +59,10 @@ namespace BalloonRss
 
             // setting
             int maxXSize = 0;
-            cntlDisplayIntervall = CreateSettingControl(Settings.Default.displayIntervall, Resources.str_settingsDisplayIntervall, out panel, 10, Int32.MaxValue);
+            cntlDisplayIntervall = CreateSettingControl(Settings.Default.displayIntervall, Resources.str_settingsDisplayIntervall, out panel, 1, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
-            cntlRetrieveIntervall = CreateSettingControl(Settings.Default.retrieveIntervall, Resources.str_settingsRetrieveIntervall, out panel, 15, Int32.MaxValue);
+            cntlRetrieveIntervall = CreateSettingControl(Settings.Default.retrieveIntervall, Resources.str_settingsRetrieveIntervall, out panel, 5, Int32.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
             cntlBalloonTimespan = CreateSettingControl(Settings.Default.balloonTimespan, Resources.str_settingsBalloonTimespan, out panel, 10, Int32.MaxValue);

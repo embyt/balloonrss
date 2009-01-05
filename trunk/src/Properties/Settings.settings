@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="displayIntervall" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">300</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="retrieveIntervall" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">900</Value>
+      <Value Profile="(Default)">30</Value>
     </Setting>
     <Setting Name="balloonTimespan" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>

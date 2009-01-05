@@ -643,7 +643,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time between displaying two RSS messages [s].
+        ///   Looks up a localized string similar to Time between displaying two RSS messages [min].
         /// </summary>
         internal static string str_settingsDisplayIntervall {
             get {
@@ -733,7 +733,7 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Intervall for retrieving new RSS messages [s].
+        ///   Looks up a localized string similar to Intervall for retrieving new RSS messages [min].
         /// </summary>
         internal static string str_settingsRetrieveIntervall {
             get {
