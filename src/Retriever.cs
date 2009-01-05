@@ -118,13 +118,13 @@ namespace BalloonRss
         // it fetches the RSS file from the server
         private bool RetrieveChannel(String url)
         {
-            WebResponse httpResp;
+            WebResponse webResp;
 
             // retrieve URL
             try
             {
-                HttpWebRequest httpReq = (HttpWebRequest)WebRequest.Create(url);
-                httpResp = httpReq.GetResponse();
+                WebRequest webReq = (WebRequest)WebRequest.Create(url);
+                webResp = webReq.GetResponse();
             }
             catch (Exception e)
             {
@@ -141,9 +141,9 @@ namespace BalloonRss
             try
             {
                 XmlDocument rssDocument = new XmlDocument();
-                rssDocument.Load(httpResp.GetResponseStream());
+                rssDocument.Load(webResp.GetResponseStream());
                 UpdateChannel(url, rssDocument);
-                httpResp.Close();
+                webResp.Close();
             }
             catch (Exception e)
             {

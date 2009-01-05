@@ -25,7 +25,7 @@ namespace BalloonRss
 {
     class FormChannelInfo : Form
     {
-        private const int panelWidth = 480;
+        private const int panelWidth = 600;
         private const int panelHeight = 200;
 
         private RssChannel[] rssChannel;
