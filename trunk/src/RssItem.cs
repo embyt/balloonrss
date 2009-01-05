@@ -18,6 +18,7 @@ BalloonRSS - Simple RSS news aggregator using balloon tooltips
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 
@@ -105,22 +106,60 @@ namespace BalloonRss
         private String StripHtml(String text)
         {
             String escapedText = null;
+
             // strip all html tags like <b> and translate special chars like &amp;
-            /* this would strip everything but it yields an exception in case of 
-             * an already escaped string like "harry & sally" */
             try
             {
+                // let the XML classes do the format conversion
                 XmlNode xmlNode = new XmlDocument().CreateElement("stripEntity");
                 xmlNode.InnerXml = text;
                 escapedText = xmlNode.InnerText;
             }
+            catch (XmlException)
+            {
+                // the XML classes could not convert the text
+                // it seems that the text was already escaped or is illegal (which happens!)
+                // e.g. we get an exception for strings like "harry & sally"
+
+                // should we still remove the tags like <b>? Yes.
+
+                // first, remove special characters like &amp;
+                int lastMatchPosEnd = 0;
+                escapedText = "";
+                foreach (Match match in Regex.Matches(text, @"&[^;]{2,10};"))
+                {
+                    // convert identified character
+                    // again, try to use the XML classes for this
+                    string replacement;
+                    try
+                    {
+                        XmlNode charXmlNode = new XmlDocument().CreateElement("charNode");
+                        charXmlNode.InnerXml = match.Value;
+                        replacement = charXmlNode.InnerText;
+                    }
+                    catch (Exception)
+                    {
+                        // fallback to "?" in case of wrong regex match
+                        replacement = "?";
+                    }
+
+                    // append to string
+                    escapedText += text.Substring(lastMatchPosEnd, match.Index - lastMatchPosEnd) + replacement;
+                    lastMatchPosEnd = match.Index + match.Length;
+                }
+                // append rest of string
+                escapedText += text.Substring(lastMatchPosEnd);
+
+                // replace <p> and <br> with carrige returns
+                escapedText = Regex.Replace(escapedText, @"<(p|br)\s?/?>", "\n");
+
+                // remove the remaining tags
+                escapedText = Regex.Replace(escapedText, @"<[^>]+>", "");
+            }
             catch (Exception)
             {
-                // it seems that the text was already escaped
-                // should we still remove the tags like <b>?
-                // we could do it by the regexp "<^[>]+>"
-
-                // fixme: we just go with the text and assume it is already proper shaped
+                // we do not expect any other exceptions here
+                // just take the unmodified text in this case
                 escapedText = text;
             }
 

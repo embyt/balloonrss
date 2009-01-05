@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.4"
+!define APPL_VERSION "2.5"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
