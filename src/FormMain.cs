@@ -101,13 +101,13 @@ namespace BalloonRss
             dispTimer = new Timer();
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
-            dispTimer.Interval = Settings.Default.displayIntervall * 1000; // intervall in seconds
+            dispTimer.Interval = Settings.Default.displayIntervall * 60 * 1000; // intervall in min
 
             // setup retrieve Timer
             retrieveTimer = new Timer();
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
-            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 60 * 1000; // intervall in min
 
             // setup and start the background worker
             retriever = new Retriever();
@@ -256,9 +256,9 @@ namespace BalloonRss
             }
 
             // update timer values
-            dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 *
+            dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 60 * 1000 *
                 retriever.bestPriorityRatio);
-            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 1000; // intervall in seconds
+            retrieveTimer.Interval = Settings.Default.retrieveIntervall * 60 * 1000; // intervall in seconds
 
             // restart timer
             retrieveTimer.Start();
@@ -381,7 +381,7 @@ namespace BalloonRss
                 {
                     // re-enable the application
                     // re-enable timers
-                    if ( (DateTime.Now - lastRetrieval).TotalSeconds > Settings.Default.retrieveIntervall)
+                    if ( (DateTime.Now - lastRetrieval).TotalSeconds > Settings.Default.retrieveIntervall * 60)
                     {
                         // the last retrieval is long time ago (or never happened)
                         // start background worker thread to retrieve channels
@@ -444,8 +444,8 @@ namespace BalloonRss
                     dispTimer.Start();
 
                 // update timer value according actual priority, if this time is shorter
-                if (dispTimer.Interval > Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio)
-                    dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
+                if (dispTimer.Interval > Settings.Default.displayIntervall * 60 * 1000 * retriever.bestPriorityRatio)
+                    dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 60 * 1000 * retriever.bestPriorityRatio);
             }
 
             // start the retriever timer
@@ -457,7 +457,7 @@ namespace BalloonRss
         private void OnDispTimerTick(object source, EventArgs e)
         {
             // set default timer for the case of early function return
-            dispTimer.Interval = Settings.Default.displayIntervall * 1000;
+            dispTimer.Interval = Settings.Default.displayIntervall * 60 * 1000;
 
             // to avoid parallel access, we skip the RSS display access as the retriever is working
             if (retriever.backgroundWorker.IsBusy)
@@ -490,7 +490,7 @@ namespace BalloonRss
                 mi_lastMessage.Enabled = true;
 
                 // get the timer intervall for the next message
-                dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 1000 * retriever.bestPriorityRatio);
+                dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 60 * 1000 * retriever.bestPriorityRatio);
             }
             else
             {
