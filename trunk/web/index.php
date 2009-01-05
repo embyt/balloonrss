@@ -7,7 +7,7 @@
  <meta name="author" content="Roman Morawek">
  <meta name="description" content="BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon tooltips in the windows task bar. The news entries themselves are linked and read with the browser.">
  <meta name="keywords" content="RSS, aggregator, news reader, RSS reader, balloon tooltip, pop-up, balloon, browser, Win32, WinXP, GPL, .net, priority">
- <meta name="date" content="2008-01-05T11:06:13+01:00">
+ <meta name="date" content="2009-01-05T11:06:13+01:00">
  <link rel=stylesheet type="text/css" href="/default.css">
  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon">
 </head>
@@ -16,7 +16,7 @@
 
 <div class="Titel"><p>BalloonRSS - A Simple RSS Aggregator using Balloon Tooltips</p></div>
 
-<p align="center">Copyright (C) 2008, Roman Morawek<br>
+<p align="center">Copyright (C) 2009, Roman Morawek<br>
 romor@users.sourceforge.net<br>
 <a href="http://balloonrss.sourceforge.net">http://balloonrss.sourceforge.net</a><br>
 <a href="http://sourceforge.net/projects/balloonrss">http://sourceforge.net/projects/balloonrss</a><br>
