@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.5"
+!define APPL_VERSION "2.6"
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -141,7 +141,7 @@ Section "Source Code" SecSource
 SectionEnd
 
 Section "Autostart Program" SecAutostart
-  CreateShortCut "$SMPROGRAMS\Autostart\${APPL_NAME}.lnk" "$INSTDIR\BalloonRss.exe" "" "$INSTDIR\BalloonRss.exe" 0
+  CreateShortCut "$SMSTARTUP\${APPL_NAME}.lnk" "$INSTDIR\BalloonRss.exe" "" "$INSTDIR\BalloonRss.exe" 0
 SectionEnd
 
 
@@ -158,7 +158,7 @@ Section "un.General" SecUnGeneral
   !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
   Delete "$SMPROGRAMS\$StartMenuFolder\${APPL_NAME}.lnk"
   RMDir "$SMPROGRAMS\$StartMenuFolder"  ; this will just remove the dir if it is emty
-  Delete "$SMPROGRAMS\Autostart\${APPL_NAME}.lnk"
+  Delete "$SMSTARTUP\${APPL_NAME}.lnk"
 
   ; Remove registry keys
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPL_NAME}"
