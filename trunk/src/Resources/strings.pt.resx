@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_contextMenuAbout" xml:space="preserve">
+    <value>S&amp;obre BalloonRSS</value>
+    <comment>main menu entry</comment>
+  </data>
   <data name="str_channelSettingsDuplicateLink" xml:space="preserve">
     <value>Este canal RSS já existe. Entrada ignorada.</value>
     <comment>error message as duplicate link is entered in "new" or "edit" dialog box</comment>
@@ -298,7 +302,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuChannelSettings" xml:space="preserve">
-    <value>Configuração de &amp;Canais RSS</value>
+    <value>C&amp;onfiguração de Canais RSS</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuExit" xml:space="preserve">
@@ -314,7 +318,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
-    <value>Abrir Ú&amp;ltima Mensagem</value>
+    <value>Abrir &amp;Última Mensagem</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuNextMessage" xml:space="preserve">
