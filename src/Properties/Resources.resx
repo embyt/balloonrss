@@ -136,6 +136,9 @@
   <data name="img_unlocked" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\unlocked.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="rss" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rss.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="str_balloonErrorChannelLinkTag" xml:space="preserve">
     <value>Missing link attribute in config file</value>
     <comment>This is a format error in the .xml channel config file.</comment>
@@ -291,6 +294,10 @@
   <data name="str_channelSettingsIllegalLink" xml:space="preserve">
     <value>Illegal format of RSS link: </value>
     <comment>error message as illegal link is entered in the channel settings (end with ": " because the link is appended at the string end)</comment>
+  </data>
+  <data name="str_contextMenuAbout" xml:space="preserve">
+    <value>&amp;About BalloonRSS</value>
+    <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
     <value>RSS Channel &amp;Information</value>
