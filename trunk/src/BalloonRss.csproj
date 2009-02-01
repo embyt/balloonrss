@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E31E97B8-7C0E-4552-9388-EF075E3EFDEE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -69,6 +69,12 @@
   </Target>
   -->
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChannelInfo.cs" />
     <Compile Include="ChannelList.cs" />
     <Compile Include="FormChannelInfo.cs">
@@ -150,6 +156,9 @@
     <None Include="Resources\blau16.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -161,5 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\unlocked.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rss.png" />
   </ItemGroup>
 </Project>

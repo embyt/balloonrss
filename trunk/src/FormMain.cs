@@ -174,6 +174,11 @@ namespace BalloonRss
             mi_exit.Text = Resources.str_contextMenuExit;
             mi_exit.Click += new EventHandler(this.MiExitClick);
 
+            // menuItem About
+            ToolStripMenuItem mi_about = new ToolStripMenuItem();
+            mi_about.Text = Resources.str_contextMenuAbout;
+            mi_about.Click += new EventHandler(this.MiAboutClick);
+
             // menuItem Settings
             ToolStripMenuItem mi_settings = new ToolStripMenuItem();
             mi_settings.Text = Resources.str_contextMenuSettings;
@@ -229,12 +234,21 @@ namespace BalloonRss
                 mi_lastMessage,
                 mi_nextMessage,
                 new ToolStripSeparator(),
+                mi_about,
                 mi_exit,
             });
 
             return contextMenu;
         }
 
+
+        private void MiAboutClick(object sender, EventArgs e)
+        {
+            // do not stop display or retrieval timer
+            // just display dialog
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+        }
 
         private void MiSettingsClick(object sender, EventArgs e)
         {
@@ -342,6 +356,9 @@ namespace BalloonRss
 
         private void MiExitClick(object sender, EventArgs e)
         {
+            //dispose of the tray icon 
+            this.applicationIcon.Dispose();
+            
             // Close the form, which closes the application.
             this.Close();
         }

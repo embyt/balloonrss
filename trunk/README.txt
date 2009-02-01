@@ -1,7 +1,7 @@
                                   BalloonRSS
                                ----------------
 
-                      Copyright (C) 2008  Roman Morawek
+                      Copyright (C) 2009  Roman Morawek
                          romor@users.sourceforge.net
                       http://balloonrss.sourceforge.net
 
