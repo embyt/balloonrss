@@ -19,7 +19,7 @@ body, p, td
 	font-size:		small;
 }
 
-p, ol, ul
+p, ol, ul, li
 {
 	margin-left:		3ex;
 }
