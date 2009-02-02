@@ -28,7 +28,7 @@ while ($curWeek > strtotime($START_DATE))
   $endDate = strftime ("%Y-%m-%d %H:%M:%S", $curWeek);
 
   // access database
-  $sqlstr = "select crcip, version, count(*) from logs where date > \"$startDate\" and date <= \"$endDate\" and crcip <> $MY_IP group by crcip;";
+  $sqlstr = "select crcip, version, count(*) from logs where date > \"$startDate\" and date <= \"$endDate\" and crcip <> $MY_IP group by version;";
   $result = mysql_query($sqlstr, $db) or die(mysql_error());
 
   $myrow = mysql_fetch_array($result);
@@ -37,11 +37,11 @@ while ($curWeek > strtotime($START_DATE))
 	echo "Results of week $startDate to $endDate:\n";
 
 	echo "<table bordercolor=#000000 frame=box rules=all>\n";
-	echo "<tr><td bgcolor=#00c4c4 align=\"center\"><b>CRC(IP)</b></td><td bgcolor=#00c4c4 align=\"center\"><b>Version</b></td><td bgcolor=#00c4c4 align=\"center\"<b>Count</b></td></tr>\n";
+	echo "<tr><td bgcolor=#00c4c4 align=\"center\"><b>Version</b></td><td bgcolor=#00c4c4 align=\"center\"<b>Count</b></td></tr>\n";
 	do
 	{
 		// display uut infos
-		printf("<tr><td align=\"center\">%s</td><td align=\"center\">%s</td><td align=\"center\">%s</td>\n", $myrow[0], $myrow[1], $myrow[2]);
+		printf("<tr><td align=\"center\">%s</td><td align=\"center\">%s</td>\n", $myrow[1], $myrow[2]);
 	} while ($myrow = mysql_fetch_array($result));
 	echo "</table><p>\n";
   }
@@ -63,15 +63,6 @@ if ($myrow)
 		printf("<tr><td align=\"center\">%s</td><td align=\"center\">%s</td>\n", $myrow[0], $myrow[1]);
 	} while ($myrow = mysql_fetch_array($result));
 	echo "</table><p>\n";
-}
-
-$sqlstr = "select count(distinct(crcip)) from logs where crcip <> $MY_IP;";
-$result = mysql_query($sqlstr, $db) or die(mysql_error());
-$myrow = mysql_fetch_array($result);
-if ($myrow)
-{
-	// display infos
-	printf("Access from %s distinct IP addresses.<p>\n", $myrow[0]);
 }
 ?>
 

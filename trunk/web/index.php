@@ -30,8 +30,17 @@ Screenshot of BalloonRSS, showing an RSS item as a balloon pop-up.
 </div>
 <p>&nbsp;</p>
 
+<p>
+<a href="#sec_overview">Overview</a><br>
+<a href="#sec_features">Features</a><br>
+<a href="#sec_systems">Supported Systems</a><br>
+<a href="#sec_install">Download &amp; Installation</a><br>
+<a href="#sec_usage">Usage</a><br>
+<a href="#sec_screenshots">Screenshots</a><br>
+<a href="#sec_support">Support &amp; Feedback</a><br>
+</p>
 
-<h1>Overview</h1>
+<h1><a name="sec_overview">Overview</a></h1>
 
 <p>BalloonRSS is a simple RSS reader that displays incoming messages as balloon 
 tooltips in the windows task bar. The news entries themselves are linked to be 
@@ -45,7 +54,7 @@ the Free Software Foundation; either version 3 of the license, or
 (at your option) any later version.</p>
 
 
-<h1>Features</h1>
+<h1><a name="sec_features">Features</a></h1>
 <ul>
 <li>retrieves RSS messages from various sources
 <li>performs priorisation of news
@@ -60,7 +69,7 @@ the Free Software Foundation; either version 3 of the license, or
 </ul>
 
 
-<h1>Supported Systems</h1>
+<h1><a name="sec_systems">Supported Systems</a></h1>
 
 <p>BalloonRSS is developed to be used on any Win32 system, where the .NET framework 2.0 is available, which includes: </p>
 <ul>
@@ -75,7 +84,7 @@ the Free Software Foundation; either version 3 of the license, or
 <p>It is tested on WinXP and Vista.</p>
 
 
-<h1>Download &amp; Installation</h1>
+<h1><a name="sec_install">Download &amp; Installation</a></h1>
 
 <p>The source code as well as the released packages can be downloaded from the <a href="https://sourceforge.net/project/showfiles.php?group_id=206266">sourceforge project download page</a>.</p>
 
@@ -89,7 +98,7 @@ the Free Software Foundation; either version 3 of the license, or
 <p>The base recurrence is set to 90 seconds per default, so you have to wait a bit until your messages will appear.</p>
 
 
-<h1>Usage</h1>
+<h1><a name="sec_usage">Usage</a></h1>
 
 <p>As you start the application you get a notify icon in the windows task bar (at the right botton, near the clock). All commands are accessed by the context
 menu (right click on the icon).</p>
@@ -108,10 +117,10 @@ menu (right click on the icon).</p>
 
 <h2>Advanced Usage</h2>
 
-<h3>Configuration in Multi-User Environment</h3>
+<h3>Channel Settings in Multi-User Environment</h3>
 <p>BalloonRSS uses 2 channel configuration files:</p>
 <ol>
-<li>A user specific channel configuration (located in the user settings directory, e.g. C:\Users\roman\AppData\Roaming\BalloonRSS)
+<li>A user specific channel configuration (located in the user settings directory, e.g. C:\Users\xxx\AppData\Roaming\BalloonRSS)
 <li>A computer specific channel configuration (located in the program directory, e.g. C:\Program Files\BalloonRSS).
 </ol>
 
@@ -119,6 +128,10 @@ menu (right click on the icon).</p>
 
 <p>The easiest way to configure the global channel settings is to configure the desired global channels as a user and then move the channelConfig.xml file from the user settings directory to the program directory. Afterwards you may add additional user channels.</p>
 
+<h3>Application Settings in Multi-User Environment</h3>
+<p>You may pre-define application settings in a multi-user environment by putting a configuration file <i>BalloonRss.exe.config</i> in the program directory. You need to manually edit this XML file. You start by obtaining the default settings file from the <a href="http://balloonrss.svn.sourceforge.net/">SVN repository</a> at <a href="http://balloonrss.svn.sourceforge.net/viewvc/balloonrss/trunk/bin/BalloonRss.exe.config">trunk/bin/BalloonRss.exe.config</a> and modify it according your needs.</p>
+
+<p>Once a user modifys its settings using the application configuration dialog, BalloonRss will create a user specific setting file in the user directory. This file then overrides the application settings.</p>
 
 <h3>Alternative Manual Installation</h3>
 <p>If you do not want to use the installer to setup BalloonRSS, you can just obtain the appliction .exe file from the SVN repository and copy it to your desired directory.</p>
@@ -133,7 +146,7 @@ menu (right click on the icon).</p>
 
 
 
-<h1>Screenshots</h1>
+<h1><a name="sec_screenshots">Screenshots</a></h1>
 
 <p><img src="screenshots/balloonRss_1.png" width="469" height="173" border=0 alt="Screenshot of BalloonRSS"><br>
 Screenshot: BalloonRSS, showing an RSS item as a balloon pop-up.</p>
@@ -151,7 +164,7 @@ Screenshot: History of last shown RSS messages.</p>
 Screenshot: Status display if you place the mouse cursor over the application item.</p>
 
 
-<h1>Support &amp; Feedback</h1>
+<h1><a name="sec_support">Support &amp; Feedback</a></h1>
 <p>Please use the <a href="http://sourceforge.net/tracker/?group_id=206266">tracker system</a> for bug, support or feature requests.</p>
 
 <p>For general discussions, you might want to use the <a href="http://sourceforge.net/forum/?group_id=206266">project forums</a>.</p>
