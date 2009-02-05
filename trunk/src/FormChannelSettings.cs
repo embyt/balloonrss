@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -207,7 +207,7 @@ namespace BalloonRss
             if (dialogResult == DialogResult.OK)
             {
                 // check for duplicate channel
-                if (channelList.IsNewChannel(channelInfo))
+                if (channelList.IsNewChannel(channelInfo, null))
                 {
                     // OK, let's add it
                     channelList.Add(channelInfo);
@@ -255,7 +255,7 @@ namespace BalloonRss
                 if (dialogResult == DialogResult.OK)
                 {
                     // check for duplicate channel
-                    if (channelList.IsNewChannel(channelInfo))
+                    if (channelList.IsNewChannel(channelInfo, channelList[selectedChannel]))
                     {
                         // override the stored channel
                         channelList[selectedChannel] = channelInfo;
