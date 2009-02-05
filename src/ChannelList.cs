@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -116,7 +116,7 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault2Link,
                     Properties.Resources.str_channelSettingsDefault2Priority);
-                if (IsNewChannel(newChannel))
+                if (IsNewChannel(newChannel, null))
                     this.Add(newChannel);
             }
             catch (Exception) { };
@@ -126,7 +126,7 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault3Link,
                     Properties.Resources.str_channelSettingsDefault3Priority);
-                if (IsNewChannel(newChannel))
+                if (IsNewChannel(newChannel, null))
                     this.Add(newChannel);
             }
             catch (Exception) { };
@@ -136,7 +136,7 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(
                     Properties.Resources.str_channelSettingsDefault4Link,
                     Properties.Resources.str_channelSettingsDefault4Priority);
-                if (IsNewChannel(newChannel))
+                if (IsNewChannel(newChannel, null))
                     this.Add(newChannel);
             }
             catch (Exception) { };
@@ -166,7 +166,7 @@ namespace BalloonRss
                 ChannelInfo newChannel = new ChannelInfo(xmlNode);
 
                 // search for duplicate node
-                if (!IsNewChannel(newChannel))
+                if (!IsNewChannel(newChannel, null))
                     throw new FormatException("duplicate link found");
 
                 this.Add(newChannel);
@@ -175,12 +175,15 @@ namespace BalloonRss
         }
 
 
-        public bool IsNewChannel(ChannelInfo channel)
+        public bool IsNewChannel(ChannelInfo searchChannel, ChannelInfo excludeChannel)
         {
             foreach (ChannelInfo curChannel in this)
             {
-                if (curChannel.link == channel.link)
-                    return false;
+                if (curChannel != excludeChannel)
+                {
+                    if (curChannel.link == searchChannel.link)
+                        return false;
+                }
             }
             return true;
         }
