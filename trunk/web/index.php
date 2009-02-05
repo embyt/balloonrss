@@ -118,17 +118,19 @@ menu (right click on the icon).</p>
 <h2>Advanced Usage</h2>
 
 <h3>Private RSS Channels using HTTP Authentication</h3>
-<i>channelConfig.xml</i>
-<code>
-<channels>
-  <item>
-    <link>http://link_to_private_RSS_channel/rss.xml</link>
-    <priority>5</priority>
-	<httpAuthUsername>username</httpAuthUsername>
-	<httpAuthPassword>password</httpAuthPassword>
-  </item>
-</channels>
-</code>
+<p>In some cases a private RSS feed might be protected by HTTP authentication where you must enter a username and a password to access it. You can use BalloonRSS also for such feeds. For this you need to edit the channel configuration file <i>channelConfig.xml</i>. It is located in the user data directory, e.g. at <i>C:\Users\xxx\AppData\Roaming\BalloonRSS</i> for Windows Vista and <i>C:\Documents and Settings\xxx\Application Data\BalloonRSS</i> for WinXP. You need to add the XML tags <i>httpAuthUsername</i> and <i>httpAuthPassword</i> to the configuration. Here you see an example:</p>
+<p><i>channelConfig.xml</i>:</p>
+<pre>
+&lt;channels&gt;
+  &lt;item&gt;
+    &lt;link&gt;http://link_to_private_RSS_channel/rss.xml&lt;/link&gt;
+    &lt;priority&gt;5&lt;/priority&gt;
+    &lt;httpAuthUsername&gt;some_user&lt;/httpAuthUsername&gt;
+    &lt;httpAuthPassword&gt;some_password&lt;/httpAuthPassword&gt;
+  &lt;/item&gt;
+&lt;/channels&gt;
+</pre>
+<p>This configuration is not visible within the graphical channel settings dialog. I think that protected RSS channels are an exceptional case and I do not want to confuse normal users with such settings, which are normally not needed.</p>
 
 <h3>Channel Settings in Multi-User Environment</h3>
 <p>BalloonRSS uses 2 channel configuration files:</p>
