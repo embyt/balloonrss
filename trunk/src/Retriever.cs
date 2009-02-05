@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ namespace BalloonRss
             // get the news from all channels
             foreach (KeyValuePair<String,RssChannel> keyValuePair in this)
             {
-                RetrieveChannel(keyValuePair.Key);
+                RetrieveChannel(keyValuePair.Value.channelInfo);
 
                 if (backgroundWorker.CancellationPending)
                 {
@@ -116,14 +116,20 @@ namespace BalloonRss
 
         // this is called from the background worker
         // it fetches the RSS file from the server
-        private bool RetrieveChannel(String url)
+        private bool RetrieveChannel(ChannelInfo channel)
         {
             WebResponse webResp;
 
             // retrieve URL
             try
             {
-                WebRequest webReq = (WebRequest)WebRequest.Create(url);
+                // prepare request
+                WebRequest webReq = (WebRequest)WebRequest.Create(channel.link);
+                // do we need HTTP authentication?
+                if ((channel.httpAuthUsername != null) && (channel.httpAuthPassword != null))
+                    webReq.Credentials = new NetworkCredential(channel.httpAuthUsername, channel.httpAuthPassword);
+
+                // perform HTTP request
                 webResp = webReq.GetResponse();
             }
             catch (Exception e)
@@ -132,7 +138,7 @@ namespace BalloonRss
                 {
                     // the report progress function is used for error signaling
                     backgroundWorker.ReportProgress(0,
-                        new String[] { Resources.str_balloonErrorRetrieving + url, e.Message });
+                        new String[] { Resources.str_balloonErrorRetrieving + channel.link, e.Message });
                 }
                 return false;
             }
@@ -142,13 +148,13 @@ namespace BalloonRss
             {
                 XmlDocument rssDocument = new XmlDocument();
                 rssDocument.Load(webResp.GetResponseStream());
-                UpdateChannel(url, rssDocument);
+                UpdateChannel(channel, rssDocument);
                 webResp.Close();
             }
             catch (Exception e)
             {
                 backgroundWorker.ReportProgress(0, 
-                    new String[] { Resources.str_balloonErrorParseRss + url, e.Message });
+                    new String[] { Resources.str_balloonErrorParseRss + channel.link, e.Message });
                 return false;
             }
 
@@ -158,12 +164,12 @@ namespace BalloonRss
 
         // this is called from the background worker
         // it invokes the corresponding channel to parse the RSS file
-        private void UpdateChannel(String url, XmlNode xmlNode)
+        private void UpdateChannel(ChannelInfo channelInfo, XmlNode xmlNode)
         {
             RssChannel rssChannel;
 
             // search for the channel
-            if (this.TryGetValue(url, out rssChannel) == true)
+            if (this.TryGetValue(channelInfo.link, out rssChannel) == true)
             {
                 int oldItemCount = rssChannel.Count;
 
@@ -173,7 +179,7 @@ namespace BalloonRss
             else
             {
                 // this must not happen
-                throw new Exception("Could not find channel for " + url);
+                throw new Exception("Could not find channel for " + channelInfo.link);
             }
         }
 

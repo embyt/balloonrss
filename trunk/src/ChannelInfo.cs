@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,10 +28,14 @@ namespace BalloonRss
     {
         private const String xmlLinkName = "link";
         private const String xmlPriorityName = "priority";
+        private const String xmlAuthUserName = "httpAuthUsername";
+        private const String xmlAuthPwdName = "httpAuthPassword";
 
         public String link;
         public byte priority;
         public bool globalChannel = false;
+        public String httpAuthUsername = null;
+        public String httpAuthPassword = null;
 
 
         // the empty constructor is used as a new channel is entered
@@ -71,6 +75,8 @@ namespace BalloonRss
             link = templateChannel.link;
             priority = templateChannel.priority;
             globalChannel = templateChannel.globalChannel;
+            httpAuthUsername = templateChannel.httpAuthUsername;
+            httpAuthPassword = templateChannel.httpAuthPassword;
         }
 
 
@@ -84,7 +90,7 @@ namespace BalloonRss
             // the xml node we get is already a channel node
             foreach (XmlNode xmlChild in itemNode)
             {
-                String curTag = xmlChild.Name.Trim().ToLower();
+                String curTag = xmlChild.Name.Trim();
 
                 // what xml tag did we find?
                 switch (curTag)
@@ -100,6 +106,16 @@ namespace BalloonRss
                     case xmlPriorityName:
                         // if this raises an exception, that's fine
                         priority = Convert.ToByte(xmlChild.InnerText);
+                        break;
+
+                    // the optional http auth user tag
+                    case xmlAuthUserName:
+                        httpAuthUsername = xmlChild.InnerText;
+                        break;
+
+                    // the optional http auth pwd tag
+                    case xmlAuthPwdName:
+                        httpAuthPassword = xmlChild.InnerText;
                         break;
 
                     // skip all unknown tags without comment
@@ -125,6 +141,20 @@ namespace BalloonRss
             XmlElement xmlPriority = channelFile.CreateElement(xmlPriorityName);
             xmlPriority.InnerText = this.priority.ToString();
             xmlChannelInfo.AppendChild(xmlPriority);
+            // save http auth user tag
+            if (httpAuthUsername != null)
+            {
+                XmlElement xmlAuthUser = channelFile.CreateElement(xmlAuthUserName);
+                xmlAuthUser.InnerText = this.httpAuthUsername.ToString();
+                xmlChannelInfo.AppendChild(xmlAuthUser);
+            }
+            // save http auth pwd tag
+            if (httpAuthPassword != null)
+            {
+                XmlElement xmlAuthPwd = channelFile.CreateElement(xmlAuthPwdName);
+                xmlAuthPwd.InnerText = this.httpAuthPassword.ToString();
+                xmlChannelInfo.AppendChild(xmlAuthPwd);
+            }
         }
 
     

@@ -117,6 +117,19 @@ menu (right click on the icon).</p>
 
 <h2>Advanced Usage</h2>
 
+<h3>Private RSS Channels using HTTP Authentication</h3>
+<i>channelConfig.xml</i>
+<code>
+<channels>
+  <item>
+    <link>http://link_to_private_RSS_channel/rss.xml</link>
+    <priority>5</priority>
+	<httpAuthUsername>username</httpAuthUsername>
+	<httpAuthPassword>password</httpAuthPassword>
+  </item>
+</channels>
+</code>
+
 <h3>Channel Settings in Multi-User Environment</h3>
 <p>BalloonRSS uses 2 channel configuration files:</p>
 <ol>
