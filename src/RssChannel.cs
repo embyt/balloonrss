@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ namespace BalloonRss
         public int channelOpenedCount;
         public int effectivePriority = 0;
         public string channelType;
+        public bool channelRetrieved = false;
 
         // filename defintions
         private static String rssFeedDirName = "" + Path.DirectorySeparatorChar + "BalloonRSS" + Path.DirectorySeparatorChar + "rssFeeds";
@@ -127,6 +128,15 @@ namespace BalloonRss
                         channelType = curTag;
                         // step into child node
                         newMessages = UpdateChannel(xmlChild);
+
+                        // check for first run
+                        if (channelRetrieved == false)
+                        {
+                            // if demanded, mark all given messages as read
+                            if (channelInfo.markAsReadAtStartup)
+                                MarkAllRead();
+                            channelRetrieved = true;
+                        }
                         break;
 
                     // the actual channel information
