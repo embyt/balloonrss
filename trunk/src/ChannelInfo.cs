@@ -30,12 +30,14 @@ namespace BalloonRss
         private const String xmlPriorityName = "priority";
         private const String xmlAuthUserName = "httpAuthUsername";
         private const String xmlAuthPwdName = "httpAuthPassword";
+        private const String xmlMarkAsReadName = "markAsReadAtStartup";
 
         public String link;
         public byte priority;
         public bool globalChannel = false;
         public String httpAuthUsername = null;
         public String httpAuthPassword = null;
+        public bool markAsReadAtStartup = false;
 
 
         // the empty constructor is used as a new channel is entered
@@ -77,6 +79,7 @@ namespace BalloonRss
             globalChannel = templateChannel.globalChannel;
             httpAuthUsername = templateChannel.httpAuthUsername;
             httpAuthPassword = templateChannel.httpAuthPassword;
+            markAsReadAtStartup = templateChannel.markAsReadAtStartup;
         }
 
 
@@ -118,6 +121,11 @@ namespace BalloonRss
                         httpAuthPassword = xmlChild.InnerText;
                         break;
 
+                    case xmlMarkAsReadName:
+                        // if this raises an exception, that's fine
+                        markAsReadAtStartup = Convert.ToBoolean(xmlChild.InnerText);
+                        break;
+
                     // skip all unknown tags without comment
                     default:
                         break;
@@ -137,10 +145,17 @@ namespace BalloonRss
             XmlElement xmlLink = channelFile.CreateElement(xmlLinkName);
             xmlLink.InnerText = this.link;
             xmlChannelInfo.AppendChild(xmlLink);
+
             // save priority tag
             XmlElement xmlPriority = channelFile.CreateElement(xmlPriorityName);
             xmlPriority.InnerText = this.priority.ToString();
             xmlChannelInfo.AppendChild(xmlPriority);
+
+            // save "mark as read" tag
+            XmlElement xmlMarkAsRead = channelFile.CreateElement(xmlMarkAsReadName);
+            xmlMarkAsRead.InnerText = this.markAsReadAtStartup.ToString();
+            xmlChannelInfo.AppendChild(xmlMarkAsRead);
+
             // save http auth user tag
             if (httpAuthUsername != null)
             {

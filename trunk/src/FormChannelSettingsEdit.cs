@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ namespace BalloonRss
         private Label fillLabel;
         private Control cntlUrl;
         private Control cntlPriority;
+        private Control cntlMarkAsRead;
 
         // class data
         private ChannelInfo channelInfo;
@@ -45,9 +46,6 @@ namespace BalloonRss
 
         private void InitializeComponent()
         {
-            Panel panel;
-            Button button;
-
             this.SuspendLayout();
 
             // the main container panel
@@ -58,6 +56,7 @@ namespace BalloonRss
             flPanelMain.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
             // setting controls
+            Panel panel;
             int maxXSize = 0;
             cntlUrl = CreateSettingControl(channelInfo.link, Resources.str_channelSettingsHeaderTitle, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
@@ -65,20 +64,23 @@ namespace BalloonRss
             cntlPriority = CreateSettingControl(channelInfo.priority, Resources.str_channelSettingsHeaderPriority, out panel, 0, Byte.MaxValue);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
+            cntlMarkAsRead = CreateSettingControl(channelInfo.markAsReadAtStartup, Resources.str_channelSettingsHeaderMarkAsRead, out panel);
+            maxXSize = Math.Max(maxXSize, panel.Width);
+            flPanelMain.Controls.Add(panel);
 
             // OK/Cancel button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
             flPanel.FlowDirection = FlowDirection.LeftToRight;
-            button = new Button();
-            button.Text = Resources.str_settingsFormOKButton;
-            button.Click += new EventHandler(this.OnOK);
-            this.AcceptButton = button;
-            flPanel.Controls.Add(button);
-            button = new Button();
-            button.Text = Resources.str_settingsFormCancelButton;
-            button.Click += new EventHandler(this.OnCancel);
-            this.CancelButton = button;
-            flPanel.Controls.Add(button);
+            Button okButton = new Button();
+            okButton.Text = Resources.str_settingsFormOKButton;
+            okButton.Click += new EventHandler(this.OnOK);
+            this.AcceptButton = okButton;
+            flPanel.Controls.Add(okButton);
+            Button cancelButton = new Button();
+            cancelButton.Text = Resources.str_settingsFormCancelButton;
+            cancelButton.Click += new EventHandler(this.OnCancel);
+            this.CancelButton = cancelButton;
+            flPanel.Controls.Add(cancelButton);
             flPanel.AutoSize = true;
             flPanel.Anchor = AnchorStyles.Right;
             flPanelMain.Controls.Add(flPanel);
@@ -188,6 +190,7 @@ namespace BalloonRss
             // the data were already checked for validy before
             channelInfo.link = cntlUrl.Text;
             channelInfo.priority = (byte)(cntlPriority as NumericTextBox).IntValue;
+            channelInfo.markAsReadAtStartup = (cntlMarkAsRead as CheckBox).Checked;
         }
 
 

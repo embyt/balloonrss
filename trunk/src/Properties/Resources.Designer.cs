@@ -434,6 +434,15 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark RSS messages of this channel as read at application startup.
+        /// </summary>
+        internal static string str_channelSettingsHeaderMarkAsRead {
+            get {
+                return ResourceManager.GetString("str_channelSettingsHeaderMarkAsRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Priority.
         /// </summary>
         internal static string str_channelSettingsHeaderPriority {

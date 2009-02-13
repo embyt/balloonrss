@@ -283,6 +283,10 @@
     <value>RSS Channel Settings</value>
     <comment>title of "RSS Channel Settings" window</comment>
   </data>
+  <data name="str_channelSettingsHeaderMarkAsRead" xml:space="preserve">
+    <value>Mark RSS messages of this channel as read at application startup</value>
+    <comment>channel settings label</comment>
+  </data>
   <data name="str_channelSettingsHeaderPriority" xml:space="preserve">
     <value>Priority</value>
     <comment>column header in "RSS Channel Settings" window</comment>
