@@ -1,0 +1,27 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=balloonrss.chm
+Contents file=TableOfContents.hhc
+Default Font=MS Sans Serif,8,0
+Default Window=main_window
+Default topic=intro.html
+Display compile notes=No
+Display compile progress=No
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=BalloonRSS - A Simple RSS Aggregator using Balloon Tooltips
+
+[WINDOWS]
+main_window=,"TableOfContents.hhc",,"intro.html","intro.html",,,,,0x42520,200,0x1046,[200,200,1000,800],,,,,,,0
+
+
+[FILES]
+channelInformation.html
+applicationSettings.html
+intro.html
+usage.html
+advancedUsage.html
+channelSettings.html
+
+[INFOTYPES]
+

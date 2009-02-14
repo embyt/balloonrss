@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -75,8 +75,16 @@ namespace BalloonRss
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.Controls.Add(this.listView);
             this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Text = Resources.str_channelFormTitle;
             this.Icon = Resources.ico_yellow32;
+            this.HelpButton = true;
+            this.HelpRequested += new HelpEventHandler(FormChannelInfo_HelpRequested);
+        }
+
+        void FormChannelInfo_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Help.ShowHelp(this, Settings.Default.helpFilename, HelpNavigator.Topic, Settings.Default.helpNameChannelInfo);
         }
 
 
