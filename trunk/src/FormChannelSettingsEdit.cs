@@ -97,12 +97,19 @@ namespace BalloonRss
             this.Icon = Resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
             this.Resize += new EventHandler(this.OnResize);
+            this.HelpButton = true;
+            this.HelpRequested += new HelpEventHandler(FormChannelSettingsEdit_HelpRequested);
 
             this.ResumeLayout();
 
             // now, we can resize it
             this.ClientSize = new System.Drawing.Size(maxXSize, flPanelMain.Height);
             this.MinimumSize = this.Size;
+        }
+
+        void FormChannelSettingsEdit_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Help.ShowHelp(this, Settings.Default.helpFilename, HelpNavigator.Topic, Settings.Default.helpNameChannelSettingsEdit);
         }
 
 

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<title>Channel Settings Dialog</title>
+</head>
+
+<body>
+<h1>Channel Settings Dialog</h1>
+
+<p>The channel settings dialog allows the user to configure the RSS channels from which the messages are retrieved. The main channel settings dialog offers the following actions:</p>
+<ul>
+<li><b>New</b>: This allows you to add a new RSS channel and will open the <a href="#channel_edit">channel edit dialog box</a>.</li>
+
+<li><b>Delete</b>: The currently selected channel will be deleted.</li>
+
+<li><b>Edit</b>: This opens the <a href="#channel_edit">channel edit dialog box</a> to modify the currently selected channel.</li>
+
+<li><b>OK / Cancel</b>: Pressing the OK button will exit the dialog and change all your settings. The Cancel button will close the dialog and discard all changes.</li>
+</ul>
+
+<p>If there are <a href="advancedUsage.html">pre-configured multi-user channels</a> in your environment they will be indicated with a locked symbol <img src="images/locked.jpg" width="24" height="28">. They can only be modified by the system administrator as described in <a href="advancedUsage.html">advanced usage</a>.</p>
+
+
+<h1><a name="channel_edit">Edit RSS Channels Dialog</a></h1>
+
+<p>The edit RSS channel settings dialog allows the user to configure the settings of the selected or new RSS channel. The settings have the following meaning:</p>
+<ul>
+<li><b>Link</b>: The URL of the RSS channel to retrieve.</li>
+
+<li><b>Priority</b>: The pre-defined priority of the channel. The effective priority that is used by the program will be calculated based on this value and the user's click ratio.</li>
+
+<li><b>Mark RSS messages of this channel as read at application startup</b>: If this checkbox is selected BalloonRSS will only display those RSS messages that arrive newly after program start. Therefore, all messages that are already present at the time of the first channel retrieval at application startup will be marked as read and will not be displayed then.</li>
+</ul>
+
+<p>BalloonRSS also supports RSS channels that require a user name and password via HTTP authentication. Please see at <a href="advancedUsage.html">advanced usage</a> for more details on this topic.</p>
+</body>
+</html>

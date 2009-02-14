@@ -117,6 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_contextMenuHelp" xml:space="preserve">
+    <value>&amp;Ajuda</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuHelpIndex" xml:space="preserve">
+    <value>Help Content</value>
+    <comment>main menu sub-entry</comment>
+  </data>
   <data name="str_channelSettingsHeaderMarkAsRead" xml:space="preserve">
     <value>Mark RSS messages of this channel as read at application startup</value>
     <comment>channel settings label</comment>

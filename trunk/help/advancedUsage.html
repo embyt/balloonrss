@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<title>Advanced Usage</title>
+</head>
+
+<body>
+<h1>Advanced Usage</h1>
+
+<h2>Private RSS Channels using HTTP Authentication</h2>
+<p>In some cases a private RSS feed might be protected by HTTP authentication where you must enter a username and a password to access it. You can use BalloonRSS also for such feeds. For this you need to edit the channel configuration file <i>channelConfig.xml</i>. It is located in the user data directory, e.g. at <i>C:\Users\xxx\AppData\Roaming\BalloonRSS</i> for Windows Vista and <i>C:\Documents and Settings\xxx\Application Data\BalloonRSS</i> for WinXP. You need to add the XML tags <i>httpAuthUsername</i> and <i>httpAuthPassword</i> to the configuration. Here you see an example:</p>
+<p><i>channelConfig.xml</i>:</p>
+<pre>
+&lt;channels&gt;
+  &lt;item&gt;
+    &lt;link&gt;http://link_to_private_RSS_channel/rss.xml&lt;/link&gt;
+    &lt;priority&gt;5&lt;/priority&gt;
+    &lt;httpAuthUsername&gt;some_user&lt;/httpAuthUsername&gt;
+    &lt;httpAuthPassword&gt;some_password&lt;/httpAuthPassword&gt;
+  &lt;/item&gt;
+&lt;/channels&gt;
+</pre>
+<p>This configuration is not visible within the graphical channel settings dialog. I think that protected RSS channels are an exceptional case and I do not want to confuse normal users with such settings, which are normally not needed.</p>
+
+
+<h2>Configuration in Multi-User Environment</h2>
+
+<h3>Pre-Definition of RSS Channel Settings</h3>
+<p>BalloonRSS uses 2 channel configuration files:</p>
+<ol>
+<li>A user specific channel configuration (located in the user settings directory, e.g. C:\Users\xxx\AppData\Roaming\BalloonRSS)
+<li>A computer specific channel configuration (located in the program directory, e.g. C:\Program Files\BalloonRSS).
+</ol>
+
+<p>Using the configuration dialogs in the GUI, you always modify user's channel entries. The global channel settings can only be changed by directly editing the configuration .xml file.</p>
+
+<p>The easiest way to configure the global channel settings is to configure the desired global channels as a user and then move the channelConfig.xml file from the user settings directory to the program directory. Afterwards you may add additional user channels.</p>
+
+<h3>Pre-Definition of Application Settings</h3>
+<p>You may pre-define application settings in a multi-user environment by putting a configuration file <i>BalloonRss.exe.config</i> in the program directory. You need to manually edit this XML file. You start by obtaining the default settings file from the SVN repository at <a href="http://balloonrss.svn.sourceforge.net/viewvc/balloonrss/trunk/bin/BalloonRss.exe.config">http://balloonrss.svn.sourceforge.net/viewvc/balloonrss/trunk/bin/BalloonRss.exe.config</a> and modify it according your needs.</p>
+
+<p>Once a user modifys its settings using the application configuration dialog, BalloonRss will create a user specific setting file in the user directory. This file then overrides the application settings.</p>
+</body>
+</html>

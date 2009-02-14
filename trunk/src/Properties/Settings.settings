@@ -53,5 +53,20 @@
     <Setting Name="reportNetworkErrors" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="helpFilename" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">balloonrss.chm</Value>
+    </Setting>
+    <Setting Name="helpNameApplicationSettings" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">applicationSettings.html</Value>
+    </Setting>
+    <Setting Name="helpNameChannelInfo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">channelInformation.html</Value>
+    </Setting>
+    <Setting Name="helpNameChannelSettings" Type="System.String" Scope="User">
+      <Value Profile="(Default)">channelSettings.html</Value>
+    </Setting>
+    <Setting Name="helpNameChannelSettingsEdit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">channelSettings.html#channel_edit</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

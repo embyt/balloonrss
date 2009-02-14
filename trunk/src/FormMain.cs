@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2009  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -169,15 +169,32 @@ namespace BalloonRss
         {
             ContextMenuStrip contextMenu = new ContextMenuStrip();
 
-            // menuItem Exit
-            ToolStripMenuItem mi_exit = new ToolStripMenuItem();
-            mi_exit.Text = Resources.str_contextMenuExit;
-            mi_exit.Click += new EventHandler(this.MiExitClick);
+            // menuItem Help
+            ToolStripMenuItem mi_help = new ToolStripMenuItem();
+            mi_help.Text = Resources.str_contextMenuHelp;
+
+            // menuItem HelpIndex
+            ToolStripMenuItem mi_helpIndex = new ToolStripMenuItem();
+            mi_helpIndex.Text = Resources.str_contextMenuHelpIndex;
+            mi_helpIndex.Click += new EventHandler(this.MiHelpIndexClick);
 
             // menuItem About
             ToolStripMenuItem mi_about = new ToolStripMenuItem();
             mi_about.Text = Resources.str_contextMenuAbout;
             mi_about.Click += new EventHandler(this.MiAboutClick);
+
+            // Initialize help sub-menu
+            mi_help.DropDownItems.AddRange(new ToolStripItem[] 
+            { 
+                mi_helpIndex,
+                new ToolStripSeparator(),
+                mi_about,
+            });
+
+            // menuItem Exit
+            ToolStripMenuItem mi_exit = new ToolStripMenuItem();
+            mi_exit.Text = Resources.str_contextMenuExit;
+            mi_exit.Click += new EventHandler(this.MiExitClick);
 
             // menuItem Settings
             ToolStripMenuItem mi_settings = new ToolStripMenuItem();
@@ -234,13 +251,19 @@ namespace BalloonRss
                 mi_lastMessage,
                 mi_nextMessage,
                 new ToolStripSeparator(),
-                mi_about,
+                mi_help,
                 mi_exit,
             });
 
             return contextMenu;
         }
 
+        private void MiHelpIndexClick(object sender, EventArgs e)
+        {
+            // do not stop display or retrieval timer
+            // just display dialog
+            Help.ShowHelp(this, Settings.Default.helpFilename);
+        }
 
         private void MiAboutClick(object sender, EventArgs e)
         {

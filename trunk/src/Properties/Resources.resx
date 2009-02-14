@@ -301,7 +301,7 @@
   </data>
   <data name="str_contextMenuAbout" xml:space="preserve">
     <value>&amp;About BalloonRSS</value>
-    <comment>main menu entry</comment>
+    <comment>main menu sub-entry</comment>
   </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
     <value>RSS Channel &amp;Information</value>
@@ -319,8 +319,16 @@
     <value>&amp;Retrieve RSS Channels</value>
     <comment>main menu entry</comment>
   </data>
+  <data name="str_contextMenuHelp" xml:space="preserve">
+    <value>&amp;Help</value>
+    <comment>main menu entry</comment>
+  </data>
+  <data name="str_contextMenuHelpIndex" xml:space="preserve">
+    <value>Help Content</value>
+    <comment>main menu sub-entry</comment>
+  </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
-    <value>Message &amp;History</value>
+    <value>&amp;Message History</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">

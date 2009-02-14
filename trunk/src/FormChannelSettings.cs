@@ -122,8 +122,16 @@ namespace BalloonRss
             this.Controls.Add(mainContainer);
             this.ClientSize = new System.Drawing.Size(panelWidth, panelHeight);
             this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Text = Resources.str_channelSettingsFormTitle;
             this.Icon = Resources.ico_yellow32;
+            this.HelpButton = true;
+            this.HelpRequested += new HelpEventHandler(FormChannelSettings_HelpRequested);
+        }
+
+        void FormChannelSettings_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            Help.ShowHelp(this, Settings.Default.helpFilename, HelpNavigator.Topic, Settings.Default.helpNameChannelSettings);
         }
 
 

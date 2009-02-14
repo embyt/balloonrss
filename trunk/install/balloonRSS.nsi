@@ -98,6 +98,7 @@ Section "General" SecGeneral
   
   File "${BASEDIR}\bin\BalloonRss.exe"
   File "${BASEDIR}\README.txt"
+  File "${BASEDIR}\help\balloonrss.chm"
   
   ;Create shortcuts
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application

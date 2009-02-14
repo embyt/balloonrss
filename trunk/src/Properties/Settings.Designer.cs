@@ -202,5 +202,56 @@ namespace BalloonRss.Properties {
                 this["reportNetworkErrors"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("balloonrss.chm")]
+        public string helpFilename {
+            get {
+                return ((string)(this["helpFilename"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("applicationSettings.html")]
+        public string helpNameApplicationSettings {
+            get {
+                return ((string)(this["helpNameApplicationSettings"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("channelInformation.html")]
+        public string helpNameChannelInfo {
+            get {
+                return ((string)(this["helpNameChannelInfo"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("channelSettings.html")]
+        public string helpNameChannelSettings {
+            get {
+                return ((string)(this["helpNameChannelSettings"]));
+            }
+            set {
+                this["helpNameChannelSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("channelSettings.html#channel_edit")]
+        public string helpNameChannelSettingsEdit {
+            get {
+                return ((string)(this["helpNameChannelSettingsEdit"]));
+            }
+            set {
+                this["helpNameChannelSettingsEdit"] = value;
+            }
+        }
     }
 }
