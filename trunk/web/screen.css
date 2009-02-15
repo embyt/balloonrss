@@ -1,0 +1,304 @@
+/* ===================================
+Stylesheet for BalloonRSS
+
+File: screen.css 
+Date: 14. Februar 2009
+Author: Anna Morawek 
+
+Structure:
+        1. Calibration
+        2. General styles
+        3. Styles for layour areas
+        4. Other styles 
+=================================== */
+
+/* ==================================
+   1. Calibration
+   =============================== */
+
+* { padding: 0; margin: 0; } 
+ 
+h2, h3, p, ul, ol { margin-bottom: 1em; } 
+
+ol ul { margin-bottom: 0; } 
+
+li { margin-left: 2em; }    
+   
+/* ==================================
+   2. General styles 
+   =============================== */   
+
+html { height: 101%; }    
+   
+body { 
+	background-color: #f1d035;	 /*gold*/
+	  color: white; 
+	  font-family: Verdana, Arial, Helvetica, sans-serif;
+	  font-size: small;
+	  padding-bottom: 5px;  
+}
+
+h1 { font-size: 150%; }
+h2 { 
+	font-size: 130%;
+	margin-top: 40px;
+}
+h3 { 
+	font-size: 110%; 
+	margin-top: 20px;	
+}
+
+img {border: none;}
+
+pre{
+	font-family: monospace;
+	line-height:100%;
+	margin-bottom: 20px;
+}
+
+/* ================
+   Hyperlinks    */  
+
+a { 
+	  text-decoration: none; 
+	  outline: none; 
+} 
+
+a:link { color: #99790f;	 /*ganzdunkelbraun_60*/ }
+ 
+a:visited { color: #cca015;	 /*dunkelbraun*/ }
+
+
+a:hover, 
+a:focus { 
+	border-bottom: 1px solid #99790f;	 /*ganzdunkelbraun_60*/   
+} 
+a:active { 
+	 background-color: #f1d035;	 /*gold*/ 
+	  color: white; 
+}  
+
+.banner a:hover, 
+.banner a:focus { 
+	  border-bottom: none; 
+}
+
+
+/* =====================
+   Classes and IDs    */
+
+.skiplink {
+	  position: absolute; 
+	  top: -5000px; 
+	  left: -5000px; 
+	  width: 0;
+	  height: 0; 
+	  overflow: hidden; 
+	  display: inline; 
+}
+
+.pictureleft {
+	  float: left; 
+	  padding: 3px; 
+	  border: 5px solid #cccccc; 
+	  margin-right: 10px; 
+	  margin-bottom: 10px; 
+}
+.pictureright {
+	  float: right; 
+	  padding: 3px; 
+	  border: 5px solid #cccccc;
+	  margin-bottom: 10px; 
+	  margin-left: 10px; 
+}
+
+.clearing {
+	  clear: both; 
+}
+
+.picturecaption {
+	font-size: 85%;
+}
+
+#logo {
+  color: black;
+  width: 100px;
+  height: 100px;  
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+
+/* ==================================
+   3. Styles for layour areas 
+   =============================== */   
+
+#wrapper { 
+  background-color: white; 
+  color: black; 
+  width: 770px; 
+  margin: 10px auto; 
+}
+
+#header { 
+	position: relative; 
+	background-color: #fae23a; /*gelb*/
+	color: #353535; /*dunkelgrau*/
+	padding: 10px 20px 0 20px; /* oben - rechts - unten - links */ 
+}
+	#header p {
+		position: absolute; 
+		top: 10px; 
+		right: 20px; 
+		padding: 5px 0; 
+		margin-bottom: 0; 
+	}
+	#header p span {
+		color: #cca015;	 /*dunkelbraun*/ 
+		font-size: 2em;
+	}
+
+#navigation {
+	text-align: center;
+	font-size: 85%;  
+	background-color: #fae23a;
+	padding: 5px 10px 4px 10px; 
+	border-bottom: 1px solid white;  
+}
+	#navigation ul {
+		margin-bottom: 0; 
+	}
+	#navigation li {
+		display: inline; 
+		list-style-type: none; 
+		margin: 0; 
+	}
+	#navigation a,
+	#navigation span {
+		background-color: #f1d035;	 /*gold*/ 
+		color: black; 
+		padding: 4px 8px 4px 8px; 
+		border: 1px solid white;  
+	}
+	#navigation a:hover,
+	#navigation a:focus {
+		background-color: white;
+		color: black; 
+		border-bottom-color: white; 
+	}
+	#startpage #navi01 span,
+	#download #navi02 span,
+	#usage #navi03 span,
+	#screenshots #navi04 span,
+	#releasenotes #navi05 span,	
+	#support #navi06 span {
+		background-color: white;
+		color: black; 
+		border-bottom-color: white;       
+	} 
+
+#textarea {
+	padding: 30px 20px 10px 20px; 
+}
+	#textarea a {
+		border-bottom: 1px dotted #99790f;	 /*ganzdunkelbraun_60*/	  
+	}
+	#textarea ul li { 
+		list-style-type: circle; 
+	}
+	#textarea a:hover,
+	#textarea a:focus {
+		border-bottom: 1px solid #99790f;	 /*ganzdunkelbraun_60*/
+	}
+	#textarea div.top {
+		font-size: 80%;
+		padding: 5px 0;
+	}
+		#textarea div.top a,
+		#textarea div.top a:hover,
+		#textarea div.top a:focus{
+			border-bottom: none;
+		}
+
+#footer {
+	padding: 15px 20px 10px 20px;
+	font-size: 80%;  
+	border-top: 2px dotted #f1d035;	 /*gold*/  
+	overflow: hidden;
+}
+	#footer .address {
+		text-align: center; 
+		font-style: normal; 
+		letter-spacing: 2px;
+		line-height: 1.5;
+		margin-bottom: 20px;
+	}
+	#footer .banner{ 
+		float: right; 
+		border: none;
+		margin-right: 10px; 
+	}
+
+/* ==================================
+   4. Other styles 
+   =============================== */   
+
+/* ===============
+   Gallery */
+
+div.gallery {
+	overflow: hidden; /* zum Umschlieﬂen der Floats */ 
+	padding: 25px 10px 10px 0; 
+	margin: 0 3px 3px 0; 
+}
+div.gallery img {  
+	padding: 4px; 
+	border: 1px solid #ddd; 
+	border-right-color: #aaa; 
+	border-bottom-color: #aaa; 
+	margin-right: 15px; 
+	margin-bottom: 15px; 
+}   
+
+/* ===============
+   Downloadbar */  
+
+#downloadbar  {
+	float: right;
+	background-color:#ffffff;
+	border:1px solid #CCCCCC;
+	color:#ffffff;
+	line-height: 150%;
+	margin:0.5em 1em 3em 3em;
+	padding: 5px;
+	position:relative;
+}
+#downloadbar  div{
+	background-color:#63a624;
+	padding:0.3em 2em;
+}
+#downloadbar a {
+	color:#ffffff;
+	border-bottom: 1px dotted #ffffff;	 /*weiss*/
+}
+#downloadbar a:hover, 
+#downloadbar a:focus { 
+	border-bottom: 1px solid #ffffff;	 /*weiss*/ 
+}
+#downloadbar p {
+	color:#FFFFFF;
+	font-size:85%;
+	font-weight: normal;
+
+}
+#downloadbar img {
+	position:absolute;
+	right:10px;
+	top:-17px;
+	z-index:0;
+}
+
+
+/* ==================================
+   END OF STYLESHEET
+   =============================== */   

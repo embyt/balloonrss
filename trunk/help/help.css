@@ -1,0 +1,106 @@
+/* ===================================
+Stylesheet for BalloonRSS help
+
+File: help.css 
+Date: 15. Februar 2009
+Author: Roman Morawek 
+=================================== */
+
+/* ==================================
+   Calibration
+   =============================== */
+
+* { padding: 0; margin: 0; } 
+ 
+h1, h2, h3, p, ul, ol { margin-bottom: 1em; } 
+
+ol ul { margin-bottom: 0; } 
+
+li { margin-left: 2em; }    
+   
+/* ==================================
+   General styles 
+   =============================== */   
+
+body { 
+	  font-family: Verdana, Arial, Helvetica, sans-serif;
+	  font-size: smaller;
+      background-color: white; 
+      color: black; 
+      margin: 10px auto; 
+	  padding: 0px 10px 10px 10px; 
+}
+
+h1, h2 { 
+	font-size: 130%;
+	margin-top: 40px;
+}
+h3 { 
+	font-size: 110%; 
+	margin-top: 20px;	
+}
+
+img {border: none;}
+
+pre{
+	font-family: monospace;
+	line-height:100%;
+	margin-bottom: 20px;
+}
+
+ul li { 
+    list-style-type: circle; 
+}
+
+/* ================
+   Hyperlinks    */  
+
+a { 
+	  text-decoration: none; 
+	  outline: none; 
+	  border-bottom: 1px dotted #99790f;	 /*ganzdunkelbraun_60*/	  
+} 
+
+h1 a, h2 a, h3 a, h4 a {
+	  border-bottom: none;
+}
+
+a:link { color: #99790f;	 /*ganzdunkelbraun_60*/ }
+ 
+a:visited { color: #cca015;	 /*dunkelbraun*/ }
+
+
+a:hover, 
+a:focus { 
+	border-bottom: 1px solid #99790f;	 /*ganzdunkelbraun_60*/   
+} 
+a:active { 
+	 background-color: #f1d035;	 /*gold*/ 
+	  color: white; 
+}  
+
+
+/* ================
+   Other styles    */  
+
+.picturecaption {
+	font-size: 85%;
+}
+
+div.gallery {
+	overflow: hidden; /* zum Umschlieﬂen der Floats */ 
+	padding: 25px 10px 10px 0; 
+	margin: 0 3px 3px 0; 
+}
+div.gallery img {  
+	padding: 4px; 
+	border: 1px solid #ddd; 
+	border-right-color: #aaa; 
+	border-bottom-color: #aaa; 
+	margin-right: 15px; 
+	margin-bottom: 15px; 
+}   
+
+/* ==================================
+   END OF STYLESHEET
+   =============================== */   

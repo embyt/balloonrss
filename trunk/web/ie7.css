@@ -1,0 +1,18 @@
+/* ===================================
+Stylesheet for BalloonRSS
+
+File: bildschirm.css 
+Date: 14. Februar 2009
+Author: Anna Morawek  
+
+=================================== */
+
+
+/* Patch for PageZoom at horicontal navigation */ 
+#navigation ul { word-spacing: 0; }
+
+
+
+/* ==================================
+   END OF STYLESHEET
+   =============================== */   

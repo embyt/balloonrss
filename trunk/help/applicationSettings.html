@@ -2,19 +2,20 @@
 <html>
 <head>
 <meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<link href="help.css" rel="stylesheet" type="text/css">
 <title>Application Settings Dialog</title>
 </head>
 
 <body>
-<h1>Application Settings Dialog</h1>
+<h2>Application Settings Dialog</h2>
 
-<p>The application settings dialog allows the user to configure the behaviour of the application. The settings have the following meaning:</p>
+<p>The application settings dialog allows the user to configure the behavior of the application. The settings have the following meaning:</p>
 <ul>
-<li><b>Time between displaying two RSS messages</b>: This value specifies the base time in minutes that elapses between two tooltip pop-ups with new RSS messages. The base time only applies between two messages as long as messages are available in the channel with the highest effective priority. As this channel has no more messages to display, the timespan between 2 RSS messages will increase corresponding to the decrease in effective priority.</li>
+<li><b>Time between displaying two RSS messages</b>: This value specifies the base time in minutes that elapses between two tooltip pop-ups with new RSS messages. The base time only applies between two messages as long as messages are available in the channel with the highest effective priority. As this channel has no more messages to display, the time span between 2 RSS messages will increase corresponding to the decrease in effective priority.</li>
 
-<li><b>Intervall for retrieving new RSS messages</b>: This value specifies the time in minutes between two retrievals of the RSS messages via the network. Thus, after each such intervall, all RSS channels are retrieved.</li>
+<li><b>Interval for retrieving new RSS messages</b>: This value specifies the time in minutes between two retrievals of the RSS messages via the network. Thus, after each such interval, all RSS channels are retrieved.</li>
 
-<li><b>Timespan to display balloon pop-up</b>: This value specifies the time intervall in seconds, which a new RSS messages is displayed within the balloon tooltip. Consider that the Windows operating system controls the pop-up and may change the timing. I.e. the minimum timespan is set to 10 seconds by the OS and the display intervall will be extended if there is no user activity (e.g. using the mouse or keyboard).</li>
+<li><b>Timespan to display balloon pop-up</b>: This value specifies the time interval in seconds, which a new RSS messages is displayed within the balloon tooltip. Consider that the Windows operating system controls the pop-up and may change the timing. I.e. the minimum time span is set to 10 seconds by the OS and the display interval will be extended if there is no user activity (e.g. using the mouse or keyboard).</li>
 
 <li><b>Start in pause mode</b>: As this is described in the <a href="usage.html">usage section</a> BalloonRSS can be put into pause mode. If this checkbox is selected BalloonRSS will start in pause mode. You need to click the program item in the task bar to activate it then.</li>
 
@@ -22,13 +23,13 @@
 
 <li><b>Number of entries in message history</b>: This value specifies the number of lines in the RSS message history dialog.</li>
 
-<li><b>Priority influence of message clicks</b>: BalloonRSS calculates the effective priority of the RSS channels based on 2 inputs: the pre-defined priority of the channel and the number of user clicks onto RSS messages of this channel. This slider control enables the user to specify the influence of those 2 input characteristics. If the slider is put on the left side the influence of the pre-defined priority value is increased. If ths slider is put to the right the click rate has higher influence. You can immediately check the results in the channel information dialog.</li>
+<li><b>Priority influence of message clicks</b>: BalloonRSS calculates the effective priority of the RSS channels based on 2 inputs: the pre-defined priority of the channel and the number of user clicks onto RSS messages of this channel. This slider control enables the user to specify the influence of those 2 input characteristics. If the slider is put on the left side the influence of the pre-defined priority value is increased. If the slider is put to the right the click rate has higher influence. You can immediately check the results in the channel information dialog.</li>
 
-<li><b>Check for application updates</b>: If this checkbox is selected BalloonRSS will check for potential updates on the SourceForge server. If a new version is available this will be reported as an message popup.</li>
+<li><b>Check for application updates</b>: If this checkbox is selected BalloonRSS will check for potential updates on the SourceForge server. If a new version is available this will be reported as a message popup.</li>
 
-<li><b>Report network errors</b>: If this checkbox is selected BalloonRSS will report any network error during retrieval of the RSS channels as an message popup. If the checkbox is not selected network errors will be ignored without notifying the user.</li>
+<li><b>Report network errors</b>: If this checkbox is selected BalloonRSS will report any network error during retrieval of the RSS channels as a message popup. If the checkbox is not selected network errors will be ignored without notifying the user.</li>
 </ul>
 
-<p>All settings are kept on a per-user basis. Therefore a change in the settings will only change the program behaviour of the current user.</p>
+<p>All settings are kept on a per-user basis. Therefore a change in the settings will only change the program behavior of the current user.</p>
 </body>
 </html>

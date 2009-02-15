@@ -1,0 +1,15 @@
+/* ===================================
+Stylesheet for BalloonRSS
+
+File: bildschirm.css 
+Date: 14. Februar 2009
+Author: Anna Morawek 
+
+=================================== */
+
+/* IE6: gibt div.galerie hasLayout */
+div.gallery { height: 1%; }
+
+/* ==================================
+   END OF STYLESHEET
+   =============================== */   

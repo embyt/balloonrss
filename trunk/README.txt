@@ -30,6 +30,8 @@ Features
 - The message frequency and viewing period is configurable
 - Configuration via GUI
 - Message history
+- Support of HTTP authentication
+- Support for multi-user environments
 - Multi-language support: English, German, Portuguese
 ...
 
@@ -46,19 +48,17 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 - Windows Vista
 - Windows XP
 
-It is tested only on WinXP and Vista yet.
-
 
 Installation
 ------------
 
-Using the installer:
 - Make sure that you have the .NET framework 2.0 installed (it is included with 
   Vista); otherwise download the Microsoft .NET Framework Version 2.0
   Redistributable Package from Microsoft and install it.
 - Start BalloonRSS_xxx_setup.exe and follow the steps on the screen
 - Start the application.
-- Adapt the channel configuration with the RSS feeds of your choice.
+- Right click on the icon in the task bar and adapt the channel configuration 
+  with the RSS feeds of your choice.
 
 The base message recurrence is set to 5 minutes per default, so you have to wait
 a bit until your first messages will appear.

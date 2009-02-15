@@ -1,0 +1,65 @@
+/* ===================================
+Stylesheet for BalloonRSS (printer version) 
+  
+File: print.css 
+Date: 14. Februar 2009
+Author: Anna Morawek
+
+=================================== */
+
+body {
+  font-family:  Arial, Verdana, Helvetica, sans-serif;
+font-family: "Times New Roman", Georgia, Times, serif;  
+  font-size: 10pt;
+  line-height: 110%; 
+}
+
+a {color: #99790f;	 /*ganzdunkelbraun_60*/}
+h1, h2,h3 { 
+	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	color:#cca015;	 /*dunkelbraun*/ 
+}
+h1 { font-size: 18pt; }
+h2 { 
+  font-size: 14pt; 
+  padding-top: 6pt; 
+  margin-top: 14pt; 
+} 
+h3 { font-size: 12pt; }
+
+.skiplink, 
+.top,
+.banner,
+#downloadbar,
+#navigation {
+  display: none; 
+}  
+
+.address {
+	border-top: 1pt dotted #cca015;	 /*dunkelbraun*/
+	border-bottom: 1pt dotted #cca015;	 /*dunkelbraun*/
+	padding-top: 12pt;
+	padding-bottom: 12pt;
+}
+
+#header { 
+	position: relative; 
+	padding: 6pt; /* oben - rechts - unten - links */
+	border: 1pt solid #cca015;	 /*dunkelbraun*/
+	margin-bottom: 12pt;
+	font-family: Verdana, Arial, Helvetica, sans-serif;	
+}
+	#header p {
+		position: absolute; 
+		top: 2pt; 
+		right: 20pt; 
+		padding:  0; 
+		font-size: 10pt;		
+	}
+	#header p span {
+		color: #cca015;	 /*dunkelbraun*/ 
+		font-size: 16pt;
+	}
+	#header img {width: 60px; height: 60px;}
+	#header h1 { font-size: 6pt; }
+	
