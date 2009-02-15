@@ -231,14 +231,30 @@ namespace BalloonRss
         }
 
 
+        private bool IsAppUpdateReadyToBeDisplayed()
+        {
+            if (Settings.Default.checkForUpdates && (applicationUpdateInfo != null) &&
+                ((DateTime.Now - applicationUpdateInfo.dispDate) > TimeSpan.FromHours(Settings.Default.updateDisplayIntervall)))
+                return true;
+            else
+                return false;
+        }
+
+
         public int GetQueueSize()
         {
             int rssCount = 0;
 
+            // count the messages of all channels
             foreach (KeyValuePair<String, RssChannel> keyValuePair in this)
             {
                 rssCount += keyValuePair.Value.Count;
             }
+
+            // also count application update message
+            if (IsAppUpdateReadyToBeDisplayed())
+                rssCount++;
+
             return rssCount;
         }
 
@@ -248,8 +264,7 @@ namespace BalloonRss
             RssItem rssItem = null;
 
             // shall we display update info instead of a news message?
-            if ( Settings.Default.checkForUpdates && (applicationUpdateInfo != null) &&
-                ((DateTime.Now - applicationUpdateInfo.dispDate) > TimeSpan.FromHours(Settings.Default.updateDisplayIntervall)) )
+            if (IsAppUpdateReadyToBeDisplayed())
             {
                 // OK, we take this one
                 rssItem = applicationUpdateInfo;
