@@ -1,5 +1,31 @@
-207
 <?php
+// this parses a version information file and outputs it as a number
+
+// constants
+$VERSION_FILE = "lastversion.txt";
+$VERSION_SEPARATOR = '.';
+
+// read version file
+$fh = fopen($VERSION_FILE, 'r');
+$version_string = fgets($fh);
+
+// get version information
+$ver_major = 0;
+$ver_minor = 0;
+if (is_int(strpos($version_string, $VERSION_SEPARATOR)))
+{
+        $versions = explode($VERSION_SEPARATOR, $version_string);
+        $ver_major = trim($versions[0]);
+        $ver_minor = trim($versions[1]);
+}
+
+// output version string
+echo ($ver_major*100 + $ver_minor);
+
+?>
+<?php
+// this logs the access to the database
+
 // constants
 $DB_HOST = "mysql4-b";
 $DB_USER = "b206266rw";
