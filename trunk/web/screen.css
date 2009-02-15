@@ -8,7 +8,7 @@ Author: Anna Morawek
 Structure:
         1. Calibration
         2. General styles
-        3. Styles for layour areas
+        3. Styles for layout areas
         4. Other styles 
 =================================== */
 
@@ -233,10 +233,13 @@ a:active {
 		line-height: 1.5;
 		margin-bottom: 20px;
 	}
-	#footer .banner{ 
+	#footer .banner { 
 		float: right; 
 		border: none;
 		margin-right: 10px; 
+	}
+	#footer .update {
+		padding-top: 10px;
 	}
 
 /* ==================================
