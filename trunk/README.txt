@@ -32,6 +32,7 @@ Features
 - Message history
 - Support of HTTP authentication
 - Support for multi-user environments
+- Automatically check for program updates (if enabled)
 - Multi-language support: English, German, Portuguese
 ...
 
