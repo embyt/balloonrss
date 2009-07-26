@@ -84,11 +84,17 @@ namespace BalloonRss
             for (int i = 0; i < rssHistory.Length; i++)
             {
                 listItems[i] = new ListViewItem("" + (i + 1));
-                listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
+                // add title, if unavailable use description (one is always there)
+                if (rssHistory[rssHistory.Length - 1 - i].title != null)
+                    listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].title);
+                else
+                    listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].description);
+                // add feed link
                 if (rssHistory[rssHistory.Length - 1 - i].GetType() != typeof(RssUpdateItem))
                     listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].channel.channelInfo.link);
                 else
                     listItems[i].SubItems.Add("");
+                // add time and link (not shown)
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].dispDate.ToShortTimeString());
                 listItems[i].SubItems.Add(rssHistory[rssHistory.Length - 1 - i].link);
             }

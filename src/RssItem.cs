@@ -91,15 +91,15 @@ namespace BalloonRss
                 }
             }
 
-            // the title and description fields are mandatory
-            if ((title == null) || (description == null))
-                throw new FormatException("Could not find title and/or description field in RSS item");
-
-            // nevertheless, some feeds use empty fields which is not acceptable
-            if (title == "") 
-                title = " ";
+            // some feeds use empty fields which is not acceptable
+            if (title == "")
+                title = null;
             if (description == "")
-                description = " ";
+                description = null;
+
+            // the title and description fields are mandatory
+            if ((title == null) && (description == null))
+                throw new FormatException("Could not find title and description field in RSS item");
         }
 
 

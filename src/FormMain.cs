@@ -503,7 +503,7 @@ namespace BalloonRss
             if (retriever.backgroundWorker.IsBusy)
                 return;     // wait for next timer tick...
 
-            // display next item
+            // get next item
             RssItem rssItem = retriever.GetNextItem();
 
             // update text
@@ -511,19 +511,34 @@ namespace BalloonRss
 
             if (rssItem != null)
             {
-                // display the news
+                // mark entry as viewed
                 isRssViewed = true;
 
-                // determine prefered display mode
+                // determine strings
+                String title;
+                String body;
+
                 // take care: an RssUpdateItem cannot be displayed with the channel as title!
-                if (Settings.Default.channelAsTitle && (rssItem.channel != null))
+                // we also use the channel in case of an empty body
+                if ( (Settings.Default.channelAsTitle && (rssItem.channel != null)) ||
+                     (rssItem.title == null) || (rssItem.description == null) )
                 {
-                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.channel.channelInfo.link, rssItem.title, ToolTipIcon.None);
+                    title = rssItem.channel.channelInfo.link;
+                    // the rss title may also be null but then the description != null for sure
+                    if (rssItem.title != null)
+                        body = rssItem.title;
+                    else
+                        body = rssItem.description;
                 }
                 else
                 {
-                    applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan*1000, rssItem.title, rssItem.description, ToolTipIcon.None);
+                    // this is the normal case
+                    title = rssItem.title;
+                    body = rssItem.description;
                 }
+
+                // display it
+                applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, title, body, ToolTipIcon.None);
 
                 // enable the message history (might be already enabled)
                 mi_history.Enabled = true;

@@ -42,6 +42,7 @@ Supported systems
 
 BalloonRSS is developed to be used on any Win32 system, where the .NET framework 
 2.0 is available, which includes:
+- Windows 7
 - Windows 98
 - Windows 2000
 - Windows ME
