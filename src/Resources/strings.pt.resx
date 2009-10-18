@@ -126,7 +126,7 @@
     <comment>main menu sub-entry</comment>
   </data>
   <data name="str_channelSettingsHeaderMarkAsRead" xml:space="preserve">
-    <value>Mark RSS messages of this channel as read at application startup</value>
+    <value>Marcar como lidas as mensagens RSS deste canal no início da aplicação</value>
     <comment>channel settings label</comment>
   </data>
   <data name="str_contextMenuAbout" xml:space="preserve">
