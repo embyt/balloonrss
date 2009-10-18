@@ -30,6 +30,7 @@ using System.Resources;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.8.0.0")]
-[assembly: AssemblyFileVersion("2.8.0.0")]
+// KEEP THIS CONSISTENT WITH APPL_VERSION IN balloonRSS.nsi INSTALLER!
+[assembly: AssemblyVersion("2.9.0.0")]
+[assembly: AssemblyFileVersion("2.9.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

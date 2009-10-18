@@ -19,7 +19,7 @@
 ;--------------------------------
 ;Definitions
 !define APPL_NAME "BalloonRSS"
-!define APPL_VERSION "2.8"
+!define APPL_VERSION "2.9"  ; keep this consistent with AssemblyInfo.cs!
 !define PRODUCT_PUBLISHER "Roman Morawek"
 !define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
 !define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
@@ -32,6 +32,37 @@
 ;Includes
 !include dotnet.nsh
 !include "MUI2.nsh"
+
+
+;--------------------------------
+;User defined macros
+!macro CheckAppRunning APP_PROCESS_NAME
+  StrCpy $0 "${APP_PROCESS_NAME}"
+  DetailPrint "Searching for processes called '$0'"
+  KillProc::FindProcesses
+  StrCmp $1 "-1" wooops
+  Goto AppRunning
+ 
+  AppRunning:
+    DetailPrint "-> Found $0 processes running"
+    StrCmp $0 "0" AppNotRunning
+    MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "${APP_PROCESS_NAME} is currently running. $\n$\nDo you want to close it and continue installation?" IDYES KillApp
+    DetailPrint "Installation Aborted!"
+    Abort
+  KillApp:
+    StrCpy $0 "${APP_PROCESS_NAME}"
+    DetailPrint "Killing all processes called '$0'"
+    KillProc::KillProcesses
+    StrCmp $1 "-1" wooops
+    DetailPrint "-> Killed $0 processes, failed to kill $1 processes"
+    sleep 1500
+    Goto AppNotRunning
+  wooops:
+    DetailPrint "-> Error: Something went wrong :-("
+    Abort
+  AppNotRunning:
+    DetailPrint "No Application Instances Found"
+!macroend
 
 
 ;--------------------------------
@@ -93,6 +124,9 @@ Section "General" SecGeneral
 
   SectionIn RO
 
+  ; Kill application if it already runs
+  !insertmacro CheckAppRunning "BalloonRss.exe"
+  
   ; Set output path to the installation directory.
   SetOutPath "$INSTDIR"
   
@@ -151,6 +185,9 @@ SectionEnd
 
 Section "un.General" SecUnGeneral
 
+  ; Kill application if it already runs
+  !insertmacro CheckAppRunning "BalloonRss.exe"
+  
   ; Remove files and uninstaller
   Delete /REBOOTOK "$INSTDIR\BalloonRss.exe"
   RMDir /r "$INSTDIR"
