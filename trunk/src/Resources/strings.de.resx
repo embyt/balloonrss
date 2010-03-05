@@ -222,7 +222,7 @@
     <comment>we got an illegal RSS file from the remote server "xxx" (appended to text)</comment>
   </data>
   <data name="str_balloonErrorRetrieving" xml:space="preserve">
-    <value>Fehler beim Empfangen der Daten</value>
+    <value>Fehler beim Empfangen der Daten </value>
     <comment>communication problem while downloading the RSS messages</comment>
   </data>
   <data name="str_balloonWarningNoEntryBody" xml:space="preserve">

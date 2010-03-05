@@ -125,6 +125,11 @@ namespace BalloonRss
             {
                 // prepare request
                 WebRequest webReq = (WebRequest)WebRequest.Create(channel.link);
+                
+                // inhibit proxy authentication error ("(407) Proxyauthentifizierung erforderlich.")
+                if (webReq is System.Net.HttpWebRequest)
+                    webReq.Proxy.Credentials = CredentialCache.DefaultCredentials;
+
                 // do we need HTTP authentication?
                 if ((channel.httpAuthUsername != null) && (channel.httpAuthPassword != null))
                     webReq.Credentials = new NetworkCredential(channel.httpAuthUsername, channel.httpAuthPassword);
