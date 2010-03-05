@@ -1,7 +1,7 @@
                                   BalloonRSS
                                ----------------
 
-                      Copyright (C) 2009  Roman Morawek
+                      Copyright (C) 2010  Roman Morawek
                          romor@users.sourceforge.net
                       http://balloonrss.sourceforge.net
 
@@ -54,13 +54,14 @@ BalloonRSS is developed to be used on any Win32 system, where the .NET framework
 Installation
 ------------
 
-- Make sure that you have the .NET framework 2.0 installed (it is included with 
-  Vista); otherwise download the Microsoft .NET Framework Version 2.0
-  Redistributable Package from Microsoft and install it.
+- Make sure that you have the .NET framework 2.0 installed (it is included 
+  starting with Vista); otherwise download the Microsoft .NET Framework 
+  Version 2.0 Redistributable Package from Microsoft and install it.
 - Start BalloonRSS_xxx_setup.exe and follow the steps on the screen
 - Start the application.
 - Right click on the icon in the task bar and adapt the channel configuration 
   with the RSS feeds of your choice.
+- Using Windows 7, make sure that the program icon is always displayed
 
 The base message recurrence is set to 5 minutes per default, so you have to wait
 a bit until your first messages will appear.

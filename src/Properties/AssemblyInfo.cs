@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BalloonRss")]
-[assembly: AssemblyCopyright("(C) 2009, Roman Morawek")]
+[assembly: AssemblyCopyright("(C) 2010, Roman Morawek")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
