@@ -208,7 +208,7 @@ namespace BalloonRss
             ChannelInfo channelInfo = new ChannelInfo();
 
             // diaplay edit box
-            FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo);
+            FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo, true);
             DialogResult dialogResult = channelEdit.ShowDialog(this);
 
             // if edit is confirmed, store the entry
@@ -256,7 +256,7 @@ namespace BalloonRss
 
                 // diaplay edit box
                 ChannelInfo channelInfo = new ChannelInfo(channelList[selectedChannel]);
-                FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo);
+                FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo, false);
                 DialogResult dialogResult = channelEdit.ShowDialog(this);
 
                 // update list view display in case of pressing OK

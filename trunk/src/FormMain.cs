@@ -27,13 +27,17 @@ namespace BalloonRss
 {
     public class FormMain : Form
     {
-        // some most important GUI element
+        // the most important GUI element
         private NotifyIcon applicationIcon;
 
         // some context menu items
         private ToolStripMenuItem mi_history;
         private ToolStripMenuItem mi_nextMessage;
         private ToolStripMenuItem mi_lastMessage;
+        private ToolStripMenuItem mi_about;
+        private ToolStripMenuItem mi_settings;
+        private ToolStripMenuItem mi_channelSettings;
+        private ToolStripMenuItem mi_channelInfo;
 
         // the "working horse"
         private Retriever retriever;
@@ -160,6 +164,7 @@ namespace BalloonRss
             applicationIcon.Visible = true;
             applicationIcon.BalloonTipClicked += new EventHandler(OnBalloonTipClicked);
             applicationIcon.MouseClick += new MouseEventHandler(OnIconClicked);
+            applicationIcon.MouseDoubleClick += new MouseEventHandler(OnIconDoubleClicked);
 
             this.ResumeLayout(false);
         }
@@ -179,7 +184,7 @@ namespace BalloonRss
             mi_helpIndex.Click += new EventHandler(this.MiHelpIndexClick);
 
             // menuItem About
-            ToolStripMenuItem mi_about = new ToolStripMenuItem();
+            mi_about = new ToolStripMenuItem();
             mi_about.Text = Resources.str_contextMenuAbout;
             mi_about.Click += new EventHandler(this.MiAboutClick);
 
@@ -197,19 +202,19 @@ namespace BalloonRss
             mi_exit.Click += new EventHandler(this.MiExitClick);
 
             // menuItem Settings
-            ToolStripMenuItem mi_settings = new ToolStripMenuItem();
+            mi_settings = new ToolStripMenuItem();
             mi_settings.Text = Resources.str_contextMenuSettings;
             mi_settings.Click += new EventHandler(this.MiSettingsClick);
             mi_settings.Enabled = true;
 
             // menuItem Channel Settings
-            ToolStripMenuItem mi_channelSettings = new ToolStripMenuItem();
+            mi_channelSettings = new ToolStripMenuItem();
             mi_channelSettings.Text = Resources.str_contextMenuChannelSettings;
             mi_channelSettings.Click += new EventHandler(this.MiChannelSettingsClick);
             mi_channelSettings.Enabled = true;
 
             // menuItem Channel Info
-            ToolStripMenuItem mi_channelInfo = new ToolStripMenuItem();
+            mi_channelInfo = new ToolStripMenuItem();
             mi_channelInfo.Text = Resources.str_contextMenuChannelInfo;
             mi_channelInfo.Click += new EventHandler(this.MiChannelInfoClick);
             mi_channelInfo.Enabled = true;
@@ -258,6 +263,20 @@ namespace BalloonRss
             return contextMenu;
         }
 
+        private void EnableContextMenuDialogs(bool enable)
+        {
+            mi_about.Enabled = enable;
+            mi_settings.Enabled = enable;
+            mi_channelSettings.Enabled = enable;
+            mi_channelInfo.Enabled = enable;
+
+            // special handling for history because this is not always activated
+            if (!enable)
+                mi_history.Enabled = false;
+            if (enable && isRssViewed)
+                mi_history.Enabled = true;
+        }
+
         private void MiHelpIndexClick(object sender, EventArgs e)
         {
             // do not stop display or retrieval timer
@@ -267,14 +286,22 @@ namespace BalloonRss
 
         private void MiAboutClick(object sender, EventArgs e)
         {
+            // prevent opening multiple dialogs at the same time
+            EnableContextMenuDialogs(false);
+
             // do not stop display or retrieval timer
             // just display dialog
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
+
+            EnableContextMenuDialogs(true);
         }
 
         private void MiSettingsClick(object sender, EventArgs e)
         {
+            // prevent opening multiple dialogs at the same time
+            EnableContextMenuDialogs(false);
+
             // disable timers
             retrieveTimer.Stop();
             dispTimer.Stop();
@@ -285,6 +312,9 @@ namespace BalloonRss
             // show the settings form
             FormSettings formSettings = new FormSettings();
             DialogResult result = formSettings.ShowDialog();
+
+            // we must enable the menu items before UpdateIcon()
+            EnableContextMenuDialogs(true);
 
             if (result == DialogResult.OK)
             {
@@ -303,6 +333,9 @@ namespace BalloonRss
 
         private void MiChannelSettingsClick(object sender, EventArgs e)
         {
+            // prevent opening multiple dialogs at the same time
+            EnableContextMenuDialogs(false);
+
             // disable timers
             retrieveTimer.Stop();
             dispTimer.Stop();
@@ -314,6 +347,9 @@ namespace BalloonRss
             FormChannelSettings formChannelSettings = 
                 new FormChannelSettings();
             DialogResult result = formChannelSettings.ShowDialog();
+
+            // we must renable the menu items before UpdateIcon()
+            EnableContextMenuDialogs(true);
 
             if (result == DialogResult.OK)
             {
@@ -347,6 +383,9 @@ namespace BalloonRss
 
         private void MiChannelInfoClick(object sender, EventArgs e)
         {
+            // prevent opening multiple dialogs at the same time
+            EnableContextMenuDialogs(false);
+
             dispTimer.Stop();
 
             // update the channel effective priorities and best priority ratio
@@ -355,6 +394,9 @@ namespace BalloonRss
 
             FormChannelInfo formChannelInfo = new FormChannelInfo(retriever.GetChannels());
             formChannelInfo.ShowDialog();
+
+            // we must renable the menu items before UpdateIcon()
+            EnableContextMenuDialogs(true);
 
             // restore icon properties, the channels may be cleared
             UpdateIcon();
@@ -388,12 +430,17 @@ namespace BalloonRss
 
         private void MiHistoryClick(object sender, EventArgs e)
         {
+            // prevent opening multiple dialogs at the same time
+            EnableContextMenuDialogs(false);
+
             dispTimer.Stop();
 
             FormHistory formHistory = new FormHistory(retriever.rssHistory);
             formHistory.ShowDialog();
 
             dispTimer.Start();
+
+            EnableContextMenuDialogs(true);
         }
 
         private void MiNextMessageClick(object sender, EventArgs e)
@@ -405,37 +452,57 @@ namespace BalloonRss
 
         private void OnIconClicked(object sender, MouseEventArgs e)
         {
-            if ((e.Button == MouseButtons.Left) && (e.Clicks == 0))
+            if (e.Button == MouseButtons.Left)
             {
-                // toggle pause mode
-                isPaused = !isPaused;
+                TogglePauseMode();
+            }
+        }
 
-                if (isPaused)
+        private void OnIconDoubleClicked(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                // undo the pause mode toggle
+                TogglePauseMode();
+
+                // perform double click action
+                // raise the display timer event
+                OnDispTimerTick(this, EventArgs.Empty);
+            }
+        }
+
+
+        private void TogglePauseMode()
+        {
+            // toggle pause mode
+            isPaused = !isPaused;
+
+            if (isPaused)
+            {
+                // enter pause mode
+                // disable timers
+                retrieveTimer.Stop();
+                dispTimer.Stop();
+            }
+            else
+            {
+                // re-enable the application
+                // re-enable timers
+                if ((DateTime.Now - lastRetrieval).TotalSeconds > Settings.Default.retrieveIntervall * 60)
                 {
-                    // enter pause mode
-                    // disable timers
-                    retrieveTimer.Stop();
-                    dispTimer.Stop();
+                    // the last retrieval is long time ago (or never happened)
+                    // start background worker thread to retrieve channels
+                    if (!retriever.backgroundWorker.IsBusy)
+                        retriever.backgroundWorker.RunWorkerAsync();
                 }
                 else
-                {
-                    // re-enable the application
-                    // re-enable timers
-                    if ( (DateTime.Now - lastRetrieval).TotalSeconds > Settings.Default.retrieveIntervall * 60)
-                    {
-                        // the last retrieval is long time ago (or never happened)
-                        // start background worker thread to retrieve channels
-                        retriever.backgroundWorker.RunWorkerAsync();
-                    }
-                    else
-                        retrieveTimer.Start();
+                    retrieveTimer.Start();
 
-                    dispTimer.Start();
-                }
-
-                // update icon and text
-                UpdateIcon();
+                dispTimer.Start();
             }
+
+            // update icon and text
+            UpdateIcon();
         }
 
 
@@ -511,38 +578,19 @@ namespace BalloonRss
 
             if (rssItem != null)
             {
+                // display the item
+                DisplayRssItem(rssItem);
+
                 // mark entry as viewed
                 isRssViewed = true;
 
-                // determine strings
-                String title;
-                String body;
-
-                // take care: an RssUpdateItem cannot be displayed with the channel as title!
-                // we also use the channel in case of an empty body
-                if ( (Settings.Default.channelAsTitle && (rssItem.channel != null)) ||
-                     (rssItem.title == null) || (rssItem.description == null) )
-                {
-                    title = rssItem.channel.channelInfo.link;
-                    // the rss title may also be null but then the description != null for sure
-                    if (rssItem.title != null)
-                        body = rssItem.title;
-                    else
-                        body = rssItem.description;
-                }
-                else
-                {
-                    // this is the normal case
-                    title = rssItem.title;
-                    body = rssItem.description;
-                }
-
-                // display it
-                applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, title, body, ToolTipIcon.None);
-
-                // enable the message history (might be already enabled)
-                mi_history.Enabled = true;
+                // enable menu items
                 mi_lastMessage.Enabled = true;
+
+                // enable the message history only if no dialog is shown
+                // we recognize this looking at some other menu item state
+                if (mi_channelSettings.Enabled)
+                    mi_history.Enabled = true;
 
                 // get the timer intervall for the next message
                 dispTimer.Interval = Convert.ToInt32(Settings.Default.displayIntervall * 60 * 1000 * retriever.bestPriorityRatio);
@@ -554,13 +602,44 @@ namespace BalloonRss
         }
 
 
+        private void DisplayRssItem(RssItem rssItem)
+        {
+            // determine strings
+            String title;
+            String body;
+
+            // take care: an RssUpdateItem cannot be displayed with the channel as title!
+            // we also use the channel in case of an empty body
+            if ((Settings.Default.channelAsTitle && (rssItem.channel != null)) ||
+                 (rssItem.title == null) || (rssItem.description == null))
+            {
+                title = rssItem.channel.channelInfo.link;
+                // the rss title may also be null but then the description != null for sure
+                if (rssItem.title != null)
+                    body = rssItem.title;
+                else
+                    body = rssItem.description;
+            }
+            else
+            {
+                // this is the normal case
+                title = rssItem.title;
+                body = rssItem.description;
+            }
+
+            // display it
+            applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, title, body, ToolTipIcon.None);
+        }
+
+
         private void OnRetrieverTimerTick(object source, EventArgs e)
         {
             // stop the timer, it is started again as the retrieving is completed
             retrieveTimer.Stop();
 
             // start background worker thread to retrieve channels
-            retriever.backgroundWorker.RunWorkerAsync();
+            if (!retriever.backgroundWorker.IsBusy)
+                retriever.backgroundWorker.RunWorkerAsync();
         }
         
 

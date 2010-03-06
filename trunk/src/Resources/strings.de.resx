@@ -117,12 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_channelSettingsNewFormTitle" xml:space="preserve">
+    <value>Einstellungen des neuen RSS Kanals</value>
+    <comment>new RSS channel window title</comment>
+  </data>
   <data name="str_contextMenuHelp" xml:space="preserve">
     <value>&amp;Hilfe</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuHelpIndex" xml:space="preserve">
-    <value>Help Content</value>
+    <value>Hilfe Index</value>
     <comment>main menu sub-entry</comment>
   </data>
   <data name="str_channelSettingsHeaderMarkAsRead" xml:space="preserve">
@@ -190,11 +194,11 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsCheckForUpdates" xml:space="preserve">
-    <value>Automatisch auf neue Programm-Versionen prüfen</value>
+    <value>Automatisch nach Programm Updates suchen</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_updateBody" xml:space="preserve">
-    <value>Klicke diese Nachricht um Versionsinformationen zu zeigen. In den Programmeinstellungen können Sie diese Meldung deaktivieren.</value>
+    <value>Klicke diese Nachricht um Versionsinformationen abzurufen. In den Programmeinstellungen können Sie diese Meldung deaktivieren.</value>
     <comment>body text of application update</comment>
   </data>
   <data name="str_updateTitle" xml:space="preserve">
@@ -242,7 +246,7 @@
     <comment>welcome message on first application start (header text)</comment>
   </data>
   <data name="str_channelFormTitle" xml:space="preserve">
-    <value>RSS Kanal Information</value>
+    <value>RSS Kanalinformation</value>
     <comment>"RSS channel information" window title</comment>
   </data>
   <data name="str_channelHeaderClickRate" xml:space="preserve">
@@ -274,7 +278,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
-    <value>Wollen Sie den Nachrichten-Kanal wirklich löschen </value>
+    <value>Wollen Sie den Nachrichtenkanal wirklich löschen </value>
     <comment>warning popup (body text)</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteTitel" xml:space="preserve">
@@ -282,7 +286,7 @@
     <comment>warning popup (header text)</comment>
   </data>
   <data name="str_channelSettingsEditFormTitle" xml:space="preserve">
-    <value>Ändern der RSS Kanal Einstellungen</value>
+    <value>Ändern der RSS Kanaleinstellungen</value>
     <comment>edit RSS channel window title</comment>
   </data>
   <data name="str_channelSettingsFormDeleteButton" xml:space="preserve">
@@ -298,7 +302,7 @@
     <comment>button in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsFormTitle" xml:space="preserve">
-    <value>RSS Kanal Einstellungen</value>
+    <value>RSS Kanaleinstellungen</value>
     <comment>title of "RSS Channel Settings" window</comment>
   </data>
   <data name="str_channelSettingsHeaderPriority" xml:space="preserve">
@@ -310,11 +314,11 @@
     <comment>column header in "RSS Channel Settings" window</comment>
   </data>
   <data name="str_contextMenuChannelInfo" xml:space="preserve">
-    <value>RSS Kanal &amp;Information</value>
+    <value>RSS Kanal&amp;information</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuChannelSettings" xml:space="preserve">
-    <value>&amp;Kanal Einstellungen</value>
+    <value>&amp;Kanaleinstellungen</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuExit" xml:space="preserve">
@@ -326,7 +330,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuHistory" xml:space="preserve">
-    <value>&amp;Nachrichten Buffer</value>
+    <value>Bisherige &amp;Nachrichten</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
@@ -338,11 +342,11 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuSettings" xml:space="preserve">
-    <value>Programm &amp;Einstellungen</value>
+    <value>Programm&amp;einstellungen</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_historyFormTitle" xml:space="preserve">
-    <value>RSS Nachrichten Buffer</value>
+    <value>Bisherige RSS Nachrichten</value>
     <comment>"RSS Message History" window title</comment>
   </data>
   <data name="str_historyHeaderChannel" xml:space="preserve">
@@ -378,11 +382,11 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelAsTitle" xml:space="preserve">
-    <value>Verwende Kanalname als Nachrichten-Titel</value>
+    <value>Verwende Kanalname als Nachrichtentitel</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsChannelConfigFilename" xml:space="preserve">
-    <value>Dateiname der Kanal-Konfiguration</value>
+    <value>Dateiname der Kanalkonfiguration</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsClickInfluence" xml:space="preserve">
@@ -394,7 +398,7 @@
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
-    <value>Das Abruf-Intervall muss länger als das Nachrichten-Intervall sein.</value>
+    <value>Das Abrufintervall muss länger als das Nachrichtenintervall sein.</value>
     <comment>error message as illegal settings are detected</comment>
   </data>
   <data name="str_settingsErrorValueToLarge" xml:space="preserve">
@@ -422,7 +426,7 @@
     <comment>settings window title</comment>
   </data>
   <data name="str_settingsHistoryDepth" xml:space="preserve">
-    <value>Anzahl der Einträge im Nachrichten-Buffer</value>
+    <value>Anzahl der Einträge im Fenster "Bisherige RSS Nachrichten"</value>
     <comment>settings information string</comment>
   </data>
   <data name="str_settingsRetrieveIntervall" xml:space="preserve">
