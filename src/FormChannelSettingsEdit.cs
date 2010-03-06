@@ -35,16 +35,16 @@ namespace BalloonRss
         private ChannelInfo channelInfo;
 
 
-        public FormChannelSettingsEdit(ChannelInfo channelInfo)
+        public FormChannelSettingsEdit(ChannelInfo channelInfo, bool newChannel)
         {
             this.channelInfo = channelInfo;
 
             // create panel
-            InitializeComponent();
+            InitializeComponent(newChannel);
         }
 
 
-        private void InitializeComponent()
+        private void InitializeComponent(bool newChannel)
         {
             this.SuspendLayout();
 
@@ -91,9 +91,12 @@ namespace BalloonRss
             flPanelMain.Controls.Add(fillLabel);
 
             // dialog settings
+            if (newChannel)
+                this.Text = Resources.str_channelSettingsNewFormTitle;
+            else
+                this.Text = Resources.str_channelSettingsEditFormTitle;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
-            this.Text = Resources.str_channelSettingsEditFormTitle;
             this.Icon = Resources.ico_yellow32;
             this.Controls.Add(flPanelMain);
             this.Resize += new EventHandler(this.OnResize);

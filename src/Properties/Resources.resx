@@ -299,6 +299,10 @@
     <value>Illegal format of RSS link: </value>
     <comment>error message as illegal link is entered in the channel settings (end with ": " because the link is appended at the string end)</comment>
   </data>
+  <data name="str_channelSettingsNewFormTitle" xml:space="preserve">
+    <value>Settings of New RSS Channel</value>
+    <comment>new RSS channel window title</comment>
+  </data>
   <data name="str_contextMenuAbout" xml:space="preserve">
     <value>&amp;About BalloonRSS</value>
     <comment>main menu sub-entry</comment>

@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="str_channelSettingsNewFormTitle" xml:space="preserve">
+    <value>Editar configurações do Canal RSS</value>
+    <comment>new RSS channel window title</comment>
+  </data>
   <data name="str_contextMenuHelp" xml:space="preserve">
     <value>&amp;Ajuda</value>
     <comment>main menu entry</comment>
