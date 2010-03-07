@@ -35,6 +35,7 @@ namespace BalloonRss
         private Control cntlCheckForUpdates;
         private Control cntlStartPaused;
         private Control cntlReportNetworkErrors;
+        private Control cntlDoubleClickAction;
 
 
         public FormSettings()
@@ -86,6 +87,10 @@ namespace BalloonRss
             cntlReportNetworkErrors = CreateSettingControl(Settings.Default.reportNetworkErrors, Resources.str_settingsReportNetworkErrors, out panel);
             maxXSize = Math.Max(maxXSize, panel.Width);
             flPanelMain.Controls.Add(panel);
+            String[] settingsList = new String[] { Resources.str_settingsDoubleClickActionOption0, Resources.str_settingsDoubleClickActionOption1, Resources.str_settingsDoubleClickActionOption2 };
+            cntlDoubleClickAction = CreateSettingControl(Settings.Default.doubleClickAction, Resources.str_settingsDoubleClickAction, out panel, settingsList);
+            maxXSize = Math.Max(maxXSize, panel.Width);
+            flPanelMain.Controls.Add(panel);
             
             // OK/Cancel button panel
             FlowLayoutPanel flPanel = new FlowLayoutPanel();
@@ -134,10 +139,20 @@ namespace BalloonRss
 
         private Control CreateSettingControl(Object settingsObject, String labelText, out Panel panel)
         {
-            return CreateSettingControl(settingsObject, labelText, out panel, 0, 0);
+            return CreateSettingControl(settingsObject, labelText, out panel, 0, 0, null);
         }
 
         private Control CreateSettingControl(Object settingsObject, String labelText, out Panel panel, int minValue, int maxValue)
+        {
+            return CreateSettingControl(settingsObject, labelText, out panel, minValue, maxValue, null);
+        }
+
+        private Control CreateSettingControl(Object settingsObject, String labelText, out Panel panel, string[] optionValues)
+        {
+            return CreateSettingControl(settingsObject, labelText, out panel, 0, 0, optionValues);
+        }
+
+        private Control CreateSettingControl(Object settingsObject, String labelText, out Panel panel, int minValue, int maxValue, string[] optionValues)
         {
             // create the label
             Label label = new Label();
@@ -149,7 +164,20 @@ namespace BalloonRss
 
             // create the settings control
             Control control;
-            if (settingsObject.GetType() == typeof(int))
+            if (optionValues != null)
+            {
+                // we face a list box
+                control = new ComboBox();
+                (control as ComboBox).Items.AddRange(optionValues);
+                (control as ComboBox).SelectedIndex = (int)settingsObject;
+                (control as ComboBox).DropDownStyle = ComboBoxStyle.DropDownList;
+                // measure largest text
+                int maxWidth = 0;
+                foreach (string option in optionValues)
+                    maxWidth = Math.Max(maxWidth, TextRenderer.MeasureText(option, control.Font).Width);
+                control.Width = maxWidth+20;
+            }
+            else if (settingsObject.GetType() == typeof(int))
             {
                 control = new NumericTextBox(minValue, maxValue, labelText);
                 control.Width = TextRenderer.MeasureText(maxValue.ToString(), control.Font).Width;
@@ -244,6 +272,7 @@ namespace BalloonRss
             Settings.Default.checkForUpdates = (cntlCheckForUpdates as CheckBox).Checked;
             Settings.Default.startPaused = (cntlStartPaused as CheckBox).Checked;
             Settings.Default.reportNetworkErrors = (cntlReportNetworkErrors as CheckBox).Checked;
+            Settings.Default.doubleClickAction = (cntlDoubleClickAction as ComboBox).SelectedIndex;
         }
 
 

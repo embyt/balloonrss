@@ -704,6 +704,42 @@ namespace BalloonRss.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Double click action.
+        /// </summary>
+        internal static string str_settingsDoubleClickAction {
+            get {
+                return ResourceManager.GetString("str_settingsDoubleClickAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do nothing.
+        /// </summary>
+        internal static string str_settingsDoubleClickActionOption0 {
+            get {
+                return ResourceManager.GetString("str_settingsDoubleClickActionOption0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display next message.
+        /// </summary>
+        internal static string str_settingsDoubleClickActionOption1 {
+            get {
+                return ResourceManager.GetString("str_settingsDoubleClickActionOption1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open last message.
+        /// </summary>
+        internal static string str_settingsDoubleClickActionOption2 {
+            get {
+                return ResourceManager.GetString("str_settingsDoubleClickActionOption2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The retriever intervall has to be larger than the display intervall..
         /// </summary>
         internal static string str_settingsErrorRetrieveSmallerDisplay {

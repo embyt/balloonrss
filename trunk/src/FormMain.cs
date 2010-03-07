@@ -445,14 +445,14 @@ namespace BalloonRss
 
         private void MiNextMessageClick(object sender, EventArgs e)
         {
-            // raise the display timer event
-            OnDispTimerTick(this, EventArgs.Empty);
+            // show next RSS item
+            HandleNextRssItem();
         }
 
 
         private void OnIconClicked(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ( (e.Button == MouseButtons.Left) && (e.Clicks == 0) )
             {
                 TogglePauseMode();
             }
@@ -462,12 +462,27 @@ namespace BalloonRss
         {
             if (e.Button == MouseButtons.Left)
             {
+                // perform double click action, depending on settings
+                switch (Settings.Default.doubleClickAction)
+                {
+                    case 0:
+                        // do nothing
+                        break;
+                    case 1:
+                        // display next RSS item
+                        HandleNextRssItem();
+                        break;
+                    case 2:
+                        // open last RSS item
+                        OpenLastRssItem();
+                        break;
+                    default:
+                        // do nothing
+                        break;
+                }
+
                 // undo the pause mode toggle
                 TogglePauseMode();
-
-                // perform double click action
-                // raise the display timer event
-                OnDispTimerTick(this, EventArgs.Empty);
             }
         }
 
@@ -508,6 +523,13 @@ namespace BalloonRss
 
         private void OnBalloonTipClicked(object sender, EventArgs e)
         {
+            // open web broswer with last RSS item
+            OpenLastRssItem();
+        }
+
+
+        private bool OpenLastRssItem()
+        {
             // open rss item in browser
             if (isRssViewed)
             {
@@ -532,8 +554,23 @@ namespace BalloonRss
                     isRssViewed = false;
                     applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, Resources.str_balloonWarningNoEntryHeader, Resources.str_balloonWarningNoEntryBody, ToolTipIcon.Warning);
                 }
+
+                return true;
             }
+            else
+                return false;
             // if no rss item was viewed, we skip the click
+        }
+
+
+        private void OnRetrieverTimerTick(object source, EventArgs e)
+        {
+            // stop the timer, it is started again as the retrieving is completed
+            retrieveTimer.Stop();
+
+            // start background worker thread to retrieve channels
+            if (!retriever.backgroundWorker.IsBusy)
+                retriever.backgroundWorker.RunWorkerAsync();
         }
 
 
@@ -562,6 +599,13 @@ namespace BalloonRss
 
 
         private void OnDispTimerTick(object source, EventArgs e)
+        {
+            // show next RSS item
+            HandleNextRssItem();
+        }
+
+
+        private void HandleNextRssItem()
         {
             // set default timer for the case of early function return
             dispTimer.Interval = Settings.Default.displayIntervall * 60 * 1000;
@@ -629,17 +673,6 @@ namespace BalloonRss
 
             // display it
             applicationIcon.ShowBalloonTip(Settings.Default.balloonTimespan * 1000, title, body, ToolTipIcon.None);
-        }
-
-
-        private void OnRetrieverTimerTick(object source, EventArgs e)
-        {
-            // stop the timer, it is started again as the retrieving is completed
-            retrieveTimer.Stop();
-
-            // start background worker thread to retrieve channels
-            if (!retriever.backgroundWorker.IsBusy)
-                retriever.backgroundWorker.RunWorkerAsync();
         }
         
 

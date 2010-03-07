@@ -403,6 +403,22 @@
     <value>Time between displaying two RSS messages [min]</value>
     <comment>settings information string</comment>
   </data>
+  <data name="str_settingsDoubleClickAction" xml:space="preserve">
+    <value>Double click action</value>
+    <comment>settings information string</comment>
+  </data>
+  <data name="str_settingsDoubleClickActionOption0" xml:space="preserve">
+    <value>Do nothing</value>
+    <comment>double click action string</comment>
+  </data>
+  <data name="str_settingsDoubleClickActionOption1" xml:space="preserve">
+    <value>Display next message</value>
+    <comment>double click action string</comment>
+  </data>
+  <data name="str_settingsDoubleClickActionOption2" xml:space="preserve">
+    <value>Open last message</value>
+    <comment>double click action string</comment>
+  </data>
   <data name="str_settingsErrorRetrieveSmallerDisplay" xml:space="preserve">
     <value>The retriever intervall has to be larger than the display intervall.</value>
     <comment>error message as illegal settings are detected</comment>
