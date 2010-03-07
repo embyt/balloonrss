@@ -10,7 +10,7 @@ using System.Resources;
 [assembly: AssemblyDescription("BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon tooltips in the windows task bar. The news entries themselves are linked and read with the browser.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BalloonRss")]
+[assembly: AssemblyProduct("BalloonRSS")]
 [assembly: AssemblyCopyright("(C) 2010, Roman Morawek")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -68,5 +68,8 @@
     <Setting Name="helpNameChannelSettingsEdit" Type="System.String" Scope="User">
       <Value Profile="(Default)">channelSettings.html#channel_edit</Value>
     </Setting>
+    <Setting Name="doubleClickAction" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
