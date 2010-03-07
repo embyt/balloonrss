@@ -45,6 +45,7 @@ namespace BalloonRss
         // the timers to display and to retrieve the balloon tooltips
         private Timer dispTimer;
         private Timer retrieveTimer;
+        private Timer doubleClickTimer;
 
         // application state variables
         private bool isPaused;
@@ -101,17 +102,23 @@ namespace BalloonRss
             // setup GUI
             InitializeComponent();
 
-            // setup display Timer
+            // setup display timer
             dispTimer = new Timer();
             dispTimer.Tick += new EventHandler(OnDispTimerTick);
             dispTimer.Enabled = false;
             dispTimer.Interval = Settings.Default.displayIntervall * 60 * 1000; // intervall in min
 
-            // setup retrieve Timer
+            // setup retrieve timer
             retrieveTimer = new Timer();
             retrieveTimer.Tick += new EventHandler(OnRetrieverTimerTick);
             retrieveTimer.Enabled = false;
             retrieveTimer.Interval = Settings.Default.retrieveIntervall * 60 * 1000; // intervall in min
+
+            // setup single click timer
+            doubleClickTimer = new Timer();
+            doubleClickTimer.Tick += new EventHandler(OnDoubleClickTimerTick);
+            doubleClickTimer.Enabled = false;
+            doubleClickTimer.Interval = SystemInformation.DoubleClickTime / 2;
 
             // setup and start the background worker
             retriever = new Retriever();
@@ -452,7 +459,7 @@ namespace BalloonRss
 
         private void OnIconClicked(object sender, MouseEventArgs e)
         {
-            if ( (e.Button == MouseButtons.Left) && (e.Clicks == 0) )
+            if (e.Button == MouseButtons.Left)
             {
                 TogglePauseMode();
             }
@@ -462,27 +469,38 @@ namespace BalloonRss
         {
             if (e.Button == MouseButtons.Left)
             {
-                // perform double click action, depending on settings
-                switch (Settings.Default.doubleClickAction)
-                {
-                    case 0:
-                        // do nothing
-                        break;
-                    case 1:
-                        // display next RSS item
-                        HandleNextRssItem();
-                        break;
-                    case 2:
-                        // open last RSS item
-                        OpenLastRssItem();
-                        break;
-                    default:
-                        // do nothing
-                        break;
-                }
-
-                // undo the pause mode toggle
+                // roll back pause mode switch from first click event
                 TogglePauseMode();
+
+                // invoke action within another event 
+                // needed to prevent confusion with single-click events after Process.Start
+                // this necessarity seems really strange to me but I found no other way...
+                doubleClickTimer.Start();
+            }
+        }
+
+
+        private void OnDoubleClickTimerTick(object source, EventArgs e)
+        {
+            doubleClickTimer.Stop();
+
+            // perform double click action, depending on settings
+            switch (Settings.Default.doubleClickAction)
+            {
+                case 0:
+                    // do nothing
+                    break;
+                case 1:
+                    // display next RSS item
+                    HandleNextRssItem();
+                    break;
+                case 2:
+                    // open last RSS item
+                    OpenLastRssItem();
+                    break;
+                default:
+                    // do nothing
+                    break;
             }
         }
 
