@@ -1,6 +1,6 @@
 /*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2010  Roman Morawek <romor@users.sourceforge.net>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -70,6 +70,22 @@ namespace BalloonRss
         }
 
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            try
+            {
+                // close window using Escape key
+                if (msg.WParam.ToInt32() == (int)Keys.Escape)
+                    Dispose();
+            }
+            catch (Exception)
+            {
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        
         private void FillHistoryList()
         {
             ListViewItem[] listItems = new ListViewItem[rssHistory.Length];

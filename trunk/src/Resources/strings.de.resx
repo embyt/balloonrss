@@ -130,7 +130,7 @@
     <comment>double click action string</comment>
   </data>
   <data name="str_settingsDoubleClickActionOption2" xml:space="preserve">
-    <value>Öffnen der letzten Nachricht</value>
+    <value>Öffnen der vorherigen Nachricht</value>
     <comment>double click action string</comment>
   </data>
   <data name="str_channelSettingsNewFormTitle" xml:space="preserve">
@@ -270,7 +270,7 @@
     <comment>	str_channelFormTitle	RSS Channel Information	"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value># bereit</value>
+    <value>Ungelesen</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
@@ -290,7 +290,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value># Kanal</value>
+    <value>Gesamt</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
@@ -350,7 +350,7 @@
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuLastMessage" xml:space="preserve">
-    <value>&amp;Öffne letzte Nachricht</value>
+    <value>&amp;Öffne vorherige Nachricht</value>
     <comment>main menu entry</comment>
   </data>
   <data name="str_contextMenuNextMessage" xml:space="preserve">
