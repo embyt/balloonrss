@@ -72,12 +72,17 @@ Usage
 
 As you start the application you get a notify icon in the windows task bar (at 
 the right botton, near the clock). All commands are accessed by the context
-menu (right click on the icon). A single left click enters pause mode.
+menu (right click on the icon). Make sure that the icon is always shown and not 
+hidden by configuring this in windows.
+
+A single left click enters pause mode. Double clicking the icon may also have
+functionality if this is configured in the application settings.
 
 Color codes of the icon:
 - blue: application paused
 - yellow: messages pending
 - orange: no messages pending
 
-You can obtain further information on the website:
+You can obtain further information from the application's help file or on the 
+website:
 http://balloonrss.sourceforge.net

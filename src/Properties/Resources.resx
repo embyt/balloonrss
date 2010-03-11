@@ -196,7 +196,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderCount" xml:space="preserve">
-    <value># Queued</value>
+    <value>Unread</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderEffPrio" xml:space="preserve">
@@ -216,7 +216,7 @@
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelHeaderTotal" xml:space="preserve">
-    <value># Channel</value>
+    <value>Total</value>
     <comment>"RSS channel information" column title</comment>
   </data>
   <data name="str_channelSettingsConfirmDeleteText" xml:space="preserve">
