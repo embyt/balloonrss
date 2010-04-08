@@ -146,6 +146,21 @@ namespace BalloonRss
                     ToolTipIcon.Info);
             }
 
+            // check command line args to potentially subscribe to a feed
+            foreach (string cmdLineArg in Environment.GetCommandLineArgs())
+            {
+                if (Uri.IsWellFormedUriString(cmdLineArg, UriKind.Absolute))
+                {
+                    // show the settings form
+                    FormChannelSettings formChannelSettings =
+                        new FormChannelSettings(cmdLineArg);
+                    formChannelSettings.ShowDialog();
+
+                    // fixme: we can only add a single channel
+                    break;
+                }
+            }
+
             // load initial channels in background task
             if (!isPaused)
                 retriever.backgroundWorker.RunWorkerAsync();
@@ -352,7 +367,7 @@ namespace BalloonRss
 
             // show the settings form
             FormChannelSettings formChannelSettings = 
-                new FormChannelSettings();
+                new FormChannelSettings(null);
             DialogResult result = formChannelSettings.ShowDialog();
 
             // we must renable the menu items before UpdateIcon()

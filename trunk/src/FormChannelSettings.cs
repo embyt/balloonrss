@@ -42,7 +42,7 @@ namespace BalloonRss
         private ChannelList channelList;
 
 
-        public FormChannelSettings()
+        public FormChannelSettings(String rssLink)
         {
             // initialise with current channel settings
             bool firstRun;
@@ -53,6 +53,9 @@ namespace BalloonRss
             InitializeComponent();
             FillChannelList();
             this.ResumeLayout();
+
+            if (rssLink != null)
+                OnNew(rssLink, null);
         }
 
 
@@ -206,6 +209,10 @@ namespace BalloonRss
         {
             // create new enty
             ChannelInfo channelInfo = new ChannelInfo();
+
+            // set link if specified
+            if (sender is String)
+                channelInfo.link = sender as String;
 
             // diaplay edit box
             FormChannelSettingsEdit channelEdit = new FormChannelSettingsEdit(channelInfo, true);

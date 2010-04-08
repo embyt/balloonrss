@@ -199,6 +199,13 @@ namespace BalloonRss
             // store the data in the associated channel info
             // the data were already checked for validy before
             channelInfo.link = cntlUrl.Text;
+
+            // do not use "feed://" prefix
+            if (channelInfo.link.StartsWith("feed://"))
+            {
+                channelInfo.link = "http://" + channelInfo.link.Substring(7);
+            }
+
             channelInfo.priority = (byte)(cntlPriority as NumericTextBox).IntValue;
             channelInfo.markAsReadAtStartup = (cntlMarkAsRead as CheckBox).Checked;
         }
