@@ -40,46 +40,20 @@
 </ul>
 </div> <!-- end navigation -->
 
-<?php
-// parse for latest version information to display in download link
-$VERSION_FILE = "lastversion.txt";
-$fh = fopen($VERSION_FILE, 'r');
-$version_string = trim(fgets($fh));
-fclose($fh);
-
-// parse for release data
-$RELEASE_FILE = "releasenotes.html";
-$fh = fopen($RELEASE_FILE, 'r');
-$release_date = "";
-while ($line = fgets($fh))
-{
-	$posfound = strpos($line, $version_string);
-	if ($posfound != FALSE)
-	{
-		$startpos = strpos($line, '(');
-		$endpos = strpos($line, ')');
-		if ( ($startpos != FALSE) && ($endpos != FALSE) && ($endpos > $startpos) )
-		{
-			$release_date = substr($line, $startpos+1, $endpos-$startpos-1);
-		}
-	}
-}
-?>
-
 <div id="textarea">
 
 <div id="downloadbar" title="Download this file from SourceForge.net">
 <div>
 <h3>
 
-<a href="http://sourceforge.net/project/downloading.php?groupname=balloonrss&filename=BalloonRSS_<?php echo $version_string; ?>_setup.exe">
+<a href="http://sourceforge.net/project/downloading.php?groupname=balloonrss&filename=BalloonRSS_2.9_setup.exe">
 Download
 <img title="Download this file from SourceForge.net" alt="Download this file from SourceForge.net" src="img/down.gif"/>
 </a></h3>
 <p>
-BalloonRSS - <?php echo $version_string; ?>
+BalloonRSS - 2.9
 <br />
-Last Update: <?php echo $release_date; ?>
+Last Update: March 11th, 2010
 </p>
 
 </div>
@@ -87,7 +61,7 @@ Last Update: <?php echo $release_date; ?>
 
 <h2 id="sec_install">Download &amp; Installation</h2>
 
-<p>The source code as well as the released packages can be downloaded from the SourceForge <a href="http://sourceforge.net/project/platformdownload.php?group_id=206266">project download page</a>.</p>
+<p>The source code as well as the released packages can be downloaded from the <a href="https://github.com/embyt/balloonrss">GitHub project</a>.</p>
 
 
 <p>Installation procedure:</p>
@@ -119,8 +93,6 @@ Last Update: <?php echo $release_date; ?>
 
 
 </div> <!-- end textarea -->  
-
-<?php include('footer.html')?>
 
 </div> <!-- end wrapper -->
 </body>
