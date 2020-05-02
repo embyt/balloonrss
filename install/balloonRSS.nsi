@@ -1,6 +1,6 @@
 ;
 ;BalloonRSS - Simple RSS news aggregator using balloon tooltips
-;    Copyright (C) 2008  Roman Morawek <romor@users.sourceforge.net>
+;    Copyright (C) 2008  Roman Morawek <roman.morawek@embyt.com>
 ;
 ;    This program is free software: you can redistribute it and/or modify
 ;    it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 !define APPL_NAME "BalloonRSS"
 !define APPL_VERSION "2.9"  ; keep this consistent with AssemblyInfo.cs!
 !define PRODUCT_PUBLISHER "Roman Morawek"
-!define PRODUCT_PUBLISHER_WEB_SITE "http://www.morawek.at/roman"
-!define PRODUCT_WEB_SITE "http://balloonrss.sourceforge.net"
-!define PRODUCT_DOWNLOAD_SITE "http://sourceforge.net/project/showfiles.php?group_id=206266"
+!define PRODUCT_PUBLISHER_WEB_SITE "https://www.embyt.com"
+!define PRODUCT_WEB_SITE "https://embyt.github.io/balloonrss"
+!define PRODUCT_DOWNLOAD_SITE "https://github.com/embyt/balloonrss/releases"
 
 !define BASEDIR ".."
 

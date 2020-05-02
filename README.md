@@ -4,6 +4,9 @@
 
 BalloonRSS is a simple RSS aggregator that displays incoming messages as balloon tooltips in the windows task bar. The news entries themselves are linked and read with the browser.
 
+This project was initially hosted on [SourceForge](https://sourceforge.net/projects/balloonrss/) and transfered to GitHub in 2020.
+
+
 ## Features ##
 
  - Retrieves RSS messages from various sources
@@ -50,4 +53,4 @@ Color codes of the icon:
 
 You can obtain further information from the application's help file or on the 
 website:
-http://balloonrss.sourceforge.net
+https://embyt.github.io/balloonrss/
