@@ -33,7 +33,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <SupportUrl>http://balloonrss.sourceforge.net</SupportUrl>
+    <SupportUrl>https://embyt.github.io/balloonrss</SupportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>BalloonRSS</ProductName>
     <ApplicationRevision>1</ApplicationRevision>

@@ -1,6 +1,6 @@
 ﻿/*
 BalloonRSS - Simple RSS news aggregator using balloon tooltips
-    Copyright (C) 2010  Roman Morawek <romor@users.sourceforge.net>
+    Copyright (C) 2010  Roman Morawek <roman.morawek@embyt.com>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -137,7 +137,7 @@ namespace BalloonRss
             this.labelEmail.Name = "labelEmail";
             this.labelEmail.Size = new System.Drawing.Size(271, 21);
             this.labelEmail.TabIndex = 25;
-            this.labelEmail.Text = "romor@users.sourceforge.net";
+            this.labelEmail.Text = "balloonrss@embyt.com";
             this.labelEmail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // linkLabel1
@@ -151,7 +151,7 @@ namespace BalloonRss
             this.linkLabel1.Size = new System.Drawing.Size(271, 21);
             this.linkLabel1.TabIndex = 26;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "http://balloonrss.sourceforge.net";
+            this.linkLabel1.Text = "https://embyt.github.io/balloonrss";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
