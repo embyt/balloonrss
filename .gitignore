@@ -1,4 +1,6 @@
 .vs/
 Backup/
 bin/Debug/
+bin/balloonrss.chm
+bin/BalloonRss.pdb
 src/obj/
